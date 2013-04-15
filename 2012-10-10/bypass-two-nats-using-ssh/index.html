@@ -73,18 +73,18 @@ SRV:port = 4567
 
 <p>Lets perform the algorithm step by step:</p>
 
-<ol>
-<li></li>
-</ol>
+<ul>
+<li>Step #1</li>
+</ul>
 
 
 <div class="highlight"><pre><code class="bash">    root@DST# sshd -p 4567
 </code></pre></div>
 
 
-<ol>
-<li></li>
-</ol>
+<ul>
+<li>Step #2</li>
+</ul>
 
 
 <div class="highlight"><pre><code class="bash">    user@DST<span class="nv">$ </span>ssh -R 127.1:4567:127.1:4567 user@SRV
@@ -95,18 +95,18 @@ SRV:port = 4567
 Also check for warning messages of ssh, there should be no
 <code>remote port forwarding failed</code> messages in the output.</p>
 
-<ol>
-<li></li>
-</ol>
+<ul>
+<li>Step #3</li>
+</ul>
 
 
 <div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh user@SRV
 </code></pre></div>
 
 
-<ol>
-<li></li>
-</ol>
+<ul>
+<li>Step #4</li>
+</ul>
 
 
 <div class="highlight"><pre><code class="bash">    user@SRVi<span class="nv">$ </span>ssh -p 4567 user@127.0.0.1
@@ -132,9 +132,9 @@ Also check for warning messages of ssh, there should be no
 <p>I won't repeat first two steps as they are same as in
 "One port forwarding operation" section.  Here are new third and forth steps:</p>
 
-<ol>
-<li></li>
-</ol>
+<ul>
+<li>Step #3</li>
+</ul>
 
 
 <div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh -r 127.1:4567:127.1:4567 user@SRV
@@ -145,9 +145,9 @@ Also check for warning messages of ssh, there should be no
 also check for warning messages of ssh, there should be no
 <code>remote port forwarding failed</code> messages in the output.</p>
 
-<ol>
-<li></li>
-</ol>
+<ul>
+<li>Step #4</li>
+</ul>
 
 
 <div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh -p SRC:port user@SRC
