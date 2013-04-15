@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to connect a computer behind NAT to another computer behind NAT using ssh</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+      </h4>
+      <h1>How to connect a computer behind NAT to another computer behind NAT using ssh</h1>
+      <h5 class="post_date">October 10, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/ssh">ssh</a>]
+        
+        [<a href="/tag/network">network</a>]
+        
+        [<a href="/tag/nat">nat</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>I was wondering how can I connect to my laptop from work for some time, but
+didn't know how to do that without using VPN.  I even decided that it's
+impossible to do something simple, but then... I realized that a third party
+server to which I have access through ssh can be used for this.</p>
+
+<p>The thing is that ssh can do port forwarding, which can be used to forward ssh
+traffic through ssh tunnel.</p>
+
+<p>Consider having three machines:</p>
+
+<ul>
+<li>machine <code>DST</code>, a remote one, to which we want to connect</li>
+<li>machine <code>SRC</code>, our local host, at which we're working</li>
+<li>machive <code>SRV</code>, which is a publicly accessible on the Internet ssh-enabled
+web-server, and which has an account for you</li>
+</ul>
+
+
+<p>We need to connect to the <code>DST</code> machine from <code>SRC</code> using <code>SRV</code>.  Here is how one
+can do that:</p>
+
+<h3>One port forwarding operation</h3>
+
+<p>The idea:</p>
+
+<ol>
+<li>Run <code>sshd</code> on <code>DST:port</code> on <code>DST</code></li>
+<li>Forward <code>DST:port</code> to <code>SRV:port</code> using ssh</li>
+<li>Connect to <code>SRV</code> from <code>SRC</code> using ssh</li>
+<li>Connect to <code>DST</code> from ssh session to <code>SRV</code> using <code>SRV:port</code></li>
+</ol>
+
+
+<p>Lets use same port number on both <code>DST</code> and <code>SRV</code> for simplicity, let it be
+<code>4567</code>, so:</p>
+
+<pre><code>DST:port = 4567
+SRV:port = 4567
+</code></pre>
+
+<p>Lets perform the algorithm step by step:</p>
+
+<ol>
+<li></li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash">    root@DST# sshd -p 4567
+</code></pre></div>
+
+
+<ol>
+<li></li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash">    user@DST<span class="nv">$ </span>ssh -R 127.1:4567:127.1:4567 user@SRV
+</code></pre></div>
+
+
+<p>You should leave this session open, otherwise port mapping will be finished.
+Also check for warning messages of ssh, there should be no
+<code>remote port forwarding failed</code> messages in the output.</p>
+
+<ol>
+<li></li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh user@SRV
+</code></pre></div>
+
+
+<ol>
+<li></li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash">    user@SRVi<span class="nv">$ </span>ssh -p 4567 user@127.0.0.1
+</code></pre></div>
+
+
+<h3>Two port forwarding operation</h3>
+
+<p>Here the idea is a bit different at the end (from step number tree):</p>
+
+<ol>
+<li>Run <code>sshd</code> on <code>DST:port</code> on <code>DST</code></li>
+<li>Forward <code>DST:port</code> to <code>SRV:port</code> using ssh</li>
+<li>Forward <code>SRV:port</code> to <code>SRC:port</code> using ssh</li>
+<li>Connect to <code>SRC:port</code></li>
+</ol>
+
+
+<p>We also need to use an additional port on our <code>SRC</code> machine:</p>
+
+<p>   SRV:port = 4567</p>
+
+<p>I won't repeat first two steps as they are same as in
+"One port forwarding operation" section.  Here are new third and forth steps:</p>
+
+<ol>
+<li></li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh -r 127.1:4567:127.1:4567 user@SRV
+</code></pre></div>
+
+
+<p>you should leave this session open, otherwise port mapping will be finished.
+also check for warning messages of ssh, there should be no
+<code>remote port forwarding failed</code> messages in the output.</p>
+
+<ol>
+<li></li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh -p SRC:port user@SRC
+</code></pre></div>
+
+
+<p>Now you should be logged in on the <code>DST</code>.  Mission completed!</p>
+
+<p>Update on 17.10.2012: it's quite easy to accidentally close shell so here are a
+couple of tips one can use to handle this:</p>
+
+<ol>
+<li>Run <code>stty eof '?'</code>, which will disable exiting using <code>CTRL-D</code> key.</li>
+<li>Press <code>CTRL-S</code> key, which will suspend shell, so it won't react until you use
+<code>CTRL-Q</code> to resume it.</li>
+</ol>
+
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

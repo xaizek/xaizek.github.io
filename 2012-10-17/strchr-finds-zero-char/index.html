@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>strchr() finds zero character</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+      </h4>
+      <h1>strchr() finds zero character</h1>
+      <h5 class="post_date">October 17, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/c">c</a>]
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/strchr">strchr</a>]
+        
+        [<a href="/tag/issue">issue</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>As any other programmer once in a while I find some new tiny but quite useful
+trick, which I then apply to my sources.  One of such trick is using of
+<code>strchr()</code> function to compare if a value of type <code>char</code> equals to one of
+values.</p>
+
+<p>Usually one will write something like:</p>
+
+<div class="highlight"><pre><code class="c">    <span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;x&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+
+<p>With help of <code>strchr()</code> one can the code with a bit simpler one:</p>
+
+<div class="highlight"><pre><code class="c">    <span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">strchr</span><span class="p">(</span><span class="s">&quot;abx&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+
+<p>Which at least looks cleaner for me, which doesn't matter much in this case, but
+will matter in case of five of more comparison statements.</p>
+
+<p>So after replacing several comparisons in the code I was going to commit it.
+But what a surprise: some of tests have failed (it's always nice to have tests).
+After standard procedure of staring at the code, I didn't have any ideas of what
+could go wrong, the logic should remain the same.  The next step was to run a
+debugger, which has uncovered the truth: <em><code>strchr()</code> function thinks that ending
+'\0' character is a part of the string</em>.  And it's explicitly documented by the
+standard (a good reason to read it till the end one day).  So instead of
+comparing <code>c</code> to <code>a</code>, <code>b</code> and <code>x</code>, the code bassically became like this:</p>
+
+<div class="highlight"><pre><code class="c">    <span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;x&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;\0&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+
+<p>Which is wrong.  I'm still using <code>strchr()</code> function when appropriate to do such
+multiple comparisons, but now I know more about its behaviour (and also being
+curious why it is so?).</p>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

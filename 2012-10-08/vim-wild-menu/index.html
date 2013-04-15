@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Browsing directories using Vim's wildmenu</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+      </h4>
+      <h1>Browsing directories using Vim's wildmenu</h1>
+      <h5 class="post_date">October  8, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/vim,">vim,</a>]
+        
+        [<a href="/tag/file">file</a>]
+        
+        [<a href="/tag/management">management</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>Today I accidentally found a very unexpected thing in Vim.  While trying to
+make wildmenu disappear I hit some of arrow keys and great truth was uncovered
+to me:</p>
+
+<pre><code>one can browse file system in wildmenu using arrow keys!
+</code></pre>
+
+<p>They work like this:</p>
+
+<ul>
+<li>left arrow - go to left</li>
+<li>right arrow - go to right</li>
+<li>up arrow - enter directory</li>
+<li>down arrow - go to parent directory</li>
+</ul>
+
+
+<p>I know its not a big deal, but it was really unexpected to me.  And in fact one
+can find this in the documentation (see <code>:help 'wildmenu'</code>):</p>
+
+<pre><code>&lt;Left&gt; &lt;Right&gt;  - select previous/next match (like CTRL-P/CTRL-N)
+&lt;Down&gt;          - in filename/menu name completion: move into a
+                  subdirectory or submenu.
+&lt;CR&gt;            - in menu completion, when the cursor is just after a
+                  dot: move into a submenu.
+&lt;Up&gt;            - in filename/menu name completion: move up into
+                  parent directory or parent menu.
+</code></pre>
+
+<p>So do read the documentation!</p>
+
+<p>There is also a note:</p>
+
+<div class="highlight"><pre><code class="vim">    This makes the menus accessible from the console <span class="p">|</span>console<span class="p">-</span>menus<span class="p">|</span>.
+</code></pre></div>
+
+
+<p>So it may work with file system as a side effect of working for menus in the
+console.</p>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

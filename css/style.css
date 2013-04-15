@@ -1,0 +1,65 @@
+@import "syntax.css";
+
+body {
+    width: 50em;
+    margin: 2em auto;
+}
+
+h5.post_date {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+div.tag_list {
+    margin-bottom: 2em;
+}
+
+a {
+    color: #a02020;
+    text-decoration: none;
+}
+
+li.tagged_post {
+    margin-top: 0em;
+    margin-bottom: 2em;
+}
+
+/** Github code styling **/
+
+pre {
+    border: 1px solid #CACACA;
+    line-height: 1.2em;
+    font: "Monaco", "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Monospace";
+    padding: 1em;
+    overflow: auto;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background-color: #FAFAFB;
+    color: #393939;
+    margin: 1.5em 0;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+pre code, p code {
+    margin-bottom: 0;
+}
+
+p code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code, li code {
+    font: "Monaco", "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Monospace";
+    color: #52595D;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #CCC;
+    background-color: #F9F9F9;
+    padding: 0 0.5em;
+    display: inline-block;
+}

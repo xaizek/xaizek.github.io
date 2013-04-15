@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to merge mailbox files of mbox format?</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+      </h4>
+      <h1>How to merge mailbox files of mbox format?</h1>
+      <h5 class="post_date">March 30, 2013</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/mail">mail</a>]
+        
+        [<a href="/tag/mbox">mbox</a>]
+        
+        [<a href="/tag/mutt">mutt</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>This sounds like an easy task at first.  But after looking on the Internet for a
+working and ready to be used solution, it turned out to be not so easy to find.
+There were some old scripts in python, but they didn't look very promising to
+me.  So after spending some time on search <a href="http://does-not-exist.org/mail-archives/mutt-users/msg03132.html">this answer to my question</a> was
+found.</p>
+
+<p>It requires the following steps to be taken for each set of files that need to
+be merged:</p>
+
+<ol>
+<li>Merge two (or more) files in mbox format into one file.</li>
+<li>Open resulting file in mutt.</li>
+<li>Remove all duplicated entries.</li>
+<li>Save mailbox file.</li>
+</ol>
+
+
+<p>The first step can be done with command like this</p>
+
+<div class="highlight"><pre><code class="bash">    cat mbox2 &gt;&gt; mbox1
+</code></pre></div>
+
+
+<p>or</p>
+
+<div class="highlight"><pre><code class="bash">    cat mbox1 mbox2 &gt; mbox
+</code></pre></div>
+
+
+<p>Personally I would recommend the second one, because it preserves original
+files.  In case you would like to use the first one, don't forget to <strong>make
+backup copies</strong> first.</p>
+
+<p>The second step requires properly setup mutt, which should be pointed out the
+file you want to work with (you are using mutt for email, don't you?).</p>
+
+<p>The third step is quite easy, you just need to open the mailbox and do this:</p>
+
+<ol>
+<li>Press <code>:</code> (colon) to enter command-line mode.</li>
+<li>Enter <code>exec delete-pattern</code> command and press <code>enter</code> key.</li>
+<li>Enter pattern <code>~=</code>, which means all duplicated files and press <code>enter</code> key.</li>
+</ol>
+
+
+<p>Or, if default <code>D</code> mapping is left untouched, just:</p>
+
+<ol>
+<li>Press <code>D</code> key to activate <code>delete-pattern</code> command.</li>
+<li>Enter pattern <code>~=</code>, which means all duplicated files, and press <code>enter</code> key.</li>
+</ol>
+
+
+<p>The last step is probably will be performed by mutt automatically on exit.  Say
+yes when and if you will be prompted about whether messages marked for the
+deletion should be purged.</p>
+
+<p>That's it.  At this point merge is completed.</p>
+
+<p>See also:</p>
+
+<ul>
+<li>mutt user manual on <code>exec</code> command</li>
+<li><code>man muttrc</code> on <code>~=</code> and other patterns</li>
+</ul>
+
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

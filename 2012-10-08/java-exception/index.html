@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Exception specifiers and finally keyword in Java</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+      </h4>
+      <h1>Exception specifiers and finally keyword in Java</h1>
+      <h5 class="post_date">October  8, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/java">java</a>]
+        
+        [<a href="/tag/eclipce">eclipce</a>]
+        
+        [<a href="/tag/exceptions">exceptions</a>]
+        
+        [<a href="/tag/finally">finally</a>]
+        
+        [<a href="/tag/issue">issue</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>Here is part of code I wrote once:</p>
+
+<div class="highlight"><pre><code class="java">    <span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
+            <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+            <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div>
+
+
+<p>After adding proper exception handling it becode this:</p>
+
+<div class="highlight"><pre><code class="java">    <span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
+            <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+            <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div>
+
+
+<p>At this point Eclipse start complaining about the <code>finally</code> block saying that
+<code>finally block does not complete normally</code> and proposing
+<code>Add suppressWarnings ``finally`` to execute()</code> as the only possible solution.
+While everything was working fine I didn't care about what Eclipse says until
+one day something went wrong, but code on layers above <code>execute()</code> didn't get
+any exceptions.  This was something I didn't expect at all, so I started the
+debugger and saw that exception is throws as it should be, but then it gets
+"swallowed" by the <code>finally</code> block.  But wait, the method doesn't have
+exception list at all, java compiler silently compiles such code because it
+knows that with <code>finally</code> block containing <code>return</code> statement in it, no
+exception will be thrown.  Unfortunately I didn't know that before.</p>
+
+<p>Now code looks like this and works as expected:</p>
+
+<div class="highlight"><pre><code class="java">    <span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+        <span class="kd">throws</span> <span class="n">LogicError</span>
+    <span class="o">{</span>
+        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
+            <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+            <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div>
+
+
+
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

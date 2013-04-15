@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to share code among several Web-service applications written in Java</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+      </h4>
+      <h1>How to share code among several Web-service applications written in Java</h1>
+      <h5 class="post_date">November  9, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/java">java</a>]
+        
+        [<a href="/tag/eclipse">eclipse</a>]
+        
+        [<a href="/tag/jar">jar</a>]
+        
+        [<a href="/tag/web-service">web-service</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>Some time ago I've spent a lot of time trying to figure out how one can share
+common parts of code in two Web-services running in <a href="http://tomcat.apache.org/">Apache Tomcat</a>.  What I
+wanted is to move several packages to a separate Eclipse project and refer to it
+from several other projects.  Somewhere on the Web a nice list of options to
+achieve this was found.  All (or almost all) of them were connected with the
+<code>Classpath</code> settings pane in the project options.  But unfortunately no matter
+what <code>Classpath</code> options I set, it didn't work.  I've also tried exporting
+project with the common functionallity to a jar file and linking to it from
+other project.  That didn't work either, that jar file wasn't deployed to Tomcat
+server.</p>
+
+<p>So after spending a lot time on this, I finally made it work and forget about
+the issue.  I just investigated what I did to make it work and decided to
+document it.  The answer is simple as "just put jar file to the <code>lib</code> directory
+of Tomcat".  And that's it, don't forget to regenerate it after making changes
+in shared code.</p>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
