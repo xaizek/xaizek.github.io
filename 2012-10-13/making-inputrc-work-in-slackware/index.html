@@ -104,29 +104,28 @@ fix it by login out and back in, by setting <code>$INPUTRC</code> to <code>$HOME
 </code></pre></div>
 
 
-<p>If you want to test in immediately from the shell there several options you may
-try:</p>
+<p>If you want to test in immediately from the shell there are several options you
+may try:</p>
 
-<ol>
+<ul>
 <li>Unsetting <code>$INPUTRC</code> and reloading init-file of readline by pressing
 <code>C-X C-R</code>.</li>
-</ol>
+</ul>
 
 
 <p>This won't work.  <code>C-X C-R</code> actually reloads init-file, which was remembered
 during initialization process.  So we need something different.</p>
 
-<ol>
+<ul>
 <li>Unsetting <code>$INPUTRC</code> and running another Bash instance.</li>
-</ol>
+</ul>
 
 
 <p>This one should work.</p>
 
-<ol>
-<li>Running Bash instance unsetting <code>$INPUTRC</code> variable for that subprocess
-only.</li>
-</ol>
+<ul>
+<li>Running Bash instance unsetting <code>$INPUTRC</code> variable for that subprocess only.</li>
+</ul>
 
 
 <p>Not sure if this is useful, but if it works why not give it a try?  This
@@ -136,19 +135,19 @@ requeres running of Bash using <code>env</code>:</p>
 </code></pre></div>
 
 
-<ol>
-<li>Empty <code>$INPUTRC</code> is counted as nonexistend, so running Bash this way will
-work too:</li>
-</ol>
+<ul>
+<li>Empty <code>$INPUTRC</code> is counted as nonexistend, so running Bash this way will work
+too:</li>
+</ul>
 
 
 <div class="highlight"><pre><code class="bash">    <span class="nv">INPUTRC</span><span class="o">=</span> bash
 </code></pre></div>
 
 
-<ol>
+<ul>
 <li>This one is the last.  Almost the same as second and forth options:</li>
-</ol>
+</ul>
 
 
 <div class="highlight"><pre><code class="bash">    <span class="nv">INPUTRC</span><span class="o">=</span>
