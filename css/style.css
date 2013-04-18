@@ -3,6 +3,11 @@ body {
     margin: 2em auto;
 }
 
+ul.simple {
+    list-style-type: none;
+    padding: 0
+}
+
 h5.post_date {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
