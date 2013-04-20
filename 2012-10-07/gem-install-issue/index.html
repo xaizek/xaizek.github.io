@@ -47,32 +47,32 @@ a post <a href="http://davidwinter.me/articles/2011/10/29/setting-up-github-page
 following steps described there.</p>
 
 <p>Unfortunately, I failed at the very first step with command:</p>
-
-<div class="highlight"><pre><code class="bash">    <span class="nb">echo</span> -n
-</code></pre></div>
+<div class="highlight"><pre><code class="bash"><span class="nb">echo</span> -n
+</code></pre>
+</div>
 
 <p>And got this error message from <code>gem</code>:</p>
-
-<div class="highlight"><pre><code class="bash">    WARNING:  Error fetching data: Errno::ECONNREFUSED: Connection refused - connect<span class="o">(</span>2<span class="o">)</span> <span class="o">(</span>http://rubygems.org/latest_specs.4.8.gz<span class="o">)</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">WARNING:  Error fetching data: Errno::ECONNREFUSED: Connection refused - connect<span class="o">(</span>2<span class="o">)</span> <span class="o">(</span>http://rubygems.org/latest_specs.4.8.gz<span class="o">)</span>
+</code></pre>
+</div>
 
 <p>I tried using <code>wget</code> to download the file:</p>
-
-<div class="highlight"><pre><code class="bash">    wget http://rubygems.org/latest_specs.4.8.gz
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">wget http://rubygems.org/latest_specs.4.8.gz
+</code></pre>
+</div>
 
 <p>and it worked greatly.  So the next thing to try was running some of <code>gem</code>
 commands that work locally:</p>
-
-<div class="highlight"><pre><code class="bash">    gem list --local
-    gem list -l
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">gem list --local
+gem list -l
+</code></pre>
+</div>
 
 <p>Which are worked fine, while these commands:</p>
-
-<div class="highlight"><pre><code class="bash">    gem list --remote
-    gem list -r
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">gem list --remote
+gem list -r
+</code></pre>
+</div>
 
 <p>failed just like <code>gem install jekyll</code>.  After searching on the Internet to find
 out possible reason on an issue a note about possibly incorrect setup proxy was found (<a href="http://osdir.com/ml/ruby-core/2010-06/msg00331.html">here</a>).  I
@@ -80,18 +80,18 @@ didn&#39;t actually use any proxy, but since I was playing with <a href="https:/
 time ago and remembered something about <code>$HTTP_PROXY</code> environment variable I
 decided to check contents of my <code>~/.bashrc</code> and <code>~/.profile</code> and found this line
 in the <code>~/.profile</code> file:</p>
-
-<div class="highlight"><pre><code class="bash">    <span class="nb">export </span><span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="s2">&quot;http://127.0.0.1:8118&quot;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="s2">&quot;http://127.0.0.1:8118&quot;</span>
+</code></pre>
+</div>
 
 <p>I don&#39;t know why other software didn&#39;t complain about not working proxy, it
 seems like it just tried to use the proxy and then silently switched to direct
 connection configuration.</p>
 
 <p>Anyway, after removing that line from the <code>~/.profile</code> and running</p>
-
-<div class="highlight"><pre><code class="bash">    unlet HTTP_PROXY
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">unlet HTTP_PROXY
+</code></pre>
+</div>
 
 <p>command in the working terminal I was able to successfully install <code>jekyll</code> gem.</p>
 

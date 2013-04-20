@@ -77,16 +77,16 @@ SRV:port = 4567
 <ul>
 <li>Step #1</li>
 </ul>
-
-<div class="highlight"><pre><code class="bash">    root@DST# sshd -p 4567
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">root@DST# sshd -p 4567
+</code></pre>
+</div>
 
 <ul>
 <li>Step #2</li>
 </ul>
-
-<div class="highlight"><pre><code class="bash">    user@DST<span class="nv">$ </span>ssh -R 127.1:4567:127.1:4567 user@SRV
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">user@DST<span class="nv">$ </span>ssh -R 127.1:4567:127.1:4567 user@SRV
+</code></pre>
+</div>
 
 <p>You should leave this session open, otherwise port mapping will be finished.
 Also check for warning messages of ssh, there should be no
@@ -95,16 +95,16 @@ Also check for warning messages of ssh, there should be no
 <ul>
 <li>Step #3</li>
 </ul>
-
-<div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh user@SRV
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">user@SRC<span class="nv">$ </span>ssh user@SRV
+</code></pre>
+</div>
 
 <ul>
 <li>Step #4</li>
 </ul>
-
-<div class="highlight"><pre><code class="bash">    user@SRVi<span class="nv">$ </span>ssh -p 4567 user@127.0.0.1
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">user@SRVi<span class="nv">$ </span>ssh -p 4567 user@127.0.0.1
+</code></pre>
+</div>
 
 <h3>Two port forwarding operation</h3>
 
@@ -127,9 +127,9 @@ Also check for warning messages of ssh, there should be no
 <ul>
 <li>Step #3</li>
 </ul>
-
-<div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh -r 127.1:4567:127.1:4567 user@SRV
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">user@SRC<span class="nv">$ </span>ssh -r 127.1:4567:127.1:4567 user@SRV
+</code></pre>
+</div>
 
 <p>you should leave this session open, otherwise port mapping will be finished.
 also check for warning messages of ssh, there should be no
@@ -138,9 +138,9 @@ also check for warning messages of ssh, there should be no
 <ul>
 <li>Step #4</li>
 </ul>
-
-<div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh -p SRC:port user@SRC
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">user@SRC<span class="nv">$ </span>ssh -p SRC:port user@SRC
+</code></pre>
+</div>
 
 <p>Now you should be logged in on the <code>DST</code>.  Mission completed!</p>
 

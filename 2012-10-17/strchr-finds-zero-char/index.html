@@ -42,20 +42,20 @@ trick, which I then apply to my sources.  One of such trick is using of
 values.</p>
 
 <p>Usually one will write something like:</p>
-
-<div class="highlight"><pre><code class="c">    <span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;x&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="c"><span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;x&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
 <p>With help of <code>strchr()</code> one can the code with a bit simpler one:</p>
-
-<div class="highlight"><pre><code class="c">    <span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">strchr</span><span class="p">(</span><span class="s">&quot;abx&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="c"><span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">strchr</span><span class="p">(</span><span class="s">&quot;abx&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
 <p>Which at least looks cleaner for me, which doesn&#39;t matter much in this case, but
 will matter in case of five of more comparison statements.</p>
@@ -68,12 +68,12 @@ debugger, which has uncovered the truth: <em>the <code>strchr()</code> function 
 ending &#39;\0&#39; character is a part of the string</em>.  And it&#39;s explicitly documented
 by the standard (a good reason to read it till the end one day).  So instead of
 comparing <code>c</code> to <code>a</code>, <code>b</code> and <code>x</code>, the code bassically became like this:</p>
-
-<div class="highlight"><pre><code class="c">    <span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;x&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;\0&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="c"><span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;x&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;\0&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
 <p>Which is wrong.  I&#39;m still using <code>strchr()</code> function when appropriate to do such
 multiple comparisons, but now I know more about its behaviour (and also being

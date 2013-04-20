@@ -39,44 +39,44 @@
       <div class="content">
   <div id="post">
     <p>Here is part of code I wrote once:</p>
-
-<div class="highlight"><pre><code class="java">    <span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
-    <span class="o">{</span>
-        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
-            <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
-            <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-        <span class="o">}</span>
+<div class="highlight"><pre><code class="java"><span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
     <span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>After adding proper exception handling it becode this:</p>
-
-<div class="highlight"><pre><code class="java">    <span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
-    <span class="o">{</span>
-        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
-            <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
-            <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-        <span class="o">}</span>
+<div class="highlight"><pre><code class="java"><span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
     <span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>At this point Eclipse start complaining about the <code>finally</code> block saying that
 <code>finally block does not complete normally</code> and proposing
@@ -91,24 +91,24 @@ knows that with <code>finally</code> block containing <code>return</code> statem
 exception will be thrown.  Unfortunately I didn&#39;t know that before.</p>
 
 <p>Now code looks like this and works as expected:</p>
-
-<div class="highlight"><pre><code class="java">    <span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
-        <span class="kd">throws</span> <span class="n">LogicError</span>
-    <span class="o">{</span>
-        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
-            <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
-            <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<div class="highlight"><pre><code class="java"><span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="n">LogicError</span>
+<span class="o">{</span>
+    <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Execute</span><span class="o">();</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
     <span class="o">}</span>
-</code></pre></div>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
   </div>
 </div>
