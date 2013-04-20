@@ -48,41 +48,41 @@ But I was wrong since this code is completely valid Java code since about 2007.
 To clear things a bit more I wrote this simple Java class:</p>
 <div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComplexInitializers</span>
 <span class="o">{</span>
-<span class="n">ComplexInitializers</span><span class="o">()</span>
-<span class="o">{</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Constructor&quot;</span><span class="o">);</span>
-<span class="o">}</span>
+    <span class="n">ComplexInitializers</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Constructor&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
 
-<span class="kt">void</span> <span class="nf">a</span><span class="o">()</span>
-<span class="o">{</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;a&quot;</span><span class="o">);</span>
-<span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;a&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
 
-<span class="kt">void</span> <span class="nf">b</span><span class="o">()</span>
-<span class="o">{</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;b&quot;</span><span class="o">);</span>
-<span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;b&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
 
-<span class="n">String</span> <span class="n">c</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">c</span><span class="o">;</span>
 
-<span class="kt">void</span> <span class="nf">c</span><span class="o">()</span>
-<span class="o">{</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
-<span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">c</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+    <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
-<span class="o">{</span>
-    <span class="n">ComplexInitializers</span> <span class="n">ci</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ComplexInitializers</span><span class="o">()</span> <span class="o">{{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Initialization list&quot;</span><span class="o">);</span>
-        <span class="n">a</span><span class="o">();</span>
-        <span class="n">b</span><span class="o">();</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="s">&quot;c&quot;</span><span class="o">;</span>
-        <span class="n">c</span><span class="o">();</span>
-    <span class="o">}};</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">ComplexInitializers</span> <span class="n">ci</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ComplexInitializers</span><span class="o">()</span> <span class="o">{{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Initialization list&quot;</span><span class="o">);</span>
+            <span class="n">a</span><span class="o">();</span>
+            <span class="n">b</span><span class="o">();</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="s">&quot;c&quot;</span><span class="o">;</span>
+            <span class="n">c</span><span class="o">();</span>
+        <span class="o">}};</span>
 
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ComplexInitializers</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ci</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
-<span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ComplexInitializers</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ci</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 </code></pre>
 </div>
