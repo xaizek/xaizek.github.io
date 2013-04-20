@@ -35,9 +35,9 @@
     <p>Today I accidentally found a very unexpected thing in Vim.  While trying to
 make wildmenu disappear I hit some of arrow keys and great truth was uncovered
 to me:</p>
-
-<pre><code>one can browse file system in wildmenu using arrow keys!
+<div class="highlight"><pre><code class="text">one can browse file system in wildmenu using arrow keys!
 </code></pre>
+</div>
 
 <p>They work like this:</p>
 
@@ -48,11 +48,9 @@ to me:</p>
 <li>down arrow - go to parent directory</li>
 </ul>
 
-
 <p>I know its not a big deal, but it was really unexpected to me.  And in fact one
-can find this in the documentation (see <code>:help 'wildmenu'</code>):</p>
-
-<pre><code>&lt;Left&gt; &lt;Right&gt;  - select previous/next match (like CTRL-P/CTRL-N)
+can find this in the documentation (see <code>:help &#39;wildmenu&#39;</code>):</p>
+<div class="highlight"><pre><code class="text">&lt;Left&gt; &lt;Right&gt;  - select previous/next match (like CTRL-P/CTRL-N)
 &lt;Down&gt;          - in filename/menu name completion: move into a
                   subdirectory or submenu.
 &lt;CR&gt;            - in menu completion, when the cursor is just after a
@@ -60,6 +58,7 @@ can find this in the documentation (see <code>:help 'wildmenu'</code>):</p>
 &lt;Up&gt;            - in filename/menu name completion: move up into
                   parent directory or parent menu.
 </code></pre>
+</div>
 
 <p>So do read the documentation!</p>
 
@@ -67,7 +66,6 @@ can find this in the documentation (see <code>:help 'wildmenu'</code>):</p>
 
 <div class="highlight"><pre><code class="vim">    This makes the menus accessible from the console <span class="p">|</span>console<span class="p">-</span>menus<span class="p">|</span>.
 </code></pre></div>
-
 
 <p>So it may work with file system as a side effect of working for menus in the
 console.</p>

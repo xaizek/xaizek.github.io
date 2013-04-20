@@ -35,7 +35,7 @@
       <div class="content">
   <div id="post">
     <p>I was wondering how can I connect to my laptop from work for some time, but
-didn't know how to do that without using VPN.  I even decided that it's
+didn&#39;t know how to do that without using VPN.  I even decided that it&#39;s
 impossible to do something simple, but then... I realized that a third party
 server to which I have access through ssh can be used for this.</p>
 
@@ -46,11 +46,10 @@ traffic through ssh tunnel.</p>
 
 <ul>
 <li>machine <code>DST</code>, a remote one, to which we want to connect</li>
-<li>machine <code>SRC</code>, our local host, at which we're working</li>
+<li>machine <code>SRC</code>, our local host, at which we&#39;re working</li>
 <li>machive <code>SRV</code>, which is a publicly accessible on the Internet ssh-enabled
 web-server, and which has an account for you</li>
 </ul>
-
 
 <p>We need to connect to the <code>DST</code> machine from <code>SRC</code> using <code>SRV</code>.  Here is how one
 can do that:</p>
@@ -66,13 +65,12 @@ can do that:</p>
 <li>Connect to <code>DST</code> from ssh session to <code>SRV</code> using <code>SRV:port</code></li>
 </ol>
 
-
 <p>Lets use same port number on both <code>DST</code> and <code>SRV</code> for simplicity, let it be
 <code>4567</code>, so:</p>
-
-<pre><code>DST:port = 4567
+<div class="highlight"><pre><code class="text">DST:port = 4567
 SRV:port = 4567
 </code></pre>
+</div>
 
 <p>Lets perform the algorithm step by step:</p>
 
@@ -80,19 +78,15 @@ SRV:port = 4567
 <li>Step #1</li>
 </ul>
 
-
 <div class="highlight"><pre><code class="bash">    root@DST# sshd -p 4567
 </code></pre></div>
-
 
 <ul>
 <li>Step #2</li>
 </ul>
 
-
 <div class="highlight"><pre><code class="bash">    user@DST<span class="nv">$ </span>ssh -R 127.1:4567:127.1:4567 user@SRV
 </code></pre></div>
-
 
 <p>You should leave this session open, otherwise port mapping will be finished.
 Also check for warning messages of ssh, there should be no
@@ -102,19 +96,15 @@ Also check for warning messages of ssh, there should be no
 <li>Step #3</li>
 </ul>
 
-
 <div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh user@SRV
 </code></pre></div>
-
 
 <ul>
 <li>Step #4</li>
 </ul>
 
-
 <div class="highlight"><pre><code class="bash">    user@SRVi<span class="nv">$ </span>ssh -p 4567 user@127.0.0.1
 </code></pre></div>
-
 
 <h3>Two port forwarding operation</h3>
 
@@ -127,22 +117,19 @@ Also check for warning messages of ssh, there should be no
 <li>Connect to <code>SRC:port</code></li>
 </ol>
 
-
 <p>We also need to use an additional port on our <code>SRC</code> machine:</p>
 
-<p>   SRV:port = 4567</p>
+<p>SRV:port = 4567</p>
 
-<p>I won't repeat first two steps as they are same as in
-"One port forwarding operation" section.  Here are new third and forth steps:</p>
+<p>I won&#39;t repeat first two steps as they are same as in
+&quot;One port forwarding operation&quot; section.  Here are new third and forth steps:</p>
 
 <ul>
 <li>Step #3</li>
 </ul>
 
-
 <div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh -r 127.1:4567:127.1:4567 user@SRV
 </code></pre></div>
-
 
 <p>you should leave this session open, otherwise port mapping will be finished.
 also check for warning messages of ssh, there should be no
@@ -152,22 +139,19 @@ also check for warning messages of ssh, there should be no
 <li>Step #4</li>
 </ul>
 
-
 <div class="highlight"><pre><code class="bash">    user@SRC<span class="nv">$ </span>ssh -p SRC:port user@SRC
 </code></pre></div>
 
-
 <p>Now you should be logged in on the <code>DST</code>.  Mission completed!</p>
 
-<p>Update on 17.10.2012: it's quite easy to accidentally close shell so here are a
+<p>Update on 17.10.2012: it&#39;s quite easy to accidentally close shell so here are a
 couple of tips one can use to handle this:</p>
 
 <ol>
-<li>Run <code>stty eof '?'</code>, which will disable exiting using <code>CTRL-D</code> key.</li>
-<li>Press <code>CTRL-S</code> key, which will suspend shell, so it won't react until you use
+<li>Run <code>stty eof &#39;?&#39;</code>, which will disable exiting using <code>CTRL-D</code> key.</li>
+<li>Press <code>CTRL-S</code> key, which will suspend shell, so it won&#39;t react until you use
 <code>CTRL-Q</code> to resume it.</li>
 </ol>
-
 
   </div>
 </div>

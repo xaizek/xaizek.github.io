@@ -42,7 +42,7 @@
   <div id="post">
     <h3>Prehistory</h3>
 
-<p>Once I read somewhere that it's possible to add some colours to your shell's
+<p>Once I read somewhere that it&#39;s possible to add some colours to your shell&#39;s
 (bash in my case) prompt using escape sequences.  I thought that it will
 greatly decrease time one spend finding the beginning of a command that was just
 run.  Prompt colouring is also useful to distinguish between root and regular
@@ -53,13 +53,11 @@ to my <code>~/.bashrc</code> file:</p>
     <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\033[32m[\\w]\\$ \033[0m&quot;</span>
 </code></pre></div>
 
-
 <p>And this to <code>/root/.bashrc</code>:</p>
 
 <div class="highlight"><pre><code class="bash">    <span class="c"># red command prompt</span>
     <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\033[31m[\\w]\\$ \033[0m&quot;</span>
 </code></pre></div>
-
 
 <p>I liked it a lot, but after some time noticed strange issues with long command
 lines.  I tried to live with it, but after quite long period of time removed
@@ -78,13 +76,11 @@ command lines.  One just needs to enclose all non-printable characters in
     <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\\[\033[32m\\][\\w]\\$ \\[\033[0m\\]&quot;</span>
 </code></pre></div>
 
-
 <p>And this to <code>/root/.bashrc</code>:</p>
 
 <div class="highlight"><pre><code class="bash">    <span class="c"># red command prompt</span>
     <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\\[\033[31m\\][\\w]\\$ \\[\033[0m\\]&quot;</span>
 </code></pre></div>
-
 
 <p>I think no one will argue that this makes work in terminal a bit nicer.</p>
 

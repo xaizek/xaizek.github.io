@@ -38,21 +38,21 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Some time ago I've spent a lot of time trying to figure out how one can share
+    <p>Some time ago I&#39;ve spent a lot of time trying to figure out how one can share
 common parts of code in two Web-services running in <a href="http://tomcat.apache.org/">Apache Tomcat</a>.  What I
 wanted is to move several packages to a separate Eclipse project and refer to it
 from several other projects.  Somewhere on the Web a nice list of options to
 achieve this was found.  All (or almost all) of them were connected with the
 <code>Classpath</code> settings pane in the project options.  But unfortunately no matter
-what <code>Classpath</code> options I set, it didn't work.  I've also tried exporting
+what <code>Classpath</code> options I set, it didn&#39;t work.  I&#39;ve also tried exporting
 project with the common functionallity to a jar file and linking to it from
-other project.  That didn't work either, that jar file wasn't deployed to Tomcat
+other project.  That didn&#39;t work either, that jar file wasn&#39;t deployed to Tomcat
 server.</p>
 
 <p>So after spending a lot time on this, I finally made it work and forget about
 the issue.  I just investigated what I did to make it work and decided to
-document it.  The answer is simple as "just put jar file to the <code>lib</code> directory
-of Tomcat".  And that's it, don't forget to regenerate it after making changes
+document it.  The answer is simple as &quot;just put jar file to the <code>lib</code> directory
+of Tomcat&quot;.  And that&#39;s it, don&#39;t forget to regenerate it after making changes
 in shared code.</p>
 
   </div>

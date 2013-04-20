@@ -47,14 +47,13 @@ vifm.  So I added highlighting of source code in my preview window using
 <a href="https://sourceforge.net/projects/syntaxhighlight">highlight</a> tool specifying <code>-O ansi</code> to make it generate ansi compatible
 escape codes.  But some of syntax group obtained the same color, because I had
 my terminal configured to display up to 8 colors.  To solve the issue, I decided
-to start using <code>xterm-256color</code> terminal mode in xterm.  Here's where all fun
+to start using <code>xterm-256color</code> terminal mode in xterm.  Here&#39;s where all fun
 began.</p>
 
 <p>I know that one can specify type of terminal with command like</p>
 
 <div class="highlight"><pre><code class="bash">    <span class="nb">export </span><span class="nv">TERM</span><span class="o">=</span>xterm-256color
 </code></pre></div>
-
 
 <p>So I could just put it to my <code>~/.profile</code> or <code>~/.bashrc</code> file.  But that will
 set type of terminal even for native terminal or when I login to maching using
@@ -65,15 +64,13 @@ ssh.  Those issues bother people and some of them solve the issue this way</p>
     <span class="k">fi</span>
 </code></pre></div>
 
-
 <p>But this is <em>not</em> the way to go, because they write code in such place so that
 it is executed every time, but does real work only in some cases.  The better
-approach would to execute such code only for xterm.  But it doesn't have any
+approach would to execute such code only for xterm.  But it doesn&#39;t have any
 configuration file, or does it?  Wait, there is <code>~/.Xdefaults</code> file, when one
 can set application-specific resources.  Lets do the right thing and read
 documentation at first (<code>man xterm</code>):</p>
-
-<pre><code>-tn name
+<div class="highlight"><pre><code class="text">-tn name
     This  option specifies the name of the terminal type to be set in the
     TERM environment variable.  It corresponds to the termName resource.
     This terminal type must exist in the terminal database (termcap or
@@ -87,18 +84,18 @@ termName (class TermName)
     Specifies the terminal type name to be set in the TERM environment
     variable.
 </code></pre>
+</div>
 
-<p>I don't want to supply an extra <code>-tn</code> parameter to xterm everytime I use it, so
+<p>I don&#39;t want to supply an extra <code>-tn</code> parameter to xterm everytime I use it, so
 lets set <code>termName</code> resource in the <code>~/.Xdefaults</code> file:</p>
-
-<pre><code>XTerm*termName: xterm-256color
+<div class="highlight"><pre><code class="text">XTerm*termName: xterm-256color
 </code></pre>
+</div>
 
 <p>and apply the changes:</p>
 
 <div class="highlight"><pre><code class="bash">    xrdb -merge ~/.Xdefaults
 </code></pre></div>
-
 
 <p>Now run new instance of xterm and check:</p>
 
@@ -108,14 +105,12 @@ lets set <code>termName</code> resource in the <code>~/.Xdefaults</code> file:</
     xterm
 </code></pre></div>
 
-
 <p>But why?  It works just fine when set from a running shell.  Check whether
 appropriate terminfo configuration file exists:</p>
 
 <div class="highlight"><pre><code class="bash">    <span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>ls -l /usr/share/terminfo/x/xterm-256color
     -rw-r--r-- 1 root root 2.3K Jun 26  2011 /usr/share/terminfo/x/xterm-256color
 </code></pre></div>
-
 
 <p>OK, lets try using <code>-tn</code> parameter:</p>
 
@@ -128,8 +123,7 @@ appropriate terminfo configuration file exists:</p>
     xterm
 </code></pre></div>
 
-
-<p>What's the ...  Try again:</p>
+<p>What&#39;s the ...  Try again:</p>
 
 <div class="highlight"><pre><code class="bash">    <span class="c"># in old instance</span>
     <span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>xterm -tn xterm-color
@@ -140,25 +134,24 @@ appropriate terminfo configuration file exists:</p>
     xterm-color
 </code></pre></div>
 
-
-<p>So it works in general, it just doesn't work for <code>xterm-256color</code>.  OK, lets
+<p>So it works in general, it just doesn&#39;t work for <code>xterm-256color</code>.  OK, lets
 reread the manual:</p>
-
-<pre><code>EMULATIONS
+<div class="highlight"><pre><code class="text">EMULATIONS
    ...
    The “TERMCAP”  environment  variable is not set if xterm is linked
    against a terminfo library, since the requisite information is not
    provided by the termcap emulation of terminfo libraries.
    ...
 </code></pre>
+</div>
 
 <p>That seems strange, I saw this variable in a shell.  From <code>man termcap</code>:</p>
-
-<pre><code>/etc/termcap is an ASCII file (the database master) that lists the
+<div class="highlight"><pre><code class="text">/etc/termcap is an ASCII file (the database master) that lists the
 capabilities of many different types of terminals.
 </code></pre>
+</div>
 
-<p>Let's look for <code>xterm-color</code> string in <code>/etc/termcap</code>:</p>
+<p>Let&#39;s look for <code>xterm-color</code> string in <code>/etc/termcap</code>:</p>
 
 <div class="highlight"><pre><code class="bash">    <span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>grep -nA15 xterm-color /etc/termcap
     144:vs|xterm|xterm-color|vs100|xterm terminal emulator <span class="o">(</span>X Window System<span class="o">)</span>:<span class="se">\</span>
@@ -178,13 +171,11 @@ capabilities of many different types of terminals.
     158-        :tc<span class="o">=</span>vt-generic:
 </code></pre></div>
 
-
 <p>Try modifying the first line by adding <code>xterm-256color</code> to it.</p>
 
 <div class="highlight"><pre><code class="bash">    <span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>grep -n xterm-color /etc/termcap
     144:vs|xterm|xterm-color|xterm-256color|vs100|xterm terminal emulator <span class="o">(</span>X Window System<span class="o">)</span>:<span class="se">\</span>
 </code></pre></div>
-
 
 <p>And now:</p>
 
@@ -198,9 +189,8 @@ capabilities of many different types of terminals.
     xterm-256color
 </code></pre></div>
 
-
 <p>Finally...  I thought it would be way easier and faster than that (it took a
-couple of hours).  The only question that's left is: why xterm is compiled to
+couple of hours).  The only question that&#39;s left is: why xterm is compiled to
 use termcap instead of terminfo on Slackware?</p>
 
   </div>

@@ -58,7 +58,6 @@
     <span class="o">}</span>
 </code></pre></div>
 
-
 <p>After adding proper exception handling it becode this:</p>
 
 <div class="highlight"><pre><code class="java">    <span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
@@ -79,18 +78,17 @@
     <span class="o">}</span>
 </code></pre></div>
 
-
 <p>At this point Eclipse start complaining about the <code>finally</code> block saying that
 <code>finally block does not complete normally</code> and proposing
-<code>Add suppressWarnings ``finally`` to execute()</code> as the only possible solution.
-While everything was working fine I didn't care about what Eclipse says until
-one day something went wrong, but code on layers above <code>execute()</code> didn't get
-any exceptions.  This was something I didn't expect at all, so I started the
+<code>Add suppressWarnings</code><code>finally</code><code>to execute()</code> as the only possible solution.
+While everything was working fine I didn&#39;t care about what Eclipse says until
+one day something went wrong, but code on layers above <code>execute()</code> didn&#39;t get
+any exceptions.  This was something I didn&#39;t expect at all, so I started the
 debugger and saw that exception is throws as it should be, but then it gets
-"swallowed" by the <code>finally</code> block.  But wait, the method doesn't have
+&quot;swallowed&quot; by the <code>finally</code> block.  But wait, the method doesn&#39;t have
 exception list at all, java compiler silently compiles such code because it
 knows that with <code>finally</code> block containing <code>return</code> statement in it, no
-exception will be thrown.  Unfortunately I didn't know that before.</p>
+exception will be thrown.  Unfortunately I didn&#39;t know that before.</p>
 
 <p>Now code looks like this and works as expected:</p>
 
@@ -111,9 +109,6 @@ exception will be thrown.  Unfortunately I didn't know that before.</p>
         <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
     <span class="o">}</span>
 </code></pre></div>
-
-
-
 
   </div>
 </div>

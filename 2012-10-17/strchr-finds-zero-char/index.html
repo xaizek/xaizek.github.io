@@ -49,7 +49,6 @@ values.</p>
     <span class="p">}</span>
 </code></pre></div>
 
-
 <p>With help of <code>strchr()</code> one can the code with a bit simpler one:</p>
 
 <div class="highlight"><pre><code class="c">    <span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
@@ -58,16 +57,15 @@ values.</p>
     <span class="p">}</span>
 </code></pre></div>
 
-
-<p>Which at least looks cleaner for me, which doesn't matter much in this case, but
+<p>Which at least looks cleaner for me, which doesn&#39;t matter much in this case, but
 will matter in case of five of more comparison statements.</p>
 
 <p>So after replacing several comparisons in the code I was going to commit it.
-But what a surprise: some of tests have failed (it's always nice to have tests).
-After standard procedure of staring at the code, I didn't have any ideas of what
+But what a surprise: some of tests have failed (it&#39;s always nice to have tests).
+After standard procedure of staring at the code, I didn&#39;t have any ideas of what
 could go wrong, the logic should remain the same.  The next step was to run a
-debugger, which has uncovered the truth: <em><code>strchr()</code> function thinks that ending
-'\0' character is a part of the string</em>.  And it's explicitly documented by the
+debugger, which has uncovered the truth: *<code>strchr()</code> function thinks that ending
+&#39;\0&#39; character is a part of the string*.  And it&#39;s explicitly documented by the
 standard (a good reason to read it till the end one day).  So instead of
 comparing <code>c</code> to <code>a</code>, <code>b</code> and <code>x</code>, the code bassically became like this:</p>
 
@@ -77,8 +75,7 @@ comparing <code>c</code> to <code>a</code>, <code>b</code> and <code>x</code>, t
     <span class="p">}</span>
 </code></pre></div>
 
-
-<p>Which is wrong.  I'm still using <code>strchr()</code> function when appropriate to do such
+<p>Which is wrong.  I&#39;m still using <code>strchr()</code> function when appropriate to do such
 multiple comparisons, but now I know more about its behaviour (and also being
 curious why it is so?).</p>
 

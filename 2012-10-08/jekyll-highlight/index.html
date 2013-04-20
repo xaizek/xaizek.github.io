@@ -34,7 +34,7 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>It's not hard to do, but not as easy as one might expect.  So here are the main
+    <p>It&#39;s not hard to do, but not as easy as one might expect.  So here are the main
 steps one need to follow to make code highlighing work:</p>
 
 <h3>1. Install <code>pygmentize</code></h3>
@@ -44,13 +44,11 @@ steps one need to follow to make code highlighing work:</p>
 <div class="highlight"><pre><code class="bash">    sbopkg -i Pygments
 </code></pre></div>
 
-
 <p>To test if it works one may try executing the following command found in
 <a href="http://doswa.com/2011/07/19/jekyll-syntax-highlighting-with-pygments-on-arch-linux.html">this post</a>:</p>
 
 <div class="highlight"><pre><code class="bash">    ruby -e <span class="s2">&quot;require &#39;albino&#39;; puts Albino.colorize(&#39;puts \&#39;Hello World\&#39;&#39;, :ruby)&quot;</span>
 </code></pre></div>
-
 
 <p>The output produced by the command should be:</p>
 
@@ -58,7 +56,6 @@ steps one need to follow to make code highlighing work:</p>
     <span class="nt">&lt;/pre&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
 </code></pre></div>
-
 
 <h3>2. Define appropriate <code>.highlight</code> styles to CSS file</h3>
 
@@ -70,13 +67,11 @@ itself, with the following command:</p>
 <div class="highlight"><pre><code class="bash">    pygmentize -f html -S friendly &gt; css/syntax.css
 </code></pre></div>
 
-
 <p>In which <code>friendly</code> is a name of style I choose.  You can list all available
 styles by running the command:</p>
 
 <div class="highlight"><pre><code class="bash">    pygmentize -L styles | less
 </code></pre></div>
-
 
 <p>After that I imported newly generated CSS file into my <code>css/style.css</code> file
 using the following directive:</p>
@@ -84,30 +79,27 @@ using the following directive:</p>
 <div class="highlight"><pre><code class="css">    <span class="k">@import</span> <span class="s2">&quot;syntax.css&quot;</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>That CSS file is linked in <code>_layouts/layout.html</code> template by this line:</p>
 
 <div class="highlight"><pre><code class="html">    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;/css/style.css&quot;</span> <span class="nt">/&gt;</span>
 </code></pre></div>
-
 
 <h3>3. Enclose code in posts in <code>{% highlight lang %}</code>/<code>{% endhighlight %}</code> pseudo-tags</h3>
 
 <p>Now, when most things are set up one needs to tell jekyll which parts of posts
 should be highlighted.  This is done by putting such parts between to
 pseudo-tags, like in this code from a paragraph above:</p>
-
-<pre><code>{% highlight html %}
-    &lt;link rel="stylesheet" type="text/css" href="/css/style.css" /&gt;
+<div class="highlight"><pre><code class="text">{% highlight html %}
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/css/style.css&quot; /&gt;
 {% endhighlight %}
 </code></pre>
+</div>
 
 <p>You can find out correct value for <code>lang</code> argument of the <code>highlight</code> tag from
 the of output of the following command:</p>
 
 <div class="highlight"><pre><code class="bash">    pygmentize -L lexers | less
 </code></pre></div>
-
 
 <h3>4. Run jekyll with <code>--pygments</code> flag</h3>
 
@@ -117,7 +109,6 @@ very important thing is to start jekyll with <code>--pygments</code> argument, l
 
 <div class="highlight"><pre><code class="bash">    jekyll --server --pygments
 </code></pre></div>
-
 
 <p>After this it all worked.</p>
 

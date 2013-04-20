@@ -34,7 +34,7 @@
   <div id="post">
     <p>Unfortunately, some features of well known programming languages are much less
 known than others.  Eventually, those unknown features are quite powerful and
-useful.  Today I'm going to describe so called "double brace initialization"
+useful.  Today I&#39;m going to describe so called &quot;double brace initialization&quot;
 in Java, which is quite similar (and more powerful) than object initializers of
 C#.</p>
 
@@ -43,8 +43,7 @@ C#.</p>
 <div class="highlight"><pre><code class="java">    <span class="kd">static</span> <span class="o">{</span> <span class="n">v</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span> <span class="n">add</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span> <span class="n">addAll</span><span class="o">(</span><span class="n">v</span><span class="o">);</span> <span class="n">addAll</span><span class="o">(</span><span class="k">this</span><span class="o">);</span> <span class="o">}</span> <span class="o">};</span> <span class="o">}</span>
 </code></pre></div>
 
-
-<p>My initial guess was that author made a mistake and such code won't compile.
+<p>My initial guess was that author made a mistake and such code won&#39;t compile.
 But I was wrong since this code is completely valid Java code since about 2007.
 To clear things a bit more I wrote this simple Java class:</p>
 
@@ -88,10 +87,8 @@ To clear things a bit more I wrote this simple Java class:</p>
 <span class="o">}</span>
 </code></pre></div>
 
-
 <p>Which outputs:</p>
-
-<pre><code>Constructor
+<div class="highlight"><pre><code class="text">Constructor
 Initialization list
 a
 b
@@ -99,6 +96,7 @@ c
 class ComplexInitializers
 class ComplexInitializers$1
 </code></pre>
+</div>
 
 <p>Lets list several observations about the output:</p>
 
@@ -112,7 +110,6 @@ inside double braces.</li>
 we are specifying in the source code.</li>
 </ol>
 
-
 <p>Basing on the observations one can understand what Java compiler does:</p>
 
 <ol>
@@ -121,15 +118,13 @@ we are specifying in the source code.</li>
 curly brackets).</li>
 </ol>
 
-
-<p>So in fact there is nothing new (or magic) about this feature, it's just a joint
+<p>So in fact there is nothing new (or magic) about this feature, it&#39;s just a joint
 usage of two other features of Java language:</p>
 
 <ul>
 <li>anonymous subclasses</li>
 <li>instance initialization blocks</li>
 </ul>
-
 
 <p>But when these features are used together, it gives us a qualitative change,
 which can make code prettier in some use cases.</p>
@@ -138,7 +133,7 @@ which can make code prettier in some use cases.</p>
 well as of some runtime overhead because of additional derived class in class
 hierarchy.</p>
 
-<p>Also since we use subclassing, this won't work with final classes.</p>
+<p>Also since we use subclassing, this won&#39;t work with final classes.</p>
 
   </div>
 </div>

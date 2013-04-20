@@ -40,13 +40,13 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Since I'm using Vim and terminal constantly the only right way of going through
+    <p>Since I&#39;m using Vim and terminal constantly the only right way of going through
 command-line history in my world is using <code>Control-P</code> (<code>&lt;c-p&gt;</code> or <code>^P</code>; to go
 backwards) and <code>Control-N</code> (<code>&lt;c-n&gt;</code> or <code>^N</code> to go forwards).</p>
 
 <p>And I missed this key bindings while using less to view man pages or long output
 of commands (e.g. <code>git log</code>).  As always the first thing to do in such case
-should be reading of man page of a tool.  Here is what I've found there:</p>
+should be reading of man page of a tool.  Here is what I&#39;ve found there:</p>
 
 <ol>
 <li>Less has support of key bindings configuration file of binary format
@@ -55,19 +55,18 @@ should be reading of man page of a tool.  Here is what I've found there:</p>
 file from a text file (<code>~/.lesskey</code> by default)</li>
 </ol>
 
-
 <p>If you want to know more about this stuff, just read <code>man less</code> and
 <code>man lesskey</code>.  Below is an example of adding support of several shortcuts for
 less.</p>
 
 <p>First of all one needs to create a file named <code>~/.lesskey</code> (read <code>man lesskey</code>
 if you want to name it in another way) and put these lines in it:</p>
-
-<pre><code>#line-edit
+<div class="highlight"><pre><code class="text">#line-edit
 \e abort
 ^P up
 ^N down
 </code></pre>
+</div>
 
 <p>You should already know that less has some kind of modality and thus it has
 several modes.  No surprise that one needs to specify target mode for key
