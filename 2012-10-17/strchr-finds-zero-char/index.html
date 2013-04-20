@@ -64,9 +64,9 @@ will matter in case of five of more comparison statements.</p>
 But what a surprise: some of tests have failed (it&#39;s always nice to have tests).
 After standard procedure of staring at the code, I didn&#39;t have any ideas of what
 could go wrong, the logic should remain the same.  The next step was to run a
-debugger, which has uncovered the truth: *<code>strchr()</code> function thinks that ending
-&#39;\0&#39; character is a part of the string*.  And it&#39;s explicitly documented by the
-standard (a good reason to read it till the end one day).  So instead of
+debugger, which has uncovered the truth: <em>the <code>strchr()</code> function thinks that
+ending &#39;\0&#39; character is a part of the string</em>.  And it&#39;s explicitly documented
+by the standard (a good reason to read it till the end one day).  So instead of
 comparing <code>c</code> to <code>a</code>, <code>b</code> and <code>x</code>, the code bassically became like this:</p>
 
 <div class="highlight"><pre><code class="c">    <span class="kt">int</span> <span class="nf">test_char</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span>
