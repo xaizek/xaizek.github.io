@@ -39,14 +39,12 @@ in Java, which is quite similar (and more powerful) than object initializers of
 C#.</p>
 
 <p>I saw piece of code containing the following line:</p>
-<div class="highlight"><pre><code class="java"><span class="kd">static</span> <span class="o">{</span> <span class="n">v</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span> <span class="n">add</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span> <span class="n">addAll</span><span class="o">(</span><span class="n">v</span><span class="o">);</span> <span class="n">addAll</span><span class="o">(</span><span class="k">this</span><span class="o">);</span> <span class="o">}</span> <span class="o">};</span> <span class="o">}</span>
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="java language-java" data-lang="java"><span class="kd">static</span> <span class="o">{</span> <span class="n">v</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span> <span class="n">add</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span> <span class="n">addAll</span><span class="o">(</span><span class="n">v</span><span class="o">);</span> <span class="n">addAll</span><span class="o">(</span><span class="k">this</span><span class="o">);</span> <span class="o">}</span> <span class="o">};</span> <span class="o">}</span>
+</code></pre></div>
 <p>My initial guess was that author made a mistake and such code won&#39;t compile.
 But I was wrong since this code is completely valid Java code since about 2007.
 To clear things a bit more I wrote this simple Java class:</p>
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComplexInitializers</span>
+<div class="highlight"><pre><code class="java language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComplexInitializers</span>
 <span class="o">{</span>
     <span class="n">ComplexInitializers</span><span class="o">()</span>
     <span class="o">{</span>
@@ -84,20 +82,16 @@ To clear things a bit more I wrote this simple Java class:</p>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ci</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>Which outputs:</p>
-<div class="highlight"><pre><code class="text">Constructor
+<div class="highlight"><pre><code class="text language-text" data-lang="text">Constructor
 Initialization list
 a
 b
 c
 class ComplexInitializers
 class ComplexInitializers$1
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>Lets list several observations about the output:</p>
 
 <ol>

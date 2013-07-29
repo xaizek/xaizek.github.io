@@ -47,61 +47,47 @@ loading my <code>~/.inputrc</code> to running instance of Bash, but still had no
 <p>I also found <code>~/.inputrc_</code> file, which was a result of my tries to make
 <code>Arrow Up</code> and <code>Arrow Down</code> keys work like in Vim&#39;s command line: recall only
 commands that start with already typed command beginning:</p>
-<div class="highlight"><pre><code class="text">&quot;\e[A&quot;: history-search-backward
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&quot;\e[A&quot;: history-search-backward
 &quot;\e[B&quot;: history-search-forward
 &quot;\eOA&quot;: history-search-backward
 &quot;\eOB&quot;: history-search-forward
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>This time I was going to make it work, no matter what it takes :-)  So I did
 the thing that should have been done long before: read <code>man readline</code>.  Here&#39;s
 what I&#39;ve found:</p>
-<div class="highlight"><pre><code class="text">Readline is customized by putting commands in an initialization file
+<div class="highlight"><pre><code class="text language-text" data-lang="text">Readline is customized by putting commands in an initialization file
 (the  inputrc  file).  The name of this file is taken from the value
 of the INPUTRC environment variable.  If that variable is unset, the
 default  is  ~/.inputrc.   If that file  does not exist or cannot be
 read, the ultimate default is /etc/inputrc.
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>Obviously, the next thing what to see if <code>$INPUTRC</code> is defined:</p>
-<div class="highlight"><pre><code class="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$INPUTRC</span>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$INPUTRC</span>
 /etc/inputrc
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>But I didn&#39;t set it!  Lets find out who did this:</p>
-<div class="highlight"><pre><code class="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>grep -R <span class="nv">INPUTRC</span><span class="o">=</span> /etc 2&gt;/dev/null
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>grep -R <span class="nv">INPUTRC</span><span class="o">=</span> /etc 2&gt;/dev/null
 /etc/profile:  <span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span>/etc/inputrc
 /etc/zprofile:  <span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span>/etc/inputrc
 /etc/profile~:  <span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span>/etc/inputrc
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>Finally, the reason was found:</p>
-<div class="highlight"><pre><code class="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>sed -n <span class="s1">&#39;11,14p&#39;</span> /etc/profile
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>sed -n <span class="s1">&#39;11,14p&#39;</span> /etc/profile
 <span class="c"># If the user doesn&#39;t have a .inputrc, use the one in /etc.</span>
 <span class="k">if</span> <span class="o">[</span> ! -r <span class="s2">&quot;$HOME/.inputrc&quot;</span> <span class="o">]</span>; <span class="k">then</span>
 <span class="k">  </span><span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span>/etc/inputrc
 <span class="k">fi</span>
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>Lest make a conclusion.  If you logged in when there is no <code>~/.inputrc</code> file,
 you can try hard to make it work with no result.  It&#39;s hard to say why someone
 wants to have such behaviour.  Anyway, at least we know the reason now and can
 fix it by login out and back in, by setting <code>$INPUTRC</code> to <code>$HOME/.inputrc</code> in
 <code>~/.bashrc</code>:</p>
-<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span><span class="s2">&quot;$HOME/.inputrc&quot;</span>
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span><span class="s2">&quot;$HOME/.inputrc&quot;</span>
+</code></pre></div>
 <p>or by unsetting it there:</p>
-<div class="highlight"><pre><code class="bash"><span class="nb">unset </span>INPUTRC
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nb">unset </span>INPUTRC
+</code></pre></div>
 <p>If you want to test in immediately from the shell there are several options you
 may try:</p>
 
@@ -125,26 +111,20 @@ during initialization process.  So we need something different.</p>
 
 <p>Not sure if this is useful, but if it works why not give it a try?  This
 requeres running of Bash using <code>env</code>:</p>
-<div class="highlight"><pre><code class="bash">env -u INPUTRC bash
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">env -u INPUTRC bash
+</code></pre></div>
 <ul>
 <li>Empty <code>$INPUTRC</code> is counted as nonexistend, so running Bash this way will work
 too:</li>
 </ul>
-<div class="highlight"><pre><code class="bash"><span class="nv">INPUTRC</span><span class="o">=</span> bash
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">INPUTRC</span><span class="o">=</span> bash
+</code></pre></div>
 <ul>
 <li>This one is the last.  Almost the same as second and forth options:</li>
 </ul>
-<div class="highlight"><pre><code class="bash"><span class="nv">INPUTRC</span><span class="o">=</span>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">INPUTRC</span><span class="o">=</span>
 bash
-</code></pre>
-</div>
-
+</code></pre></div>
   </div>
 </div>
 

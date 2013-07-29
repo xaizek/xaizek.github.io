@@ -35,7 +35,7 @@ of unary operators in C++, which are not implemented as member functions.  It&#3
 not like it sounds strange or incorrect, I just never wanted to do it.  So, just
 to be able to say &quot;I did it at least once&quot;, lets try it out on a very basic
 example with overloading of postfix increment operator:</p>
-<div class="highlight"><pre><code class="c++"><span class="cp">#include &lt;cstdlib&gt;</span>
+<div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="cp">#include &lt;cstdlib&gt;</span>
 
 <span class="cp">#include &lt;iostream&gt;</span>
 
@@ -54,14 +54,10 @@ example with overloading of postfix increment operator:</p>
     <span class="n">a</span><span class="o">++</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>The output is easy to guess:</p>
-<div class="highlight"><pre><code class="text">Overloaded!
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="text language-text" data-lang="text">Overloaded!
+</code></pre></div>
 <p>That&#39;s it.  I don&#39;t have anything more to say about it, because the idea of this
 post is to fix the fact about this simple thing.</p>
 

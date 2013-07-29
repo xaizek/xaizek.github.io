@@ -48,17 +48,13 @@ greatly decrease time one spend finding the beginning of a command that was just
 run.  Prompt colouring is also useful to distinguish between root and regular
 user prompt.  So after some experiments with <code>echo</code> command, I added this line
 to my <code>~/.bashrc</code> file:</p>
-<div class="highlight"><pre><code class="bash"><span class="c"># green command prompt</span>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="c"># green command prompt</span>
 <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\033[32m[\\w]\\$ \033[0m&quot;</span>
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>And this to <code>/root/.bashrc</code>:</p>
-<div class="highlight"><pre><code class="bash"><span class="c"># red command prompt</span>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="c"># red command prompt</span>
 <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\033[31m[\\w]\\$ \033[0m&quot;</span>
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>I liked it a lot, but after some time noticed strange issues with long command
 lines.  I tried to live with it, but after quite long period of time removed
 the colouring, since it made using long commands a hell.</p>
@@ -71,17 +67,13 @@ how to add colours to bash prompt not having that weird behaviour with long
 command lines.  One just needs to enclose all non-printable characters in
 <code>\[</code> and <code>\]</code>, so that bash wont count them as part of prompt string.  Now my
 <code>.bashrc</code> files contain this:</p>
-<div class="highlight"><pre><code class="bash"><span class="c"># green command prompt</span>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="c"># green command prompt</span>
 <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\\[\033[32m\\][\\w]\\$ \\[\033[0m\\]&quot;</span>
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>And this to <code>/root/.bashrc</code>:</p>
-<div class="highlight"><pre><code class="bash"><span class="c"># red command prompt</span>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="c"># red command prompt</span>
 <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\\[\033[31m\\][\\w]\\$ \\[\033[0m\\]&quot;</span>
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>I think no one will argue that this makes work in terminal a bit nicer.</p>
 
   </div>

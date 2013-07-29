@@ -67,27 +67,21 @@ can do that:</p>
 
 <p>Lets use same port number on both <code>DST</code> and <code>SRV</code> for simplicity, let it be
 <code>4567</code>, so:</p>
-<div class="highlight"><pre><code class="text">DST:port = 4567
+<div class="highlight"><pre><code class="text language-text" data-lang="text">DST:port = 4567
 SRV:port = 4567
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>Lets perform the algorithm step by step:</p>
 
 <ul>
 <li>Step #1</li>
 </ul>
-<div class="highlight"><pre><code class="bash">root@DST# sshd -p 4567
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">root@DST# sshd -p 4567
+</code></pre></div>
 <ul>
 <li>Step #2</li>
 </ul>
-<div class="highlight"><pre><code class="bash">user@DST<span class="nv">$ </span>ssh -R 127.1:4567:127.1:4567 user@SRV
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">user@DST<span class="nv">$ </span>ssh -R 127.1:4567:127.1:4567 user@SRV
+</code></pre></div>
 <p>You should leave this session open, otherwise port mapping will be finished.
 Also check for warning messages of ssh, there should be no
 <code>remote port forwarding failed</code> messages in the output.</p>
@@ -95,17 +89,13 @@ Also check for warning messages of ssh, there should be no
 <ul>
 <li>Step #3</li>
 </ul>
-<div class="highlight"><pre><code class="bash">user@SRC<span class="nv">$ </span>ssh user@SRV
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">user@SRC<span class="nv">$ </span>ssh user@SRV
+</code></pre></div>
 <ul>
 <li>Step #4</li>
 </ul>
-<div class="highlight"><pre><code class="bash">user@SRVi<span class="nv">$ </span>ssh -p 4567 user@127.0.0.1
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">user@SRVi<span class="nv">$ </span>ssh -p 4567 user@127.0.0.1
+</code></pre></div>
 <h3>Two port forwarding operation</h3>
 
 <p>Here the idea is a bit different at the end (from step number tree):</p>
@@ -118,20 +108,16 @@ Also check for warning messages of ssh, there should be no
 </ol>
 
 <p>We also need to use an additional port on our <code>SRC</code> machine:</p>
-<div class="highlight"><pre><code class="text">SRV:port = 4567
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="text language-text" data-lang="text">SRV:port = 4567
+</code></pre></div>
 <p>I won&#39;t repeat first two steps as they are same as in
 &quot;One port forwarding operation&quot; section.  Here are new third and forth steps:</p>
 
 <ul>
 <li>Step #3</li>
 </ul>
-<div class="highlight"><pre><code class="bash">user@SRC<span class="nv">$ </span>ssh -r 127.1:4567:127.1:4567 user@SRV
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">user@SRC<span class="nv">$ </span>ssh -r 127.1:4567:127.1:4567 user@SRV
+</code></pre></div>
 <p>you should leave this session open, otherwise port mapping will be finished.
 also check for warning messages of ssh, there should be no
 <code>remote port forwarding failed</code> messages in the output.</p>
@@ -139,10 +125,8 @@ also check for warning messages of ssh, there should be no
 <ul>
 <li>Step #4</li>
 </ul>
-<div class="highlight"><pre><code class="bash">user@SRC<span class="nv">$ </span>ssh -p SRC:port user@SRC
-</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">user@SRC<span class="nv">$ </span>ssh -p SRC:port user@SRC
+</code></pre></div>
 <p>Now you should be logged in on the <code>DST</code>.  Mission completed!</p>
 
 <p>Update on 17.10.2012: it&#39;s quite easy to accidentally close shell so here are a
