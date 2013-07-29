@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to define `_GNU_SOURCE` correctly with autoconf</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+      </h4>
+      <h1>How to define `_GNU_SOURCE` correctly with autoconf</h1>
+      <h5 class="post_date">July 29, 2013</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/autoconf">autoconf</a>]
+        
+        [<a href="/tag/preprocessor">preprocessor</a>]
+        
+        [<a href="/tag/C">C</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>Mainly for historical reasons, vifm contained the following pieces of code:</p>
+<div class="highlight"><pre><code class="c language-c" data-lang="c"><span class="cp">#define _GNU_SOURCE </span><span class="cm">/* I don&#39;t know how portable this is but it is</span>
+<span class="cm">                     * needed in Linux for wide char function wcwidth().</span>
+<span class="cm">                     */</span><span class="cp"></span>
+
+<span class="cm">/* Curses includes follow. */</span>
+</code></pre></div>
+<p>Today I finally decided to remove such pieces and put the <code>define</code> into correct
+place -- <code>config.h</code>.  <code>config.h</code> is automatically included in all translation
+units, thus all existing defines can be removed.</p>
+
+<p>My first attempt was adding the following line to the <code>configure.in</code> script:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">AC_DEFINE([_GNU_SOURCE], [], [Enable GNU extensions.])
+</code></pre></div>
+<p>It turned to do what I want, but looking at results from <a href="https://duckduckgo.com">DDG</a> I
+accidentally saw this macro:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">AC_GNU_SOURCE
+</code></pre></div>
+<p>The documentation on it is available <a href="http://idlebox.net/2010/apidocs/autoconf-2.65.zip/autoconf_18.html#IDX1690">here</a> and
+<a href="http://idlebox.net/2010/apidocs/autoconf-2.65.zip/autoconf_5.html#AC_005fUSE_005fSYSTEM_005fEXTENSIONS">here</a>.</p>
+
+<p>Using <code>AC_GNU_SOURCE</code> seems to be a better choice because it&#39;s more universal
+solution.  <code>AC_DEFINE</code> produces:</p>
+<div class="highlight"><pre><code class="diff language-diff" data-lang="diff"><span class="gh">diff --git a/config.h.in b/config.h.in</span>
+<span class="gh">index 018bc95..61a2a67 100644</span>
+<span class="gd">--- a/config.h.in</span>
+<span class="gi">+++ b/config.h.in</span>
+<span class="gu">@@ -117,3 +117,6 @@</span>
+ /* Number of bits in a file offset, on hosts where this is settable. */
+ #undef _FILE_OFFSET_BITS
+
+<span class="gi">+/* Enable GNU extensions. */</span>
+<span class="gi">+#undef _GNU_SOURCE</span>
+<span class="gi">+</span>
+</code></pre></div>
+<p>While <code>AC_GNU_SOURCE</code> gives:</p>
+<div class="highlight"><pre><code class="diff language-diff" data-lang="diff"><span class="gh">diff --git a/config.h.in b/config.h.in</span>
+<span class="gh">index 018bc95..d7bed74 100644</span>
+<span class="gd">--- a/config.h.in</span>
+<span class="gi">+++ b/config.h.in</span>
+<span class="gu">@@ -106,6 +106,23 @@</span>
+ /* -n option is available for cp and mv */
+ #undef SUPPORT_NO_CLOBBER
+
+<span class="gi">+/* Enable extensions on AIX 3, Interix.  */</span>
+<span class="gi">+#ifndef _ALL_SOURCE</span>
+<span class="gi">+# undef _ALL_SOURCE</span>
+<span class="gi">+#endif</span>
+<span class="gi">+/* Enable GNU extensions on systems that have them.  */</span>
+<span class="gi">+#ifndef _GNU_SOURCE</span>
+<span class="gi">+# undef _GNU_SOURCE</span>
+<span class="gi">+#endif</span>
+<span class="gi">+/* Enable threading extensions on Solaris.  */</span>
+<span class="gi">+#ifndef _POSIX_PTHREAD_SEMANTICS</span>
+<span class="gi">+# undef _POSIX_PTHREAD_SEMANTICS</span>
+<span class="gi">+#endif</span>
+<span class="gi">+/* Enable extensions on HP NonStop.  */</span>
+<span class="gi">+#ifndef _TANDEM_SOURCE</span>
+<span class="gi">+# undef _TANDEM_SOURCE</span>
+<span class="gi">+#endif</span>
+<span class="gi">+/* Enable general extensions on Solaris.  */</span>
+<span class="gi">+#ifndef __EXTENSIONS__</span>
+<span class="gi">+# undef __EXTENSIONS__</span>
+<span class="gi">+#endif</span>
+<span class="gi">+</span>
+<span class="gi">+</span>
+ /* Version number of package */
+ #undef VERSION
+
+<span class="gu">@@ -123,5 +145,18 @@</span>
+ /* Define for large files, on AIX-style hosts. */
+ #undef _LARGE_FILES
+
+<span class="gi">+/* Define to 1 if on MINIX. */</span>
+<span class="gi">+#undef _MINIX</span>
+<span class="gi">+</span>
+<span class="gi">+/* Define to 2 if the system does not provide POSIX.1 features except with</span>
+<span class="gi">+   this defined. */</span>
+<span class="gi">+#undef _POSIX_1_SOURCE</span>
+<span class="gi">+</span>
+<span class="gi">+/* Define to 1 if you need to in order for `stat&#39; and other things to work. */</span>
+<span class="gi">+#undef _POSIX_SOURCE</span>
+<span class="gi">+</span>
+</code></pre></div>
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
