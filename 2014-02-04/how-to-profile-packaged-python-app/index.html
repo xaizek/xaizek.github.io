@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to profile python application packaged via py2exe</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+      </h4>
+      <h1>How to profile python application packaged via py2exe</h1>
+      <h5 class="post_date">February  4, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/python">python</a>]
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/profiling">profiling</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <h3>Simple profiling using standard <code>cProfile</code> module</h3>
+
+<p>Usually a command similar to the one below is used to profile an application:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">python -m cProfile -o app.prof app.py arg1 arg2
+</code></pre></div>
+<h3>The issue with packaged application</h3>
+
+<p>One can&#39;t simply do this when python sources are packaged in some kind of
+binary container like <a href="py2exe">py2exe</a>, because in this case application is
+interpreted by a builtin interpreter and it&#39;s not as easy to run profiler.</p>
+
+<h3>Solution</h3>
+
+<p>Just run profiler in code.  Given something like:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="c"># all other actions</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c"># main actions</span>
+</code></pre></div>
+<p>Turn it into:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="c"># all other actions</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c"># main actions</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">cPythoh</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;main()&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s">&#39;path/to/app.prof&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h3>Conclusion</h3>
+
+<p>It&#39;s not that hard to get how to do this, but as I usually don&#39;t profile code
+written in python, it took some time to get this done.</p>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
