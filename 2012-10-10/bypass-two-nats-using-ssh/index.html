@@ -116,7 +116,7 @@ Also check for warning messages of ssh, there should be no
 <ul>
 <li>Step #3</li>
 </ul>
-<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">user@SRC<span class="nv">$ </span>ssh -r 127.1:4567:127.1:4567 user@SRV
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">user@SRC<span class="nv">$ </span>ssh -L 127.1:4567:127.1:4567 user@SRV
 </code></pre></div>
 <p>you should leave this session open, otherwise port mapping will be finished.
 also check for warning messages of ssh, there should be no
