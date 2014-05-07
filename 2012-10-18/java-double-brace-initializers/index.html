@@ -42,6 +42,8 @@ useful.  Today I&#39;m going to describe so called &quot;double brace initializa
 in Java, which is quite similar (and more powerful) than object initializers of
 C#.</p>
 
+<!-- cut -->
+
 <p>I saw piece of code containing the following line:</p>
 <div class="highlight"><pre><code class="java language-java" data-lang="java"><span class="kd">static</span> <span class="o">{</span> <span class="n">v</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span> <span class="n">add</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span> <span class="n">addAll</span><span class="o">(</span><span class="n">v</span><span class="o">);</span> <span class="n">addAll</span><span class="o">(</span><span class="k">this</span><span class="o">);</span> <span class="o">}</span> <span class="o">};</span> <span class="o">}</span>
 </code></pre></div>
