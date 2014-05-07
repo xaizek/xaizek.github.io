@@ -336,11 +336,11 @@ unary operator node named <code>op</code> and dumps it on the screen when succee
 <span class="p">}</span>
 </code></pre></div>
 <p>Should output both <code>i++</code> and <code>++i</code> like this (ignore addresses):</p>
-<div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="n">UnaryOperator</span> <span class="mh">0x2727ed0</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">postfix</span> <span class="err">&#39;</span><span class="o">++</span><span class="err">&#39;</span>
-<span class="err">`</span><span class="o">-</span><span class="n">DeclRefExpr</span> <span class="mh">0x2727ea8</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="n">Var</span> <span class="mh">0x2727d90</span> <span class="sc">&#39;i&#39;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">UnaryOperator 0x2727ed0 &#39;int&#39; postfix &#39;++&#39;
+`-DeclRefExpr 0x2727ea8 &#39;int&#39; lvalue Var 0x2727d90 &#39;i&#39; &#39;int&#39;
 
-<span class="n">UnaryOperator</span> <span class="mh">0x2728160</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="n">prefix</span> <span class="err">&#39;</span><span class="o">++</span><span class="err">&#39;</span>
-<span class="err">`</span><span class="o">-</span><span class="n">DeclRefExpr</span> <span class="mh">0x2728138</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="n">Var</span> <span class="mh">0x2728020</span> <span class="sc">&#39;i&#39;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
+UnaryOperator 0x2728160 &#39;int&#39; lvalue prefix &#39;++&#39;
+`-DeclRefExpr 0x2728138 &#39;int&#39; lvalue Var 0x2728020 &#39;i&#39; &#39;int&#39;
 </code></pre></div>
 <p>Lets filter out the second match in our helper.  Just surround dumping code
 with:</p>

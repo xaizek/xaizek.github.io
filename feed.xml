@@ -307,11 +307,11 @@ unary operator node named &lt;code&gt;op&lt;/code&gt; and dumps it on the screen
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Should output both &lt;code&gt;i++&lt;/code&gt; and &lt;code&gt;++i&lt;/code&gt; like this (ignore addresses):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c++ language-c++&quot; data-lang=&quot;c++&quot;&gt;&lt;span class=&quot;n&quot;&gt;UnaryOperator&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2727ed0&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postfix&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DeclRefExpr&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2727ea8&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lvalue&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Var&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2727d90&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;i&amp;#39;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;UnaryOperator 0x2727ed0 &amp;#39;int&amp;#39; postfix &amp;#39;++&amp;#39;
+`-DeclRefExpr 0x2727ea8 &amp;#39;int&amp;#39; lvalue Var 0x2727d90 &amp;#39;i&amp;#39; &amp;#39;int&amp;#39;
 
-&lt;span class=&quot;n&quot;&gt;UnaryOperator&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2728160&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lvalue&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DeclRefExpr&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2728138&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lvalue&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Var&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2728020&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;i&amp;#39;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;
+UnaryOperator 0x2728160 &amp;#39;int&amp;#39; lvalue prefix &amp;#39;++&amp;#39;
+`-DeclRefExpr 0x2728138 &amp;#39;int&amp;#39; lvalue Var 0x2728020 &amp;#39;i&amp;#39; &amp;#39;int&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Lets filter out the second match in our helper.  Just surround dumping code
 with:&lt;/p&gt;
@@ -740,6 +740,103 @@ $ mplayer -input file=$HOME/.mplayer/init video.mkv
 				<pubDate>Sat, 16 Nov 2013 00:00:00 +0200</pubDate>
 				<link>/2013-11-16/mplayer-with-disabled-subtitles-by-default</link>
 				<guid isPermaLink="true">/2013-11-16/mplayer-with-disabled-subtitles-by-default</guid>
+			</item>
+		
+			<item>
+				<title>How to define `_GNU_SOURCE` correctly with autoconf correctly</title>
+				<description>&lt;p&gt;&lt;code&gt;_XOPEN_SOURCE&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
+dnl features of Posix that are extensions to C, as well as platform extensions
+dnl not defined by Posix.
+AC_USE_SYSTEM_EXTENSIONS 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Mainly for historical reasons, vifm contained the following pieces of code:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#define _GNU_SOURCE &lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/* I don&amp;#39;t know how portable this is but it is&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt;                     * needed in Linux for wide char function wcwidth().&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt;                     */&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/* Curses includes follow. */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Today I finally decided to remove such pieces and put the &lt;code&gt;define&lt;/code&gt; into correct
+place -- &lt;code&gt;config.h&lt;/code&gt;.  &lt;code&gt;config.h&lt;/code&gt; is automatically included in all translation
+units, thus all existing defines can be removed.&lt;/p&gt;
+
+&lt;p&gt;My first attempt was adding the following line to the &lt;code&gt;configure.in&lt;/code&gt; script:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;AC_DEFINE([_GNU_SOURCE], [], [Enable GNU extensions.])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It turned to do what I want, but looking at results from &lt;a href=&quot;https://duckduckgo.com&quot;&gt;DDG&lt;/a&gt; I
+accidentally saw this macro:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;AC_GNU_SOURCE
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The documentation on it is available &lt;a href=&quot;http://idlebox.net/2010/apidocs/autoconf-2.65.zip/autoconf_18.html#IDX1690&quot;&gt;here&lt;/a&gt; and
+&lt;a href=&quot;http://idlebox.net/2010/apidocs/autoconf-2.65.zip/autoconf_5.html#AC_005fUSE_005fSYSTEM_005fEXTENSIONS&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Using &lt;code&gt;AC_GNU_SOURCE&lt;/code&gt; seems to be a better choice because it&amp;#39;s more universal
+solution.  &lt;code&gt;AC_DEFINE&lt;/code&gt; produces:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;diff language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span class=&quot;gh&quot;&gt;diff --git a/config.h.in b/config.h.in&lt;/span&gt;
+&lt;span class=&quot;gh&quot;&gt;index 018bc95..61a2a67 100644&lt;/span&gt;
+&lt;span class=&quot;gd&quot;&gt;--- a/config.h.in&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+++ b/config.h.in&lt;/span&gt;
+&lt;span class=&quot;gu&quot;&gt;@@ -117,3 +117,6 @@&lt;/span&gt;
+ /* Number of bits in a file offset, on hosts where this is settable. */
+ #undef _FILE_OFFSET_BITS
+
+&lt;span class=&quot;gi&quot;&gt;+/* Enable GNU extensions. */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#undef _GNU_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;While &lt;code&gt;AC_GNU_SOURCE&lt;/code&gt; gives:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;diff language-diff&quot; data-lang=&quot;diff&quot;&gt;&lt;span class=&quot;gh&quot;&gt;diff --git a/config.h.in b/config.h.in&lt;/span&gt;
+&lt;span class=&quot;gh&quot;&gt;index 018bc95..d7bed74 100644&lt;/span&gt;
+&lt;span class=&quot;gd&quot;&gt;--- a/config.h.in&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+++ b/config.h.in&lt;/span&gt;
+&lt;span class=&quot;gu&quot;&gt;@@ -106,6 +106,23 @@&lt;/span&gt;
+ /* -n option is available for cp and mv */
+ #undef SUPPORT_NO_CLOBBER
+
+&lt;span class=&quot;gi&quot;&gt;+/* Enable extensions on AIX 3, Interix.  */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#ifndef _ALL_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+# undef _ALL_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#endif&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+/* Enable GNU extensions on systems that have them.  */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#ifndef _GNU_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+# undef _GNU_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#endif&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+/* Enable threading extensions on Solaris.  */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#ifndef _POSIX_PTHREAD_SEMANTICS&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+# undef _POSIX_PTHREAD_SEMANTICS&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#endif&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+/* Enable extensions on HP NonStop.  */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#ifndef _TANDEM_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+# undef _TANDEM_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#endif&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+/* Enable general extensions on Solaris.  */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#ifndef __EXTENSIONS__&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+# undef __EXTENSIONS__&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#endif&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+&lt;/span&gt;
+ /* Version number of package */
+ #undef VERSION
+
+&lt;span class=&quot;gu&quot;&gt;@@ -123,5 +145,18 @@&lt;/span&gt;
+ /* Define for large files, on AIX-style hosts. */
+ #undef _LARGE_FILES
+
+&lt;span class=&quot;gi&quot;&gt;+/* Define to 1 if on MINIX. */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#undef _MINIX&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+/* Define to 2 if the system does not provide POSIX.1 features except with&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+   this defined. */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#undef _POSIX_1_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+/* Define to 1 if you need to in order for `stat&amp;#39; and other things to work. */&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+#undef _POSIX_SOURCE&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+				<pubDate>Wed, 16 Oct 2013 00:00:00 +0300</pubDate>
+				<link>/2013-10-16/autoconf-how-to-define-gnu-source-correctly</link>
+				<guid isPermaLink="true">/2013-10-16/autoconf-how-to-define-gnu-source-correctly</guid>
 			</item>
 		
 			<item>
