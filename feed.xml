@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>SNOX</title>
+		<title>SNOX Posts</title>
 		<description>Short notes on computer stuff</description>
 		<link>http://xaizek.github.io/</link>
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
@@ -89,6 +89,20 @@ are enabled by default.&lt;/p&gt;
 				<pubDate>Sat, 16 Nov 2013 00:00:00 +0200</pubDate>
 				<link>http://xaizek.github.io//2013-11-16/mplayer-with-disabled-subtitles-by-default</link>
 				<guid isPermaLink="true">http://xaizek.github.io//2013-11-16/mplayer-with-disabled-subtitles-by-default</guid>
+			</item>
+		
+			<item>
+				<title>How to define `_GNU_SOURCE` correctly with autoconf correctly</title>
+                <description>&lt;p&gt;&lt;code&gt;_XOPEN_SOURCE&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
+dnl features of Posix that are extensions to C, as well as platform extensions
+dnl not defined by Posix.
+AC_USE_SYSTEM_EXTENSIONS 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Wed, 16 Oct 2013 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2013-10-16/autoconf-how-to-define-gnu-source-correctly</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-10-16/autoconf-how-to-define-gnu-source-correctly</guid>
 			</item>
 		
 			<item>
