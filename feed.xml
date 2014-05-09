@@ -8,9 +8,9 @@
 		
 			<item>
 				<title>Clang by example: Detecting postfix operators in for loops</title>
-                <description>&lt;h1&gt;Introduction&lt;/h1&gt;
+                <description>&lt;h3&gt;Introduction&lt;/h3&gt;
 
-&lt;h2&gt;Foreword&lt;/h2&gt;
+&lt;h4&gt;Foreword&lt;/h4&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Llvm&quot;&gt;LLVM&lt;/a&gt; project has been started back in 2000, but became widely
 known and used quite recently, about 4 years as of now (2014).  It&amp;#39;s used by

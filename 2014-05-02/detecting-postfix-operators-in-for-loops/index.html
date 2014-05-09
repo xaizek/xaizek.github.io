@@ -38,9 +38,9 @@
     <section>
       <div class="content">
   <div id="post">
-    <h1>Introduction</h1>
+    <h3>Introduction</h3>
 
-<h2>Foreword</h2>
+<h4>Foreword</h4>
 
 <p>The <a href="https://en.wikipedia.org/wiki/Llvm">LLVM</a> project has been started back in 2000, but became widely
 known and used quite recently, about 4 years as of now (2014).  It&#39;s used by
@@ -90,7 +90,7 @@ self contained, but nevertheless should be usable in real life.  Process of
 building such tools will shed light on different parts of Clang, which will
 help construct a better image of what it is and in what ways it can be used.</p>
 
-<h2>Environment</h2>
+<h4>Environment</h4>
 
 <p>Here are some details of my working environment to help solve possible issues
 with initial setup (see below).</p>
@@ -115,7 +115,7 @@ with initial setup (see below).</p>
 <li><p>everything is built with GCC</p></li>
 </ul>
 
-<h1>Your first tool</h1>
+<h3>Your first tool</h3>
 
 <p>To get started one needs to have a working build of LLVM and Clang.  This is
 not a subject of this writing and there is already a good tutorial on this (read
@@ -175,7 +175,7 @@ tutorial first.</p>
 
 <p>Now, having some background, we can start creating our small, but useful tool.</p>
 
-<h1>Detecting postfix operators in for loops</h1>
+<h3>Detecting postfix operators in for loops</h3>
 
 <p>Our goal is to analyse source files to find postfix increment and decrement
 operators in the last part of for-loop statements.  The drawback of using
@@ -198,7 +198,7 @@ transfer agent</a>).  See &quot;Additional resources&quot; section below for
 a link to repository containing ready to use tool.  History of commits is quite
 clear, so one can examine commits one by one while reading the article.</p>
 
-<h2>Boilerplate</h2>
+<h4>Boilerplate</h4>
 
 <p>Note, I go in detail in this section just to repeat what you have learnt from
 the tutorial, skip this part if you feel like you don&#39;t need to repeat
@@ -269,7 +269,7 @@ already know basics of this kind of stuff):</p>
 of <code>argv</code> parameter declaration, this is needed to satisfy prototype of
 <a href="http://clang.llvm.org/doxygen/classclang_1_1tooling_1_1CommonOptionsParser.html#afb426d699eb71d90163bd2f61e29f78b">CommonOptionsParser constructor</a>.</p>
 
-<h2>Matching builtin types</h2>
+<h4>Matching builtin types</h4>
 
 <p>Finally we&#39;re ready to start matching things we&#39;re interested in.  Our first
 matcher will match increment operators, both prefix and postfix:</p>
@@ -372,7 +372,7 @@ condition needs to be replaced with:</p>
 </code></pre></div>
 <p>That&#39;s it for builtin operators.</p>
 
-<h2>Matching overloaded operators</h2>
+<h4>Matching overloaded operators</h4>
 
 <p>This example uses postfix increment operator, but our <code>for-postfix</code> is not able
 to find it yet:</p>
@@ -455,7 +455,7 @@ check for operator type, <code>CXXOperatorCallExpr</code> is needed instead.</p>
 <p>Notice that by adding multiple matchers to match finder one can match different
 things in one traverse through AST.</p>
 
-<h2>Formatting output</h2>
+<h4>Formatting output</h4>
 
 <p>We&#39;re almost done.  Current way of printing out nodes is not readable, it would
 be better to print path to source file with match and number of line.  First of
@@ -494,7 +494,7 @@ navigate through errors and edit them like this:</p>
 <p>This tool can already be used in real projects to find misuse of postfix
 operators.</p>
 
-<h1>Additional resources (not referenced above)</h1>
+<h3>Additional resources (not referenced above)</h3>
 
 <ul>
 <li><p><a href="http://www.drdobbs.com/architecture-and-design/the-design-of-llvm/240001128">The Design of LLVM</a> by Chris Lattner, the primary author of
