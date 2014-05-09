@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title></title>
-		<description></description>
-		<link></link>
-		<atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+		<title>SNOX</title>
+		<description>Short notes on computer stuff</description>
+		<link>http://xaizek.github.io/</link>
+		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
 				<title>Clang by example: Detecting postfix operators in for loops</title>
@@ -20,8 +20,8 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 
 </description>
 				<pubDate>Fri, 02 May 2014 00:00:00 +0300</pubDate>
-				<link>/2014-05-02/detecting-postfix-operators-in-for-loops</link>
-				<guid isPermaLink="true">/2014-05-02/detecting-postfix-operators-in-for-loops</guid>
+				<link>http://xaizek.github.io//2014-05-02/detecting-postfix-operators-in-for-loops</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-05-02/detecting-postfix-operators-in-for-loops</guid>
 			</item>
 		
 			<item>
@@ -38,8 +38,8 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Wed, 05 Feb 2014 00:00:00 +0200</pubDate>
-				<link>/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make</link>
-				<guid isPermaLink="true">/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make</guid>
+				<link>http://xaizek.github.io//2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make</guid>
 			</item>
 		
 			<item>
@@ -51,8 +51,8 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Tue, 04 Feb 2014 00:00:00 +0200</pubDate>
-				<link>/2014-02-04/how-to-profile-packaged-python-app</link>
-				<guid isPermaLink="true">/2014-02-04/how-to-profile-packaged-python-app</guid>
+				<link>http://xaizek.github.io//2014-02-04/how-to-profile-packaged-python-app</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-02-04/how-to-profile-packaged-python-app</guid>
 			</item>
 		
 			<item>
@@ -65,8 +65,8 @@ displayed on user&amp;#39;s request.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 18 Jan 2014 00:00:00 +0200</pubDate>
-				<link>/2014-01-18/recompile-file-with-any-other-using-make</link>
-				<guid isPermaLink="true">/2014-01-18/recompile-file-with-any-other-using-make</guid>
+				<link>http://xaizek.github.io//2014-01-18/recompile-file-with-any-other-using-make</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-01-18/recompile-file-with-any-other-using-make</guid>
 			</item>
 		
 			<item>
@@ -87,22 +87,8 @@ are enabled by default.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 16 Nov 2013 00:00:00 +0200</pubDate>
-				<link>/2013-11-16/mplayer-with-disabled-subtitles-by-default</link>
-				<guid isPermaLink="true">/2013-11-16/mplayer-with-disabled-subtitles-by-default</guid>
-			</item>
-		
-			<item>
-				<title>How to define `_GNU_SOURCE` correctly with autoconf correctly</title>
-                <description>&lt;p&gt;&lt;code&gt;_XOPEN_SOURCE&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
-dnl features of Posix that are extensions to C, as well as platform extensions
-dnl not defined by Posix.
-AC_USE_SYSTEM_EXTENSIONS 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-				<pubDate>Wed, 16 Oct 2013 00:00:00 +0300</pubDate>
-				<link>/2013-10-16/autoconf-how-to-define-gnu-source-correctly</link>
-				<guid isPermaLink="true">/2013-10-16/autoconf-how-to-define-gnu-source-correctly</guid>
+				<link>http://xaizek.github.io//2013-11-16/mplayer-with-disabled-subtitles-by-default</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-11-16/mplayer-with-disabled-subtitles-by-default</guid>
 			</item>
 		
 			<item>
@@ -114,8 +100,8 @@ that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 25 Sep 2013 00:00:00 +0300</pubDate>
-				<link>/2013-09-25/fix-misterious-tmux-hang-in-x</link>
-				<guid isPermaLink="true">/2013-09-25/fix-misterious-tmux-hang-in-x</guid>
+				<link>http://xaizek.github.io//2013-09-25/fix-misterious-tmux-hang-in-x</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-09-25/fix-misterious-tmux-hang-in-x</guid>
 			</item>
 		
 			<item>
@@ -124,8 +110,8 @@ that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
 
 </description>
 				<pubDate>Mon, 29 Jul 2013 00:00:00 +0300</pubDate>
-				<link>/2013-07-29/autoconf-how-to-define-gnu-source</link>
-				<guid isPermaLink="true">/2013-07-29/autoconf-how-to-define-gnu-source</guid>
+				<link>http://xaizek.github.io//2013-07-29/autoconf-how-to-define-gnu-source</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-07-29/autoconf-how-to-define-gnu-source</guid>
 			</item>
 		
 			<item>
@@ -138,8 +124,8 @@ example with overloading of postfix increment operator:&lt;/p&gt;
 
 </description>
 				<pubDate>Mon, 29 Apr 2013 00:00:00 +0300</pubDate>
-				<link>/2013-04-29/cpp-out-of-class-unary-op-overload</link>
-				<guid isPermaLink="true">/2013-04-29/cpp-out-of-class-unary-op-overload</guid>
+				<link>http://xaizek.github.io//2013-04-29/cpp-out-of-class-unary-op-overload</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-04-29/cpp-out-of-class-unary-op-overload</guid>
 			</item>
 		
 			<item>
@@ -149,8 +135,8 @@ initializers of inner aggregates can be flattened.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 28 Apr 2013 00:00:00 +0300</pubDate>
-				<link>/2013-04-28/cpp-aggregate-initializers</link>
-				<guid isPermaLink="true">/2013-04-28/cpp-aggregate-initializers</guid>
+				<link>http://xaizek.github.io//2013-04-28/cpp-aggregate-initializers</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-04-28/cpp-aggregate-initializers</guid>
 			</item>
 		
 			<item>
@@ -165,8 +151,8 @@ began.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 14 Apr 2013 00:00:00 +0300</pubDate>
-				<link>/2013-04-14/howto-set-xterm-256color-term-in-slackware</link>
-				<guid isPermaLink="true">/2013-04-14/howto-set-xterm-256color-term-in-slackware</guid>
+				<link>http://xaizek.github.io//2013-04-14/howto-set-xterm-256color-term-in-slackware</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-04-14/howto-set-xterm-256color-term-in-slackware</guid>
 			</item>
 		
 			<item>
@@ -176,8 +162,8 @@ is how it&amp;#39;s done:&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 30 Mar 2013 00:00:00 +0200</pubDate>
-				<link>/2013-03-30/operate-on-selection-in-mutt</link>
-				<guid isPermaLink="true">/2013-03-30/operate-on-selection-in-mutt</guid>
+				<link>http://xaizek.github.io//2013-03-30/operate-on-selection-in-mutt</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-03-30/operate-on-selection-in-mutt</guid>
 			</item>
 		
 			<item>
@@ -190,8 +176,8 @@ found.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 30 Mar 2013 00:00:00 +0200</pubDate>
-				<link>/2013-03-30/merge-mbox-mailboxes</link>
-				<guid isPermaLink="true">/2013-03-30/merge-mbox-mailboxes</guid>
+				<link>http://xaizek.github.io//2013-03-30/merge-mbox-mailboxes</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2013-03-30/merge-mbox-mailboxes</guid>
 			</item>
 		
 			<item>
@@ -209,8 +195,8 @@ server.&lt;/p&gt;
 
 </description>
 				<pubDate>Fri, 09 Nov 2012 00:00:00 +0200</pubDate>
-				<link>/2012-11-09/code-sharing-among-java-web-services</link>
-				<guid isPermaLink="true">/2012-11-09/code-sharing-among-java-web-services</guid>
+				<link>http://xaizek.github.io//2012-11-09/code-sharing-among-java-web-services</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-11-09/code-sharing-among-java-web-services</guid>
 			</item>
 		
 			<item>
@@ -223,8 +209,8 @@ C#.&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 18 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-18/java-double-brace-initializers</link>
-				<guid isPermaLink="true">/2012-10-18/java-double-brace-initializers</guid>
+				<link>http://xaizek.github.io//2012-10-18/java-double-brace-initializers</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-18/java-double-brace-initializers</guid>
 			</item>
 		
 			<item>
@@ -236,8 +222,8 @@ values.&lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 17 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-17/strchr-finds-zero-char</link>
-				<guid isPermaLink="true">/2012-10-17/strchr-finds-zero-char</guid>
+				<link>http://xaizek.github.io//2012-10-17/strchr-finds-zero-char</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-17/strchr-finds-zero-char</guid>
 			</item>
 		
 			<item>
@@ -248,8 +234,8 @@ which was created for this.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 13 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-13/making-inputrc-work-in-slackware</link>
-				<guid isPermaLink="true">/2012-10-13/making-inputrc-work-in-slackware</guid>
+				<link>http://xaizek.github.io//2012-10-13/making-inputrc-work-in-slackware</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-13/making-inputrc-work-in-slackware</guid>
 			</item>
 		
 			<item>
@@ -260,8 +246,8 @@ backwards) and &lt;code&gt;Control-N&lt;/code&gt; (&lt;code&gt;&amp;lt;c-n&amp;g
 
 </description>
 				<pubDate>Thu, 11 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-11/configuring-keys-in-less</link>
-				<guid isPermaLink="true">/2012-10-11/configuring-keys-in-less</guid>
+				<link>http://xaizek.github.io//2012-10-11/configuring-keys-in-less</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-11/configuring-keys-in-less</guid>
 			</item>
 		
 			<item>
@@ -273,8 +259,8 @@ server to which I have access through ssh can be used for this.&lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 10 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-10/bypass-two-nats-using-ssh</link>
-				<guid isPermaLink="true">/2012-10-10/bypass-two-nats-using-ssh</guid>
+				<link>http://xaizek.github.io//2012-10-10/bypass-two-nats-using-ssh</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-10/bypass-two-nats-using-ssh</guid>
 			</item>
 		
 			<item>
@@ -290,8 +276,8 @@ to my &lt;code&gt;~/.bashrc&lt;/code&gt; file:&lt;/p&gt;
 
 </description>
 				<pubDate>Tue, 09 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-09/bash-colour-prompt-issue</link>
-				<guid isPermaLink="true">/2012-10-09/bash-colour-prompt-issue</guid>
+				<link>http://xaizek.github.io//2012-10-09/bash-colour-prompt-issue</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-09/bash-colour-prompt-issue</guid>
 			</item>
 		
 			<item>
@@ -303,8 +289,8 @@ to me:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-08/vim-wild-menu</link>
-				<guid isPermaLink="true">/2012-10-08/vim-wild-menu</guid>
+				<link>http://xaizek.github.io//2012-10-08/vim-wild-menu</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-08/vim-wild-menu</guid>
 			</item>
 		
 			<item>
@@ -314,8 +300,8 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-08/jekyll-highlight</link>
-				<guid isPermaLink="true">/2012-10-08/jekyll-highlight</guid>
+				<link>http://xaizek.github.io//2012-10-08/jekyll-highlight</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-08/jekyll-highlight</guid>
 			</item>
 		
 			<item>
@@ -340,8 +326,8 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-08/java-exception</link>
-				<guid isPermaLink="true">/2012-10-08/java-exception</guid>
+				<link>http://xaizek.github.io//2012-10-08/java-exception</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-08/java-exception</guid>
 			</item>
 		
 			<item>
@@ -356,8 +342,8 @@ following steps described there.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 07 Oct 2012 00:00:00 +0300</pubDate>
-				<link>/2012-10-07/gem-install-issue</link>
-				<guid isPermaLink="true">/2012-10-07/gem-install-issue</guid>
+				<link>http://xaizek.github.io//2012-10-07/gem-install-issue</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2012-10-07/gem-install-issue</guid>
 			</item>
 		
 	</channel>
