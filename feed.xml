@@ -97,7 +97,7 @@ are enabled by default.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
 dnl features of Posix that are extensions to C, as well as platform extensions
 dnl not defined by Posix.
-AC_USE_SYSTEM_EXTENSIONS 
+AC_USE_SYSTEM_EXTENSIONS
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Wed, 16 Oct 2013 00:00:00 +0300</pubDate>
