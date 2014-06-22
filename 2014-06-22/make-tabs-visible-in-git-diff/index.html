@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to make tabs visible in git diff</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+        <a href="/feed.xml">
+          <img align="right" src="/rss.jpg"/>
+        </a>
+      </h4>
+      <h1>How to make tabs visible in git diff</h1>
+      <h5 class="post_date">June 22, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/git">git</a>]
+        
+        [<a href="/tag/bash">bash</a>]
+        
+        [<a href="/tag/terminal">terminal</a>]
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/less">less</a>]
+        
+        [<a href="/tag/shell">shell</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>I&#39;m a bit tired looking at diffs like the following:</p>
+<div class="highlight"><pre><code class="diff language-diff" data-lang="diff">         for (int i = 0; i &lt; 3; ++i) {
+<span class="gd">-        for (int h = 0; h &lt; 4; ++h) {</span>
+<span class="gi">+                for (int h = 0; h &lt; 4; ++h) {</span>
+                         for (int k = 0; k &lt; 4; ++k) {
+</code></pre></div>
+<p>Can anybody tell whether spaces were replaces with tabs or tabs were replaced
+with spaces without knowing anything else about the code?  Probably, not.</p>
+
+<!-- cut -->
+
+<p>This made me think of making tabs visible.  Tried <a href="http://stackoverflow.com/a/6947297/1535516">this
+answer</a> to question <em>Show special characters in Unix
+while using &#39;less&#39; command</em>, but:</p>
+
+<ul>
+<li><code>less</code> is not able to show tabs in a way I&#39;d like it;</li>
+<li><code>cat</code> shows special characters in a way that makes output of <code>git diff</code>
+hard to read and also breaks coloring.</li>
+</ul>
+
+<p>Instead something like the following <a href="https://github.com/xaizek/dotvim/blob/0a628e5812fb0a19e34a027dacd1c39ee21c47bf/vimrc#L1127">settings in Vim</a> would be
+perfect:</p>
+<div class="highlight"><pre><code class="vim language-vim" data-lang="vim"><span class="k">set</span> <span class="nb">list</span>
+<span class="k">set</span> <span class="nb">listchars</span><span class="p">=</span><span class="k">tab</span>:.\ <span class="p">,</span>trail:·
+</code></pre></div>
+<p>Trailing spaces in changed lines (<code>trail:·</code>) are already highlighted in
+a noticeable way by git (unless <code>core.whitespace</code> contains <code>-trailing-space</code>)
+and can be left as they are.  The most interesting part about <code>tab:.\</code> is that
+it&#39;s really easy to do with <code>sed</code>!  It&#39;s as simple as this (assuming that <code>\t</code>
+is displayed as 8 spaces):</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">git diff --color | sed <span class="s1">&#39;s/\t/.       /g&#39;</span> | less -R
+</code></pre></div>
+<p>Result looks like this:</p>
+<div class="highlight"><pre><code class="diff language-diff" data-lang="diff"> .       for (int i = 0; i &lt; 3; ++i) {
+<span class="gd">-        for (int h = 0; h &lt; 4; ++h) {</span>
+<span class="gi">+.       .       for (int h = 0; h &lt; 4; ++h) {</span>
+ .       .       .       for (int k = 0; k &lt; 4; ++k) {
+</code></pre></div>
+<p>That&#39;s <em>way better</em>.  The only difficulty that needs to be solved is how to
+embed <code>sed</code> invocation into regular calls of git without redefining all git
+commands.</p>
+
+<p>One way is to redefine pager command used by git in configuration file
+(<code>~/.gitconfig</code> or <code>~/.config/git/config</code>):</p>
+<div class="highlight"><pre><code class="cfg language-cfg" data-lang="cfg"><span class="k">[core]</span>
+    <span class="na">pager</span> <span class="o">=</span> <span class="s">sed &#39;s/\t/.       /g&#39; | less -R</span>
+</code></pre></div>
+<p><em>Advantage</em> of this approach is that git will substitute tabs only when pager
+is used.  This means that output of <code>git diff &gt; change.patch</code> won&#39;t be affected
+in any way.</p>
+
+<p><em>Disadvantage</em> of this approach is that if any other git command will output
+tab character, it will be substituted as well.  In my tests this didn&#39;t happen,
+so I&#39;ll leave it as it is.</p>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

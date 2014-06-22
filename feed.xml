@@ -7,6 +7,23 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>How to make tabs visible in git diff</title>
+                <description>&lt;p&gt;I&amp;#39;m a bit tired looking at diffs like the following:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;diff language-diff&quot; data-lang=&quot;diff&quot;&gt;         for (int i = 0; i &amp;lt; 3; ++i) {
+&lt;span class=&quot;gd&quot;&gt;-        for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+                for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
+                         for (int k = 0; k &amp;lt; 4; ++k) {
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Can anybody tell whether spaces were replaces with tabs or tabs were replaced
+with spaces without knowing anything else about the code?  Probably, not.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 22 Jun 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-06-22/make-tabs-visible-in-git-diff</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-06-22/make-tabs-visible-in-git-diff</guid>
+			</item>
+		
+			<item>
 				<title>Clang by example: Detecting postfix operators in for loops</title>
                 <description>&lt;h3&gt;Introduction&lt;/h3&gt;
 
