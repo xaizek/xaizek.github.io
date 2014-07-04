@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Removing sendmail from mail receiving chain</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Short notes on computer stuff
+        </a>
+        <a href="/feed.xml">
+          <img align="right" src="/rss.jpg"/>
+        </a>
+      </h4>
+      <h1>Removing sendmail from mail receiving chain</h1>
+      <h5 class="post_date">July  4, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/mail">mail</a>]
+        
+        [<a href="/tag/linux">linux</a>]
+        
+        [<a href="/tag/howto">howto</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <p>One of common ways to receive mail includes using <a href="https://en.wikipedia.org/wiki/Sendmail">sendmail</a> as
+an <a href="https://en.wikipedia.org/wiki/Message_transfer_agent">MTA</a>.  This causes some inconvenience especially when it&#39;s the
+only purpose <em>sendmail</em> is installed for.  To be able to receive mail
+<em>sendmail</em> deamon must be running all the time, which also means that it
+consumes some (small) amount of resources.  It&#39;s not a problem at all (even
+though it slows down system startup a little bit), but why keep it if we can
+live without it?</p>
+
+<!-- cut -->
+
+<p>Generic scheme of receiving mail is as follows:</p>
+
+<p><center>
+<img src="/images/standard-mail-chain.png" alt="Standard mail chain">
+</center></p>
+
+<p>Here <em>sendmail</em> passes all mail it gets to <a href="https://en.wikipedia.org/wiki/Procmail">procmail</a>, which is
+configured in <code>~/.forward</code> file.  The idea is to get rid of <em>sendmail</em> such
+that:</p>
+
+<ul>
+<li>It won&#39;t be started with system.</li>
+<li>It won&#39;t be listening to any sockets.</li>
+<li>Nothing will be forwarded to it.</li>
+<li>No need to keep that <code>~/.forward</code> file.</li>
+</ul>
+
+<p>This means that all the mail will be passed directly to <a href="https://en.wikipedia.org/wiki/Mail_delivery_agent">MDA</a>, which
+is <code>procmail</code> in this case.</p>
+
+<p>It turned out to be quite easy to implement after reading <a href="http://www.ioncannon.net/system-administration/97/using-fetchmail-and-procmail-for-maildir-style-storage-from-a-pop3-account/">this nice
+post</a> even though it&#39;s not exactly what the subject.  The most useful
+line is this one:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">mda &quot;/usr/bin/procmail -m /path/to/procmail.conf&quot;
+</code></pre></div>
+<p><code>man fetchmail</code> says:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">mda                -m           Specify MDA for local delivery
+</code></pre></div>
+<p>It&#39;s strange thing that (I guess) all articles I&#39;ve ever read on this topic do
+not mention this useful option of <a href="https://en.wikipedia.org/wiki/Fetchmail">fetchmail</a>.  And leave it
+with default behaviour of sending mail to <em>localhost</em> <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a> server.</p>
+
+<p>So all one needs to cut <em>sendmail</em> from this chain is to set this option, but
+there is one caveat not described in the article linked above.  The option must
+be set <strong>for each account</strong> in your <em>fetchmail</em> configuration file, e.g.:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># ...
+
+poll mail.example.com proto pop3
+       user &#39;me&#39; with pass &#39;123&#39; is &#39;meagain&#39; here ssl keep
+
+mda &quot;/usr/bin/procmail -m ~/.config/procmail/procmail.conf&quot;
+
+poll anothermail.example.com proto pop3
+       user &#39;meagain&#39; with pass &#39;qwerty&#39; is &#39;meagain&#39; here ssl keep
+
+mda &quot;/usr/bin/procmail -m ~/.config/procmail/procmail.conf&quot;
+</code></pre></div>
+<p>If you forget to specify <code>mda</code> option for one of accounts, log of <em>fetchmail</em>
+will contain messages like this:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">fetchmail: Connection errors for this poll:
+name 0: connection to localhost:smtp [127.0.0.1/25] failed: Connection refused.
+fetchmail: SMTP connect to localhost failed
+fetchmail: SMTP transaction error while fetching from mail.example.com and
+delivering to SMTP host localhost
+fetchmail: Query status=10 (SMTP)
+</code></pre></div>
+<p>P.S.  The image at the top was generated with <strong><a href="http://ditaa.sourceforge.net/">ditaa</a></strong>, which is
+a nice tool for small and simple diagrams like that one.</p>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

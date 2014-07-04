@@ -7,6 +7,22 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Removing sendmail from mail receiving chain</title>
+                <description>&lt;p&gt;One of common ways to receive mail includes using &lt;a href=&quot;https://en.wikipedia.org/wiki/Sendmail&quot;&gt;sendmail&lt;/a&gt; as
+an &lt;a href=&quot;https://en.wikipedia.org/wiki/Message_transfer_agent&quot;&gt;MTA&lt;/a&gt;.  This causes some inconvenience especially when it&amp;#39;s the
+only purpose &lt;em&gt;sendmail&lt;/em&gt; is installed for.  To be able to receive mail
+&lt;em&gt;sendmail&lt;/em&gt; deamon must be running all the time, which also means that it
+consumes some (small) amount of resources.  It&amp;#39;s not a problem at all (even
+though it slows down system startup a little bit), but why keep it if we can
+live without it?&lt;/p&gt;
+
+</description>
+				<pubDate>Fri, 04 Jul 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-07-04/removing-sendmail-from-mail-receiving-chain</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-07-04/removing-sendmail-from-mail-receiving-chain</guid>
+			</item>
+		
+			<item>
 				<title>How to make tabs visible in git diff</title>
                 <description>&lt;p&gt;I&amp;#39;m a bit tired looking at diffs like the following:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;diff language-diff&quot; data-lang=&quot;diff&quot;&gt;         for (int i = 0; i &amp;lt; 3; ++i) {
