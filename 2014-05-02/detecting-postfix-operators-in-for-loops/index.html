@@ -190,7 +190,7 @@ increment/decrement operators only when you have a reason to do so.</p>
 but such warnings can get lost in output of mature static analyzers and be just
 skipped by a developer.  This tool we&#39;ll do just that so skipping such warnings
 would be a stupid thing to do.  This is just a good programming style to use
-postfix operators, so lets write a tool that ensures correctness of for-loops
+postfix operators, so let&#39;s write a tool that ensures correctness of for-loops
 and learn more about Clang&#39;s <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">AST</a> at the same time.</p>
 
 <p>By the way, we&#39;ll name the tool &quot;for-postfix&quot; (not to be confused with <a href="https://en.wikipedia.org/wiki/Postfix_(software)">mail
@@ -237,7 +237,7 @@ LLVM/Clang.</p>
 for-postfix</code> just to make sure the configuration is correct.  If it is, you&#39;ll
 find an executable <code>build/bin/for-postfix</code> that does nothing when it&#39;s run.</p>
 
-<p>Now lets write a skeleton of the tool (I give this as it is because you should
+<p>Now let&#39;s write a skeleton of the tool (I give this as it is because you should
 already know basics of this kind of stuff):</p>
 <div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="cp">#include &lt;llvm/Support/CommandLine.h&gt;</span>
 
@@ -311,7 +311,7 @@ that just examines properties of AST nodes (like <code>hasIncrement</code> or
 <p>You should be familiar with the idea behind this code: it tries to extract
 unary operator node named <code>op</code> and dumps it on the screen when succeed.</p>
 
-<p>Lets create our helper and use it to add our matcher in the <code>main</code> function:</p>
+<p>Let&#39;s create our helper and use it to add our matcher in the <code>main</code> function:</p>
 <div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="n">MatchHelper</span> <span class="n">helper</span><span class="p">;</span>
 
 <span class="n">finder</span><span class="p">.</span><span class="n">addMatcher</span><span class="p">(</span><span class="n">incMatcher</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">helper</span><span class="p">);</span>
@@ -362,7 +362,7 @@ simplify the matcher to remove operator name check (note name change):</p>
         <span class="p">)</span>
     <span class="p">);</span>
 </code></pre></div>
-<p>Notice that there was one condition, which is now removed, while actually one
+<p>Note that there was one condition, which is now removed, while actually one
 can use many conditions separated by commas.  We&#39;re not removing the check
 completely, just moving it to the <code>MatchHelper</code>, where <code>op-&gt;isPostfix()</code>
 condition needs to be replaced with:</p>
@@ -421,7 +421,7 @@ It also has two interesting properties:</p>
 operators possible.</li>
 </ul>
 
-<p>Lets throw away matching of operator name and do this in <code>MatchHelper</code> later:</p>
+<p>Let&#39;s throw away matching of operator name and do this in <code>MatchHelper</code> later:</p>
 <div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="k">static</span> <span class="n">StatementMatcher</span> <span class="n">opMatcher</span> <span class="o">=</span>
     <span class="n">forStmt</span><span class="p">(</span>                       <span class="c1">// for ([init]; [condition]; [increment])</span>
         <span class="n">hasIncrement</span><span class="p">(</span>              <span class="c1">// &quot;increment&quot; part of for-loop</span>
@@ -449,10 +449,10 @@ you can see matching specific operators is quite easy.  The crucial part in
 this case is to use right type of node.  Regular <code>CallExpr</code> won&#39;t let us to
 check for operator type, <code>CXXOperatorCallExpr</code> is needed instead.</p>
 
-<p>Now lets register new matcher in <code>MatchFinder</code>:</p>
+<p>Now let&#39;s register new matcher in <code>MatchFinder</code>:</p>
 <div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="n">finder</span><span class="p">.</span><span class="n">addMatcher</span><span class="p">(</span><span class="n">opMatcher</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">helper</span><span class="p">);</span>
 </code></pre></div>
-<p>Notice that by adding multiple matchers to match finder one can match different
+<p>Note that by adding multiple matchers to match finder one can match different
 things in one traverse through AST.</p>
 
 <h4>Formatting output</h4>
@@ -486,8 +486,8 @@ all we need to include more headers and add one more using directive:</p>
 <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">xaizek</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">clang</span><span class="o">-</span><span class="n">llvm</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">tst4</span><span class="p">.</span><span class="n">cpp</span><span class="o">:</span><span class="mi">24</span><span class="o">:</span><span class="n">dangerous</span> <span class="n">use</span> <span class="n">of</span> <span class="n">postfix</span> <span class="k">operator</span>
 </code></pre></div>
 <p>It&#39;s alike output of Unix grep command (with -F and -n switches) and can be accepted by many other tools
-out there, e.g. on can store output of the tool to a file and open it in Vim to
-navigate through errors and edit them like this:</p>
+accepted by many other tools out there, e.g. one can store output of the tool to
+a file and open it in Vim to navigate through errors and edit them like this:</p>
 <div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="n">bin</span><span class="o">/</span><span class="k">for</span><span class="o">-</span><span class="n">postfix</span> <span class="n">test</span><span class="p">.</span><span class="n">cpp</span> <span class="o">--</span> <span class="o">&gt;</span> <span class="n">errors</span><span class="o">-</span><span class="n">list</span>
 <span class="n">vim</span> <span class="o">-</span><span class="n">q</span> <span class="n">errors</span><span class="o">-</span><span class="n">list</span>
 </code></pre></div>
