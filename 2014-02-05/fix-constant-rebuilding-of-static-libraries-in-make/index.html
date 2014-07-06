@@ -45,7 +45,7 @@
       <div class="content">
   <div id="post">
     <script type="text/javascript">
-function showComments()
+function loadComments()
 {
   var disqus_shortname = 'snox';
   var disqus_identifier = '/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make';
@@ -130,7 +130,9 @@ $ make
 make: `lib.a&#39; is up to date.
 </code></pre></div>
 <div id="disqus_thread">
-  <a href="javascript:showComments()">Show comments</a>
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()">// load comments</a>
+  </span>
 </div>
 
   </div>

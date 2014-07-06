@@ -45,7 +45,7 @@
       <div class="content">
   <div id="post">
     <script type="text/javascript">
-function showComments()
+function loadComments()
 {
   var disqus_shortname = 'snox';
   var disqus_identifier = '/2014-07-04/removing-sendmail-from-mail-receiving-chain';
@@ -148,7 +148,9 @@ Basically one needs to specify <code>-f -</code> option for <em>procmail</em>, w
 a nice tool for small and simple diagrams like that one.</p>
 
 <div id="disqus_thread">
-  <a href="javascript:showComments()">Show comments</a>
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()">// load comments</a>
+  </span>
 </div>
 
   </div>

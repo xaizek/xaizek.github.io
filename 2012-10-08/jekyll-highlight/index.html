@@ -47,7 +47,7 @@
       <div class="content">
   <div id="post">
     <script type="text/javascript">
-function showComments()
+function loadComments()
 {
   var disqus_shortname = 'snox';
   var disqus_identifier = '/2012-10-08/jekyll-highlight';
@@ -127,7 +127,9 @@ very important thing is to start jekyll with <code>--pygments</code> argument, l
 <p>After this it all worked.</p>
 
 <div id="disqus_thread">
-  <a href="javascript:showComments()">Show comments</a>
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()">// load comments</a>
+  </span>
 </div>
 
   </div>

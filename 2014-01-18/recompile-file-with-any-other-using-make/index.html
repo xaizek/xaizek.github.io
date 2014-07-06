@@ -45,7 +45,7 @@
       <div class="content">
   <div id="post">
     <script type="text/javascript">
-function showComments()
+function loadComments()
 {
   var disqus_shortname = 'snox';
   var disqus_identifier = '/2014-01-18/recompile-file-with-any-other-using-make';
@@ -126,7 +126,9 @@ When all files (including output executable) are up to date, none of
 need to relink anything.</p>
 
 <div id="disqus_thread">
-  <a href="javascript:showComments()">Show comments</a>
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()">// load comments</a>
+  </span>
 </div>
 
   </div>

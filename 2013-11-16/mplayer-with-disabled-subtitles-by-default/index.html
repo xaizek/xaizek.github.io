@@ -43,7 +43,7 @@
       <div class="content">
   <div id="post">
     <script type="text/javascript">
-function showComments()
+function loadComments()
 {
   var disqus_shortname = 'snox';
   var disqus_identifier = '/2013-11-16/mplayer-with-disabled-subtitles-by-default';
@@ -148,7 +148,9 @@ set_property sub_visibility 0
 $ mplayer -input file=$HOME/.mplayer/init video.mkv
 </code></pre></div>
 <div id="disqus_thread">
-  <a href="javascript:showComments()">Show comments</a>
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()">// load comments</a>
+  </span>
 </div>
 
   </div>

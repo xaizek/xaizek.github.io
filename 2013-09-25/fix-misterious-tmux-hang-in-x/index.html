@@ -55,7 +55,7 @@
       <div class="content">
   <div id="post">
     <script type="text/javascript">
-function showComments()
+function loadComments()
 {
   var disqus_shortname = 'snox';
   var disqus_identifier = '/2013-09-25/fix-misterious-tmux-hang-in-x';
@@ -165,7 +165,9 @@ descriptor number 100 is unused.  This should generally be faster than forking
 a process.</p>
 
 <div id="disqus_thread">
-  <a href="javascript:showComments()">Show comments</a>
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()">// load comments</a>
+  </span>
 </div>
 
   </div>
