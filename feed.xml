@@ -58,41 +58,6 @@ install snd_mixer_oss
 			</item>
 		
 			<item>
-				<title>How to add route for PPTP tunnel automatically</title>
-                <description>&lt;p&gt;Had an issue with setting up correct routing rule for &lt;a href=&quot;https://en.wikipedia.org/wiki/VPN&quot;&gt;VPN&lt;/a&gt; network 
-through &lt;a href=&quot;https://en.wikipedia.org/wiki/PPTP&quot;&gt;PPTP&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;pppd&lt;/em&gt; didn&amp;#39;t add corresponding rule automatically and I couldn&amp;#39;t find 
-appropriate option to make it do so.  So I tried adding something like the
-following to the &lt;code&gt;/etc/ppp/ip-up&lt;/code&gt; script, which is invoked once network is
-connected:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash language-bash&quot; data-lang=&quot;bash&quot;&gt;route add -net 10.2.0.0 netmask 255.255.0.0 dev ppp0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;It didn&amp;#39;t work.  I thought maybe network is not available at the time the script
-is executed and tried:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;shopt&lt;/span&gt; -u huponexit
-&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; sleep 5 &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; route add -net 10.2.0.0 netmask 255.255.0.0 dev ppp0 &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Tests with simple scripts without root privileges indicated that the idea is
-correct, but output of the &lt;code&gt;route&lt;/code&gt; command after connecting to the &lt;em&gt;VPN&lt;/em&gt; still
-didn&amp;#39;t have the required item.&lt;/p&gt;
-
-&lt;p&gt;Looking on the Web trapped upon &lt;a href=&quot;http://stadar.org/content/ddwrt-pptp-client-add-routes-after-connection&quot;&gt;this post hardly relevant post&lt;/a&gt;.  It
-wasn&amp;#39;t really related to my problem, but I noticed these two lines:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/sbin/route add -net 172.16.2.0/24 gw 172.16.0.1&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; ip-up
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/sbin/route add -net 172.16.3.0/24 gw 172.16.0.1&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; ip-up
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;See the difference from my tries?  It&amp;#39;s &lt;code&gt;/sbin/route&lt;/code&gt;, not just &lt;code&gt;route&lt;/code&gt;.&lt;br&gt;
-I always forget about not to rely on &lt;code&gt;$PATH&lt;/code&gt; environment variable in scripts 
-executed with superuser rights, hence the idea of this post is to remind just
-that: &lt;strong&gt;prefer full paths in scripts executed with privileges of root user&lt;/strong&gt;.&lt;/p&gt;
-</description>
-				<pubDate>Sun, 06 Jul 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io//2014-07-06/pptp-add-route-automatically</link>
-				<guid isPermaLink="true">http://xaizek.github.io//2014-07-06/pptp-add-route-automatically</guid>
-			</item>
-		
-			<item>
 				<title>Removing sendmail from mail receiving chain</title>
                 <description>&lt;p&gt;One of common ways to receive mail includes using &lt;a href=&quot;https://en.wikipedia.org/wiki/Sendmail&quot;&gt;sendmail&lt;/a&gt; as
 an &lt;a href=&quot;https://en.wikipedia.org/wiki/Message_transfer_agent&quot;&gt;MTA&lt;/a&gt;.  This causes some inconvenience especially when it&amp;#39;s the
