@@ -9,7 +9,7 @@
 			<item>
 				<title>rexima: couldn't open mixer device</title>
                 <description>&lt;p&gt;After installing &lt;em&gt;Slackware 14.1&lt;/em&gt; on a new machine, I got unexpected output
-when tried to run &lt;a href=&quot;http://freecode.com/projects/rexima&quot;&gt;rexima&lt;/a&gt; interactive mixer (by the way, it&amp;#39;s in
+when tried to run &lt;a href=&quot;http://www.svgalib.org/rus/rexima.html&quot;&gt;rexima&lt;/a&gt; interactive mixer (by the way, it&amp;#39;s in
 &lt;code&gt;extra&lt;/code&gt; section of &lt;em&gt;Slackware&lt;/em&gt; packages, so search might silently skip it, just
 do &lt;code&gt;slackpkg install rexima&lt;/code&gt; to install it).  The output was:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;$ rexima
