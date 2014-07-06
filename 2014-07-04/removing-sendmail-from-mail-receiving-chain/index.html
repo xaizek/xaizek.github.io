@@ -78,9 +78,10 @@ line is this one:</p>
 not mention this useful option of <a href="https://en.wikipedia.org/wiki/Fetchmail">fetchmail</a>.  And leave it
 with default behaviour of sending mail to <em>localhost</em> <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a> server.</p>
 
-<p>So all one needs to cut <em>sendmail</em> from this chain is to set this option, but
-there is one caveat not described in the article linked above.  The option must
-be set <strong>for each account</strong> in your <em>fetchmail</em> configuration file, e.g.:</p>
+<p>For <a href="https://en.wikipedia.org/wiki/Maildir">Maildir</a> format all one needs to cut <em>sendmail</em> from this
+chain is to set this option, but there is one caveat not described in the
+article linked above.  The option must be set <strong>for each account</strong> in your
+<em>fetchmail</em> configuration file, e.g.:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text"># ...
 
 poll mail.example.com proto pop3
@@ -102,6 +103,19 @@ fetchmail: SMTP transaction error while fetching from mail.example.com and
 delivering to SMTP host localhost
 fetchmail: Query status=10 (SMTP)
 </code></pre></div>
+<p>For <em>Mailbox</em> format, it wont work out of the box because it requires leading
+<code>From ...</code> line for every contained message and won&#39;t work well: new mail will
+be delivered, but won&#39;t be visible in mail client (<a href="https://en.wikipedia.org/wiki/Mutt_(e-mail_client)">mutt</a>).
+Basically one needs to specify <code>-f -</code> option for <em>procmail</em>, which:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">-f fromwhom
+      Causes  procmail  to  regenerate  the leading `From &#39; line with fromwhom
+      as the sender (instead of -f one could use the alternate and obsolete
+      -r).  If fromwhom consists merely of a single `-&#39;, then procmail will
+      only update the timestamp on the `From &#39; line (if present, if not, it
+      will generate a  new one).
+</code></pre></div>
+<p>Read <a href="http://dev.mutt.org/trac/wiki/MuttFaq/Folder">this page of mutt FAQ</a> for more details.</p>
+
 <p>P.S.  The image at the top was generated with <strong><a href="http://ditaa.sourceforge.net/">ditaa</a></strong>, which is
 a nice tool for small and simple diagrams like that one.</p>
 
