@@ -44,7 +44,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>One of common ways to receive mail includes using <a href="https://en.wikipedia.org/wiki/Sendmail">sendmail</a> as
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-07-04/removing-sendmail-from-mail-receiving-chain';
+  var disqus_title = 'Removing sendmail from mail receiving chain [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-07-04/removing-sendmail-from-mail-receiving-chain';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>One of common ways to receive mail includes using <a href="https://en.wikipedia.org/wiki/Sendmail">sendmail</a> as
 an <a href="https://en.wikipedia.org/wiki/Message_transfer_agent">MTA</a>.  This causes some inconvenience especially when it&#39;s the
 only purpose <em>sendmail</em> is installed for.  To be able to receive mail
 <em>sendmail</em> deamon must be running all the time, which also means that it
@@ -126,6 +146,10 @@ Basically one needs to specify <code>-f -</code> option for <em>procmail</em>, w
 
 <p>P.S.  The image at the top was generated with <strong><a href="http://ditaa.sourceforge.net/">ditaa</a></strong>, which is
 a nice tool for small and simple diagrams like that one.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

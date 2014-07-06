@@ -42,7 +42,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Today I accidentally found a very unexpected thing in Vim.  While trying to
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-08/vim-wild-menu';
+  var disqus_title = 'Browsing directories using Vim's wildmenu [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-10-08/vim-wild-menu';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Today I accidentally found a very unexpected thing in Vim.  While trying to
 make wildmenu disappear I hit some of arrow keys and great truth was uncovered
 to me:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">one can browse file system in wildmenu using arrow keys!
@@ -75,6 +95,10 @@ can find this in the documentation (see <code>:help &#39;wildmenu&#39;</code>):<
 </code></pre></div>
 <p>So it may work with file system as a side effect of working for menus in the
 console.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

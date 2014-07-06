@@ -54,7 +54,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Recently support for processing escape sequences in preview window was added to
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-04-14/howto-set-xterm-256color-term-in-slackware';
+  var disqus_title = 'How to set `xterm-256color` type of terminal in xterm on Slackware Linux? [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Recently support for processing escape sequences in preview window was added to
 vifm.  So I added highlighting of source code in my preview window using
 <a href="https://sourceforge.net/projects/syntaxhighlight">highlight</a> tool specifying <code>-O ansi</code> to make it generate ansi compatible
 escape codes.  But some of syntax group obtained the same color, because I had
@@ -178,6 +198,10 @@ xterm-256color
 <p>Finally...  I thought it would be way easier and faster than that (it took a
 couple of hours).  The only question that&#39;s left is: why xterm is compiled to
 use termcap instead of terminfo on Slackware?</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

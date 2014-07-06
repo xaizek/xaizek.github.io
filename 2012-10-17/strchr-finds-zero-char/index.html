@@ -48,7 +48,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>As any other programmer once in a while I find some new tiny but quite useful
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-17/strchr-finds-zero-char';
+  var disqus_title = 'strchr() finds zero character [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-10-17/strchr-finds-zero-char';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>As any other programmer once in a while I find some new tiny but quite useful
 trick, which I then apply to my sources.  One of such trick is using of
 <code>strchr()</code> function to compare if a value of type <code>char</code> equals to one of
 values.</p>
@@ -86,6 +106,10 @@ comparing <code>c</code> to <code>a</code>, <code>b</code> and <code>x</code>, t
 <p>Which is wrong.  I&#39;m still using <code>strchr()</code> function when appropriate to do such
 multiple comparisons, but now I know more about its behaviour (and also being
 curious why it is so?).</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

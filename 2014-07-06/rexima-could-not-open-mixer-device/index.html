@@ -44,7 +44,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>After installing <em>Slackware 14.1</em> on a new machine, I got unexpected output
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-07-06/rexima-could-not-open-mixer-device';
+  var disqus_title = 'rexima: couldn't open mixer device [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-07-06/rexima-could-not-open-mixer-device';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>After installing <em>Slackware 14.1</em> on a new machine, I got unexpected output
 when tried to run <a href="http://www.svgalib.org/rus/rexima.html">rexima</a> interactive mixer (by the way, it&#39;s in
 <code>extra</code> section of <em>Slackware</em> packages, so search might silently skip it, just
 do <code>slackpkg install rexima</code> to install it).  The output was:</p>
@@ -88,6 +108,10 @@ absent on my machine:</p>
 # enable /dev/mixer device to be able to use rexima
 install snd_mixer_oss
 </code></pre></div>
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
+
   </div>
 </div>
 

@@ -46,7 +46,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <h3>Introduction</h3>
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-05-02/detecting-postfix-operators-in-for-loops';
+  var disqus_title = 'Clang by example: Detecting postfix operators in for loops [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h3>Introduction</h3>
 
 <h4>Foreword</h4>
 
@@ -511,6 +531,10 @@ the LLVM and related projects, such as the Clang compiler.</p></li>
 <li><p><a href="https://github.com/xaizek/for-postfix">GitHub repository of for-postfix tool</a>.</p></li>
 <li><p><a href="http://habrahabr.ru/post/148508/">Clang API. Basics (in Russian)</a></p></li>
 </ul>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

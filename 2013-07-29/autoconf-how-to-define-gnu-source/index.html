@@ -46,7 +46,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Mainly for historical reasons, vifm contained the following pieces of code:</p>
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-07-29/autoconf-how-to-define-gnu-source';
+  var disqus_title = 'How to define `_GNU_SOURCE` correctly with autoconf [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-07-29/autoconf-how-to-define-gnu-source';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Mainly for historical reasons, vifm contained the following pieces of code:</p>
 
 <!-- cut -->
 <div class="highlight"><pre><code class="c language-c" data-lang="c"><span class="cp">#define _GNU_SOURCE </span><span class="cm">/* I don&#39;t know how portable this is but it is</span>
@@ -132,6 +152,10 @@ solution.  <code>AC_DEFINE</code> produces:</p>
 <span class="gi">+#undef _POSIX_SOURCE</span>
 <span class="gi">+</span>
 </code></pre></div>
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
+
   </div>
 </div>
 

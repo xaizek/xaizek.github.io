@@ -46,7 +46,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <h3>Simple profiling using standard <code>cProfile</code> module</h3>
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-02-04/how-to-profile-packaged-python-app';
+  var disqus_title = 'How to profile python application packaged via py2exe [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h3>Simple profiling using standard <code>cProfile</code> module</h3>
 
 <p>Usually a command similar to the one below is used to profile an application:</p>
 <div class="highlight"><pre><code class="bash language-bash" data-lang="bash">python -m cProfile -o app.prof app.py arg1 arg2
@@ -79,6 +99,10 @@ interpreted by a builtin interpreter and it&#39;s not as easy to run profiler.</
 
 <p>It&#39;s not that hard to get how to do this, but as I usually don&#39;t profile code
 written in python, it took some time to get this done.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

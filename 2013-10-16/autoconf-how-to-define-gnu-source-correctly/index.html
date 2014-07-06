@@ -46,7 +46,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p><code>_XOPEN_SOURCE</code></p>
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-10-16/autoconf-how-to-define-gnu-source-correctly';
+  var disqus_title = 'How to define `_GNU_SOURCE` correctly with autoconf correctly [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-10-16/autoconf-how-to-define-gnu-source-correctly';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p><code>_XOPEN_SOURCE</code></p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">dnl Request some additional extensions.  The macro makes it possible to use
 dnl features of Posix that are extensions to C, as well as platform extensions
 dnl not defined by Posix.
@@ -138,6 +158,10 @@ solution.  <code>AC_DEFINE</code> produces:</p>
 <span class="gi">+#undef _POSIX_SOURCE</span>
 <span class="gi">+</span>
 </code></pre></div>
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
+
   </div>
 </div>
 

@@ -46,7 +46,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>I was wondering how can I connect to my laptop from work for some time, but
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-10/bypass-two-nats-using-ssh';
+  var disqus_title = 'How to connect a computer behind NAT to another computer behind NAT using ssh [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-10-10/bypass-two-nats-using-ssh';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>I was wondering how can I connect to my laptop from work for some time, but
 didn&#39;t know how to do that without using VPN.  I even decided that it&#39;s
 impossible to do something simple, but then... I realized that a third party
 server to which I have access through ssh can be used for this.</p>
@@ -151,6 +171,10 @@ couple of tips one can use to handle this:</p>
 <li>Press <code>CTRL-S</code> key, which will suspend shell, so it won&#39;t react until you use
 <code>CTRL-Q</code> to resume it.</li>
 </ol>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

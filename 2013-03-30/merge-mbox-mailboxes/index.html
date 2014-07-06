@@ -46,7 +46,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>This sounds like an easy task at first.  But after looking on the Internet for a
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-03-30/merge-mbox-mailboxes';
+  var disqus_title = 'How to merge mailbox files of mbox format? [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-03-30/merge-mbox-mailboxes';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>This sounds like an easy task at first.  But after looking on the Internet for a
 working and ready to be used solution, it turned out to be not so easy to find.
 There were some old scripts in python, but they didn&#39;t look very promising to
 me.  So after spending some time on search <a href="http://does-not-exist.org/mail-archives/mutt-users/msg03132.html">this answer to my question</a> was
@@ -104,6 +124,10 @@ deletion should be purged.</p>
 <li>mutt user manual on <code>exec</code> command</li>
 <li><code>man muttrc</code> on <code>~=</code> and other patterns</li>
 </ul>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

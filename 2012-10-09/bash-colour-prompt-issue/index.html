@@ -50,7 +50,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <h3>Prehistory</h3>
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-09/bash-colour-prompt-issue';
+  var disqus_title = 'An issue with colour prompt in bash [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-10-09/bash-colour-prompt-issue';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h3>Prehistory</h3>
 
 <p>Once I read somewhere that it&#39;s possible to add some colours to your shell&#39;s
 (bash in my case) prompt using escape sequences.  I thought that it will
@@ -87,6 +107,10 @@ command lines.  One just needs to enclose all non-printable characters in
 <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\\[\033[31m\\][\\w]\\$ \\[\033[0m\\]&quot;</span>
 </code></pre></div>
 <p>I think no one will argue that this makes work in terminal a bit nicer.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

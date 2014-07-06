@@ -44,7 +44,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <h3>The issue explained</h3>
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make';
+  var disqus_title = 'Fix constant rebuilding of static libraries by GNU make [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h3>The issue explained</h3>
 
 <p>Say directory structure is as follows:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">$ tree
@@ -109,6 +129,10 @@ touch lib.a
 $ make
 make: `lib.a&#39; is up to date.
 </code></pre></div>
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
+
   </div>
 </div>
 

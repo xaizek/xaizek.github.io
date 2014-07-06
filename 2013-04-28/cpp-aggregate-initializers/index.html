@@ -46,7 +46,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Today I found an interesting statement on one of forum pages of <a href="http://www.linux.org.ru/forum/development/9110363">LOR</a>:
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-04-28/cpp-aggregate-initializers';
+  var disqus_title = 'Flattened aggregate initializers in C and C++ [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-04-28/cpp-aggregate-initializers';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Today I found an interesting statement on one of forum pages of <a href="http://www.linux.org.ru/forum/development/9110363">LOR</a>:
 initializers of inner aggregates can be flattened.</p>
 
 <!-- cut -->
@@ -185,6 +205,10 @@ flattened-ctors.cpp:25:5: error: could not convert ‘4’ from ‘int’ to ‘
 flattened-ctors.cpp:25:5: error: could not convert ‘5’ from ‘int’ to ‘const item’
 flattened-ctors.cpp:25:5: error: could not convert ‘6’ from ‘int’ to ‘const item’
 </code></pre></div>
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
+
   </div>
 </div>
 

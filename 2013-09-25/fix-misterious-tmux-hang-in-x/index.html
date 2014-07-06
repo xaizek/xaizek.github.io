@@ -54,7 +54,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Recently I needed to use tmux.  Turned out that it wasn&#39;t even installed on my
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-09-25/fix-misterious-tmux-hang-in-x';
+  var disqus_title = 'Fix tmux hang in X [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-09-25/fix-misterious-tmux-hang-in-x';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Recently I needed to use tmux.  Turned out that it wasn&#39;t even installed on my
 system, which, of course, wasn&#39;t a problem.  After it was installed and ran I
 was presented with a prompt that didn&#39;t responed to anything.  The only thing
 that worked well was <code>pkill tmux</code>.</p>
@@ -143,6 +163,10 @@ case).</li>
 <p>I chose to use the second variant even though it requires assumption that file
 descriptor number 100 is unused.  This should generally be faster than forking
 a process.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

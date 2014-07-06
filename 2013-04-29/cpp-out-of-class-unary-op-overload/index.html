@@ -42,7 +42,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>This may sound strange, but it seems that I have never thought about overloading
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-04-29/cpp-out-of-class-unary-op-overload';
+  var disqus_title = 'Out-of-class overload of unary operators in C++ [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-04-29/cpp-out-of-class-unary-op-overload';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>This may sound strange, but it seems that I have never thought about overloading
 of unary operators in C++, which are not implemented as member functions.  It&#39;s
 not like it sounds strange or incorrect, I just never wanted to do it.  So, just
 to be able to say &quot;I did it at least once&quot;, lets try it out on a very basic
@@ -74,6 +94,10 @@ example with overloading of postfix increment operator:</p>
 </code></pre></div>
 <p>That&#39;s it.  I don&#39;t have anything more to say about it, because the idea of this
 post is to fix the fact about this simple thing.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

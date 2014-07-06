@@ -44,7 +44,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>This is a very simple thing, but I just can&#39;t make myself remember it. So here
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-03-30/operate-on-selection-in-mutt';
+  var disqus_title = 'How to operate on selection in mutt? [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-03-30/operate-on-selection-in-mutt';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>This is a very simple thing, but I just can&#39;t make myself remember it. So here
 is how it&#39;s done:</p>
 
 <!-- cut -->
@@ -56,6 +76,10 @@ by any other command you want to apply to the selected items.</li>
 </ol>
 
 <p>Basically, that&#39;s all I wanted to write.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

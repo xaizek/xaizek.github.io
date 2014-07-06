@@ -46,7 +46,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>It&#39;s not hard to do, but not as easy as one might expect.  So here are the main
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-08/jekyll-highlight';
+  var disqus_title = 'Enabling code highlighing in jekyll [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-10-08/jekyll-highlight';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>It&#39;s not hard to do, but not as easy as one might expect.  So here are the main
 steps one need to follow to make code highlighing work:</p>
 
 <!-- cut -->
@@ -105,6 +125,10 @@ very important thing is to start jekyll with <code>--pygments</code> argument, l
 <div class="highlight"><pre><code class="bash language-bash" data-lang="bash">jekyll --server --pygments
 </code></pre></div>
 <p>After this it all worked.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

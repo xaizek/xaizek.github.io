@@ -44,7 +44,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Unfortunately, some features of well known programming languages are much less
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-18/java-double-brace-initializers';
+  var disqus_title = 'Double brace initializers in Java [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-10-18/java-double-brace-initializers';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Unfortunately, some features of well known programming languages are much less
 known than others.  Eventually, those unknown features are quite powerful and
 useful.  Today I&#39;m going to describe so called &quot;double brace initialization&quot;
 in Java, which is quite similar (and more powerful) than object initializers of
@@ -142,6 +162,10 @@ well as of some runtime overhead because of additional derived class in class
 hierarchy.</p>
 
 <p>Also since we use subclassing, this won&#39;t work with final classes.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>

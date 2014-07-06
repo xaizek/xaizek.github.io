@@ -42,7 +42,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <h3>Pre-history</h3>
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-11-16/mplayer-with-disabled-subtitles-by-default';
+  var disqus_title = 'How to disable subtitles in mplayer by default [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-11-16/mplayer-with-disabled-subtitles-by-default';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h3>Pre-history</h3>
 
 <p>I really like <code>mplayer</code> because:</p>
 
@@ -127,6 +147,10 @@ $ cat ~/.mplayer/init
 set_property sub_visibility 0
 $ mplayer -input file=$HOME/.mplayer/init video.mkv
 </code></pre></div>
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
+
   </div>
 </div>
 

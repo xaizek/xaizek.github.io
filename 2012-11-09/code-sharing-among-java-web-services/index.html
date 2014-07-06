@@ -50,7 +50,27 @@
     <section>
       <div class="content">
   <div id="post">
-    <p>Some time ago I&#39;ve spent a lot of time trying to figure out how one can share
+    <script type="text/javascript">
+function showComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-11-09/code-sharing-among-java-web-services';
+  var disqus_title = 'How to share code among several Web-service applications written in Java [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-11-09/code-sharing-among-java-web-services';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Some time ago I&#39;ve spent a lot of time trying to figure out how one can share
 common parts of code in two Web-services running in <a href="http://tomcat.apache.org/">Apache Tomcat</a>.  What I
 wanted is to move several packages to a separate Eclipse project and refer to it
 from several other projects.  Somewhere on the Web a nice list of options to
@@ -68,6 +88,10 @@ the issue.  I just investigated what I did to make it work and decided to
 document it.  The answer is simple as &quot;just put jar file to the <code>lib</code> directory
 of Tomcat&quot;.  And that&#39;s it, don&#39;t forget to regenerate it after making changes
 in shared code.</p>
+
+<div id="disqus_thread">
+  <a href="javascript:showComments()">Show comments</a>
+</div>
 
   </div>
 </div>
