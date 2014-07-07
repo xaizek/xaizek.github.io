@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to add route for PPTP tunnel automatically</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg"/>
+          </a>
+        </span>
+      </h4>
+      <h1>How to add route for PPTP tunnel automatically</h1>
+      <h5 class="post_date">July  7, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/bash">bash</a>]
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/issue">issue</a>]
+        
+        [<a href="/tag/linux">linux</a>]
+        
+        [<a href="/tag/network">network</a>]
+        
+        [<a href="/tag/shell">shell</a>]
+        
+        [<a href="/tag/slackware">slackware</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-07-07/pptp-add-route-automatically';
+  var disqus_title = 'How to add route for PPTP tunnel automatically [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-07-07/pptp-add-route-automatically';
+
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Had an issue with setting up correct routing rule for <a href="https://en.wikipedia.org/wiki/VPN">VPN</a> network
+through <a href="https://en.wikipedia.org/wiki/PPTP">PPTP</a>.</p>
+
+<p><em>pppd</em> didn&#39;t add corresponding rule automatically and I couldn&#39;t find
+appropriate option to make it do so.  So I tried adding something like the
+following to the <code>/etc/ppp/ip-up</code> script, which is invoked once network is
+connected:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">route add -net 10.2.0.0 netmask 255.255.0.0 dev ppp0
+</code></pre></div>
+<p>It didn&#39;t work.  I thought maybe network is not available at the time the script
+is executed and tried:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nb">shopt</span> -u huponexit
+<span class="o">(</span> sleep 5 <span class="o">&amp;&amp;</span> route add -net 10.2.0.0 netmask 255.255.0.0 dev ppp0 <span class="o">)</span> &amp;
+</code></pre></div>
+<p>Tests with simple scripts without root privileges indicated that the idea is
+correct, but output of the <code>route</code> command after connecting to the <em>VPN</em> still
+didn&#39;t have the required item.</p>
+
+<p>Looking on the Web trapped upon <a href="http://stadar.org/content/ddwrt-pptp-client-add-routes-after-connection">this hardly relevant post</a>.  It&#39;s not
+really related to the issue, but I noticed these two lines:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&quot;/sbin/route add -net 172.16.2.0/24 gw 172.16.0.1&quot;</span> &gt;&gt; ip-up
+<span class="nb">echo</span> <span class="s2">&quot;/sbin/route add -net 172.16.3.0/24 gw 172.16.0.1&quot;</span> &gt;&gt; ip-up
+</code></pre></div>
+<p>See something different comparing to commands in snippets above?  It&#39;s
+<code>/sbin/route</code>, not just <code>route</code>.</p>
+
+<p>I always forget about not to rely on <code>$PATH</code> environment variable in scripts
+executed with superuser rights, hence the idea of this post is to remind just
+that: <strong>prefer full paths in scripts executed with privileges of root user</strong>.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()">// load comments</a>
+  </span>
+</div>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
