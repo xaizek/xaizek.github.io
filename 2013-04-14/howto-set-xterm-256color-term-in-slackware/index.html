@@ -57,11 +57,6 @@
     <script type="text/javascript">
 function loadComments()
 {
-  var disqus_shortname = 'snox';
-  var disqus_identifier = '/2013-04-14/howto-set-xterm-256color-term-in-slackware';
-  var disqus_title = 'How to set `xterm-256color` type of terminal in xterm on Slackware Linux? [SNOX]';
-  var disqus_url = 'http://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware';
-
   (function()
    {
      var dsq = document.createElement('script');
@@ -201,9 +196,26 @@ use termcap instead of terminfo on Slackware?</p>
 
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()">// load comments</a>
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2013-04-14/howto-set-xterm-256color-term-in-slackware">
+      // load comments
+    </a>
   </span>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-04-14/howto-set-xterm-256color-term-in-slackware';
+  var disqus_title = 'How to set `xterm-256color` type of terminal in xterm on Slackware Linux? [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
 
   </div>
 </div>

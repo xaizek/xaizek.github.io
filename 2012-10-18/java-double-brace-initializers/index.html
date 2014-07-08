@@ -47,11 +47,6 @@
     <script type="text/javascript">
 function loadComments()
 {
-  var disqus_shortname = 'snox';
-  var disqus_identifier = '/2012-10-18/java-double-brace-initializers';
-  var disqus_title = 'Double brace initializers in Java [SNOX]';
-  var disqus_url = 'http://xaizek.github.io/2012-10-18/java-double-brace-initializers';
-
   (function()
    {
      var dsq = document.createElement('script');
@@ -165,9 +160,26 @@ hierarchy.</p>
 
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()">// load comments</a>
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2012-10-18/java-double-brace-initializers">
+      // load comments
+    </a>
   </span>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-18/java-double-brace-initializers';
+  var disqus_title = 'Double brace initializers in Java [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-10-18/java-double-brace-initializers';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
 
   </div>
 </div>

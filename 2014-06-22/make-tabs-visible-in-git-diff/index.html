@@ -53,11 +53,6 @@
     <script type="text/javascript">
 function loadComments()
 {
-  var disqus_shortname = 'snox';
-  var disqus_identifier = '/2014-06-22/make-tabs-visible-in-git-diff';
-  var disqus_title = 'How to make tabs visible in git diff [SNOX]';
-  var disqus_url = 'http://xaizek.github.io/2014-06-22/make-tabs-visible-in-git-diff';
-
   (function()
    {
      var dsq = document.createElement('script');
@@ -128,9 +123,26 @@ so I&#39;ll leave it as it is.</p>
 
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()">// load comments</a>
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-06-22/make-tabs-visible-in-git-diff">
+      // load comments
+    </a>
   </span>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-06-22/make-tabs-visible-in-git-diff';
+  var disqus_title = 'How to make tabs visible in git diff [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-06-22/make-tabs-visible-in-git-diff';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
 
   </div>
 </div>

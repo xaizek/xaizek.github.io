@@ -49,11 +49,6 @@
     <script type="text/javascript">
 function loadComments()
 {
-  var disqus_shortname = 'snox';
-  var disqus_identifier = '/2014-05-02/detecting-postfix-operators-in-for-loops';
-  var disqus_title = 'Clang by example: Detecting postfix operators in for loops [SNOX]';
-  var disqus_url = 'http://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops';
-
   (function()
    {
      var dsq = document.createElement('script');
@@ -534,9 +529,26 @@ the LLVM and related projects, such as the Clang compiler.</p></li>
 
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()">// load comments</a>
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-05-02/detecting-postfix-operators-in-for-loops">
+      // load comments
+    </a>
   </span>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-05-02/detecting-postfix-operators-in-for-loops';
+  var disqus_title = 'Clang by example: Detecting postfix operators in for loops [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
 
   </div>
 </div>

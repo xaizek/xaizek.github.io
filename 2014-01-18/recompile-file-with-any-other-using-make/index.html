@@ -47,11 +47,6 @@
     <script type="text/javascript">
 function loadComments()
 {
-  var disqus_shortname = 'snox';
-  var disqus_identifier = '/2014-01-18/recompile-file-with-any-other-using-make';
-  var disqus_title = 'How to recompile source file on each build using make [SNOX]';
-  var disqus_url = 'http://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make';
-
   (function()
    {
      var dsq = document.createElement('script');
@@ -127,9 +122,26 @@ need to relink anything.</p>
 
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()">// load comments</a>
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-01-18/recompile-file-with-any-other-using-make">
+      // load comments
+    </a>
   </span>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-01-18/recompile-file-with-any-other-using-make';
+  var disqus_title = 'How to recompile source file on each build using make [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
 
   </div>
 </div>

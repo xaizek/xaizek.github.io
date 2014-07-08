@@ -49,11 +49,6 @@
     <script type="text/javascript">
 function loadComments()
 {
-  var disqus_shortname = 'snox';
-  var disqus_identifier = '/2014-02-04/how-to-profile-packaged-python-app';
-  var disqus_title = 'How to profile python application packaged via py2exe [SNOX]';
-  var disqus_url = 'http://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app';
-
   (function()
    {
      var dsq = document.createElement('script');
@@ -102,9 +97,26 @@ written in python, it took some time to get this done.</p>
 
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()">// load comments</a>
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-02-04/how-to-profile-packaged-python-app">
+      // load comments
+    </a>
   </span>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-02-04/how-to-profile-packaged-python-app';
+  var disqus_title = 'How to profile python application packaged via py2exe [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
 
   </div>
 </div>

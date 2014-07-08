@@ -53,11 +53,6 @@
     <script type="text/javascript">
 function loadComments()
 {
-  var disqus_shortname = 'snox';
-  var disqus_identifier = '/2012-10-11/configuring-keys-in-less';
-  var disqus_title = 'Configuring keys in less [SNOX]';
-  var disqus_url = 'http://xaizek.github.io/2012-10-11/configuring-keys-in-less';
-
   (function()
    {
      var dsq = document.createElement('script');
@@ -113,9 +108,26 @@ press <code>Control-N</code> and <code>Control-P</code> to check if it works, we
 
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()">// load comments</a>
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2012-10-11/configuring-keys-in-less">
+      // load comments
+    </a>
   </span>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-11/configuring-keys-in-less';
+  var disqus_title = 'Configuring keys in less [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2012-10-11/configuring-keys-in-less';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
 
   </div>
 </div>

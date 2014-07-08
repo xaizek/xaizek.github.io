@@ -49,11 +49,6 @@
     <script type="text/javascript">
 function loadComments()
 {
-  var disqus_shortname = 'snox';
-  var disqus_identifier = '/2013-04-28/cpp-aggregate-initializers';
-  var disqus_title = 'Flattened aggregate initializers in C and C++ [SNOX]';
-  var disqus_url = 'http://xaizek.github.io/2013-04-28/cpp-aggregate-initializers';
-
   (function()
    {
      var dsq = document.createElement('script');
@@ -207,9 +202,26 @@ flattened-ctors.cpp:25:5: error: could not convert ‘6’ from ‘int’ to ‘
 </code></pre></div>
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()">// load comments</a>
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2013-04-28/cpp-aggregate-initializers">
+      // load comments
+    </a>
   </span>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-04-28/cpp-aggregate-initializers';
+  var disqus_title = 'Flattened aggregate initializers in C and C++ [SNOX]';
+  var disqus_url = 'http://xaizek.github.io/2013-04-28/cpp-aggregate-initializers';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
 
   </div>
 </div>
