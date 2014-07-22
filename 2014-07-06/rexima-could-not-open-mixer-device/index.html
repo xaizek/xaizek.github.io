@@ -66,6 +66,8 @@ do <code>slackpkg install rexima</code> to install it).  The output was:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">$ rexima
 rexima: couldn&#39;t open mixer device.
 </code></pre></div>
+<!-- cut -->
+
 <p>Examining with <a href="http://linux.die.net/man/1/strace">strace</a> gave such results:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">$ strace -e trace=open rexima
 open(&quot;/etc/ld.so.cache&quot;, O_RDONLY|O_CLOEXEC) = 3

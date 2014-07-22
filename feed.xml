@@ -7,6 +7,18 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Prefer plain text format over HTML in mutt</title>
+                <description>&lt;p&gt;Although this subject is covered in multiple sources, it&amp;#39;s hard to find it for
+some reason or at least it wasn&amp;#39;t that easy for me.  That&amp;#39;s why I repeat it
+once again here and provide links to more verbose explanations.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 22 Jul 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-07-22/prefer-plain-text-format-over-html-in-mutt</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-07-22/prefer-plain-text-format-over-html-in-mutt</guid>
+			</item>
+		
+			<item>
 				<title>How to add route for PPTP tunnel automatically</title>
                 <description>&lt;p&gt;Had an issue with setting up correct routing rule for &lt;a href=&quot;https://en.wikipedia.org/wiki/VPN&quot;&gt;VPN&lt;/a&gt; network
 through &lt;a href=&quot;https://en.wikipedia.org/wiki/PPTP&quot;&gt;PPTP&lt;/a&gt;.&lt;/p&gt;
@@ -26,43 +38,7 @@ do &lt;code&gt;slackpkg install rexima&lt;/code&gt; to install it).  The output 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;$ rexima
 rexima: couldn&amp;#39;t open mixer device.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Examining with &lt;a href=&quot;http://linux.die.net/man/1/strace&quot;&gt;strace&lt;/a&gt; gave such results:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;$ strace -e trace=open rexima
-open(&amp;quot;/etc/ld.so.cache&amp;quot;, O_RDONLY|O_CLOEXEC) = 3
-open(&amp;quot;/lib64/libncurses.so.5&amp;quot;, O_RDONLY|O_CLOEXEC) = 3
-open(&amp;quot;/lib64/libc.so.6&amp;quot;, O_RDONLY|O_CLOEXEC) = 3
-open(&amp;quot;/lib64/libdl.so.2&amp;quot;, O_RDONLY|O_CLOEXEC) = 3
-open(&amp;quot;/dev/mixer&amp;quot;, O_RDWR)              = -1 ENOENT (No such file or directory)
-rexima: couldn&amp;#39;t open mixer device.
-+++ exited with 1 +++
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;And:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;$ ls /dev/mixer
-/bin/ls: cannot access /dev/mixer: No such file or directory
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;No wonder it couldn&amp;#39;t open mixer device...&lt;/p&gt;
-
-&lt;p&gt;Searching for possible solution revealed &lt;a href=&quot;https://www.linuxquestions.org/questions/slackware-14/where-is-dev-mixer-214720/#post1120996&quot;&gt;this forum post&lt;/a&gt;
-(excerpt):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;/dev/mixer and /dev/dsp are legacies from the OSS days, as I understand it..
-You&amp;#39;ll only be able to use them if you&amp;#39;ve got those emulation modules
-loaded and working.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Don&amp;#39;t know enough about sound subsystem, but those modules were definitely
-absent on my machine:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;# lsmod | grep oss
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;So I installed &lt;code&gt;snd_mixer_oss&lt;/code&gt; (got its name from that forum post):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;# modprobe snd_mixer_oss
-# ls /dev/mixer
-/dev/mixer
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Running &lt;code&gt;rexima&lt;/code&gt; works well now.  Well, until reboot.  For persistance I created
-&lt;code&gt;/etc/modprobe.d/sound-oss.conf&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;$ cat /etc/modprobe.d/sound-oss.conf
-# enable /dev/mixer device to be able to use rexima
-install snd_mixer_oss
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+</description>
 				<pubDate>Sun, 06 Jul 2014 00:00:00 +0300</pubDate>
 				<link>http://xaizek.github.io//2014-07-06/rexima-could-not-open-mixer-device</link>
 				<guid isPermaLink="true">http://xaizek.github.io//2014-07-06/rexima-could-not-open-mixer-device</guid>
