@@ -7,6 +7,19 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>csplit: splitting text files by separator line pattern</title>
+                <description>&lt;p&gt;To split files by number of bytes or lines there is standard
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Split_(Unix)&quot;&gt;&lt;code&gt;split&lt;/code&gt;&lt;/a&gt; command, but how to break file into pieces of variable
+size that are delimited by a separator?  Search revealed
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Csplit&quot;&gt;&lt;code&gt;csplit&lt;/code&gt;&lt;/a&gt; tool, hence this quick overview with a small example.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 23 Jul 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-07-23/splitting-text-files-by-pattern</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-07-23/splitting-text-files-by-pattern</guid>
+			</item>
+		
+			<item>
 				<title>Prefer plain text format over HTML in mutt</title>
                 <description>&lt;p&gt;Although this subject is covered in multiple sources, it&amp;#39;s hard to find it for
 some reason or at least it wasn&amp;#39;t that easy for me.  That&amp;#39;s why I repeat it

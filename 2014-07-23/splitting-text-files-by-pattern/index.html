@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>csplit: splitting text files by separator line pattern</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg"/>
+          </a>
+        </span>
+      </h4>
+      <h1>csplit: splitting text files by separator line pattern</h1>
+      <h5 class="post_date">July 23, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/gnu">gnu</a>]
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/linux">linux</a>]
+        
+        [<a href="/tag/shell">shell</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>To split files by number of bytes or lines there is standard
+<a href="https://en.wikipedia.org/wiki/Split_(Unix)"><code>split</code></a> command, but how to break file into pieces of variable
+size that are delimited by a separator?  Search revealed
+<a href="https://en.wikipedia.org/wiki/Csplit"><code>csplit</code></a> tool, hence this quick overview with a small example.</p>
+
+<!-- cut -->
+
+<p>Here only string pattern will be shown, see documentation for more.</p>
+
+<p>Let&#39;s assume the following input file <code>input</code> (note variable size of sections):</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">first section
+
+=============
+
+second section
+second section
+
+=============
+
+third section
+third section
+third section
+</code></pre></div>
+<p>Desired output is (or something close to this, the example is artificial, in
+real life file might contain thousands of lines and tenth of sections):</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">first section
+</code></pre></div><div class="highlight"><pre><code class="text language-text" data-lang="text">second section
+second section
+</code></pre></div><div class="highlight"><pre><code class="text language-text" data-lang="text">third section
+third section
+third section
+</code></pre></div>
+<h4>Break once</h4>
+
+<p>First try in which we&#39;re passing regular expression to match separator
+(<code>===...</code>):</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>csplit input /<span class="o">===</span>/
+</code></pre></div>
+<p>and getting two files as the output: <code>xx00</code> and <code>xx01</code>.  What happened is that
+input file was splitted only once at first separator: all above it went to
+<code>xx00</code> and everything else to <code>xx01</code>.</p>
+
+<h4>Break as many times as possible</h4>
+
+<p>Need to request pattern repetition by passing <code>{*}</code>:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>csplit input /<span class="o">===</span>/ <span class="o">{</span>*<span class="o">}</span>
+</code></pre></div>
+<p>This time five files are created.</p>
+
+<h4>Better file names</h4>
+
+<p>Names like <code>xx{digits}</code> are not very informative, so it&#39;s better to provide
+custom output file prefix with <code>--prefix</code> option (<code>-f</code> is its short version):</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash"><span class="nv">$ </span>csplit --prefix<span class="o">=</span>input. input /<span class="o">===</span>/ <span class="o">{</span>*<span class="o">}</span>
+</code></pre></div>
+<p>And get:</p>
+
+<ul>
+<li>input.00</li>
+</ul>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">first section
+ 
+</code></pre></div>
+<ul>
+<li>input.01</li>
+</ul>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">=============
+
+second section
+second section
+ 
+</code></pre></div>
+<ul>
+<li>input.02</li>
+</ul>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">=============
+
+third section
+third section
+third section
+</code></pre></div>
+<p>Output files might still require some post-processing to remove
+leading/trailing lines, but it&#39;s still much better than splitting long text
+files manually, one doesn&#39;t even need to write a program or a script to do it,
+it&#39;s already there.</p>
+
+<p>There some more useful options and types of pattern, so take a look at <a href="http://www.computerhope.com/unix/ucsplit.htm">this
+page</a>, which repeats content of <a href="http://linux.die.net/man/1/csplit">the manual page</a> in
+HTML format or just read <a href="http://linux.die.net/man/1/csplit">man csplit</a>.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-07-23/splitting-text-files-by-pattern">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-07-23/splitting-text-files-by-pattern';
+  var disqus_title = 'csplit: splitting text files by separator line pattern -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-07-23/splitting-text-files-by-pattern';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
