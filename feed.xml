@@ -7,6 +7,104 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Clang by example: Detecting unused functions</title>
+                <description>&lt;h4&gt;TOC&lt;/h4&gt;
+
+&lt;ol&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;li&gt;
+&lt;a href='/2014-05-02/detecting-postfix-operators-in-for-loops'&gt; Detecting postfix operators in for loops&lt;/a&gt;
+
+&lt;/li&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;li&gt;
+&lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
+
+(you are here)
+
+&lt;/li&gt;
+
+
+&lt;/ol&gt;
+
+&lt;h3&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;This memo provides description of a tool that scans a set of source files
+looking for two types of functions declared with external linkage:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Those that are defined, but completely unused.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Those that are used only inside same translation unit they are defined in.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+				<pubDate>Thu, 28 Aug 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-08-28/detecting-unused-functions</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-08-28/detecting-unused-functions</guid>
+			</item>
+		
+			<item>
 				<title>csplit: splitting text files by separator line pattern</title>
                 <description>&lt;p&gt;To split files by number of bytes or lines there is standard
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Split_(Unix)&quot;&gt;&lt;code&gt;split&lt;/code&gt;&lt;/a&gt; command, but how to break file into pieces of variable
@@ -92,7 +190,87 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 		
 			<item>
 				<title>Clang by example: Detecting postfix operators in for loops</title>
-                <description>&lt;h3&gt;Introduction&lt;/h3&gt;
+                <description>&lt;h4&gt;TOC&lt;/h4&gt;
+
+&lt;ol&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;li&gt;
+&lt;a href='/2014-05-02/detecting-postfix-operators-in-for-loops'&gt; Detecting postfix operators in for loops&lt;/a&gt;
+
+(you are here)
+
+&lt;/li&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;li&gt;
+&lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
+
+&lt;/li&gt;
+
+
+&lt;/ol&gt;
+
+&lt;h3&gt;Introduction&lt;/h3&gt;
 
 &lt;h4&gt;Foreword&lt;/h4&gt;
 
