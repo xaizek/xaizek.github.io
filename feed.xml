@@ -7,6 +7,18 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Decrease LILO kernel load time</title>
+                <description>&lt;p&gt;Opened my &lt;a href=&quot;https://en.wikipedia.org/wiki/LILO_(boot_loader)&quot;&gt;LILO&lt;/a&gt; configuration file (&lt;code&gt;/etc/lilo.conf&lt;/code&gt;) recently to
+take a look at video mode options and noticed this line:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;cfg language-cfg&quot; data-lang=&quot;cfg&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#compact        # faster, but won&amp;#39;t work on all systems.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Tue, 02 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-09-02/boot-with-lilo-faster</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-09-02/boot-with-lilo-faster</guid>
+			</item>
+		
+			<item>
 				<title>Clang by example: Detecting unused functions</title>
                 <description>&lt;h4&gt;TOC&lt;/h4&gt;
 
@@ -84,6 +96,8 @@
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 &lt;/ol&gt;
@@ -266,6 +280,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 &lt;/ol&gt;
