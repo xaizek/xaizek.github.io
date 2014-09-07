@@ -7,6 +7,19 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Fix graphic errors after replacing NVIDIA card with Intel Graphics</title>
+                <description>&lt;p&gt;After upgrading motherboard and its components, regular graphics (windows,
+video) worked fine with Intel HD Graphics, but trying to run something like
+&lt;code&gt;glxgears&lt;/code&gt; displayed nothing but blank window.  It was strange as Intel drivers
+are open source and known for their good work in GNU/Linux.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 07 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-09-07/fix-intel-graphics-after-nvidia</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-09-07/fix-intel-graphics-after-nvidia</guid>
+			</item>
+		
+			<item>
 				<title>Decrease LILO kernel load time</title>
                 <description>&lt;p&gt;Opened my &lt;a href=&quot;https://en.wikipedia.org/wiki/LILO_(boot_loader)&quot;&gt;LILO&lt;/a&gt; configuration file (&lt;code&gt;/etc/lilo.conf&lt;/code&gt;) recently to
 take a look at video mode options and noticed this line:&lt;/p&gt;
@@ -96,6 +109,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 
@@ -280,6 +295,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 
