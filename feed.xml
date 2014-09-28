@@ -7,6 +7,26 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>How to make bootable win7 installation USB stick in GNU/Linux</title>
+                <description>&lt;p&gt;For most bootable ISO images one of two approaches works:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;dd if=image.iso of=/dev/sdx&lt;/code&gt; if image is a hybrid CD-ROM/HD image.&lt;/li&gt;
+&lt;li&gt;Extracting image via &lt;a href=&quot;https://en.wikipedia.org/wiki/UNetbootin&quot;&gt;UNetbootin&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;However, none of this works for Windows setup disks, even if you do this on
+Windows.  Usually I go with &lt;a href=&quot;https://en.wikipedia.org/wiki/UltraISO&quot;&gt;UltraISO&lt;/a&gt;&amp;#39;s &amp;quot;Write hard drive
+image&amp;quot;, which works fine.  But there is no UltraISO for GNU/Linux and one has
+to go another road.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 18 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-09-18/how-to-make-bootable-win7-usb-stick-in-linux</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-09-18/how-to-make-bootable-win7-usb-stick-in-linux</guid>
+			</item>
+		
+			<item>
 				<title>Fix graphic errors after replacing NVIDIA card with Intel Graphics</title>
                 <description>&lt;p&gt;After upgrading motherboard and its components, regular graphics (windows,
 video) worked fine with Intel HD Graphics, but trying to run something like
@@ -109,6 +129,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 
@@ -295,6 +317,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 
