@@ -7,6 +7,18 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>How to install data directory with automake</title>
+                <description>&lt;p&gt;I thought that adding directory to &lt;code&gt;pkgdata_DATA&lt;/code&gt; variable in &lt;code&gt;Makefile.am&lt;/code&gt;
+file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave this error:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;/usr/bin/ginstall: omitting directory ‘../data/vim/’
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Sun, 28 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-09-28/how-to-install-data-directory-with-automake</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-09-28/how-to-install-data-directory-with-automake</guid>
+			</item>
+		
+			<item>
 				<title>How to make bootable win7 installation USB stick in GNU/Linux</title>
                 <description>&lt;p&gt;For most bootable ISO images one of two approaches works:&lt;/p&gt;
 
@@ -129,6 +141,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 
@@ -317,6 +331,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 
