@@ -7,6 +7,19 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Fixing CIFS mounts in Slackware</title>
+                <description>&lt;p&gt;I remember &lt;a href=&quot;https://en.wikipedia.org/wiki/CIFS&quot;&gt;CIFS/SMB&lt;/a&gt; working fine for me, but it occasionally
+mysteriously didn&amp;#39;t work on some machines even with 100% correct configuration
+(e.g. line in &lt;a href=&quot;https://en.wikipedia.org/wiki/Fstab&quot;&gt;/etc/fstab&lt;/a&gt;).  It actually happened not only on
+Slackware, but also on Debian, though not sure what was causing issues there.&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 29 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-09-29/fixing-cifs-mount-in-slackware</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-09-29/fixing-cifs-mount-in-slackware</guid>
+			</item>
+		
+			<item>
 				<title>How to install data directory with automake</title>
                 <description>&lt;p&gt;I thought that adding directory to &lt;code&gt;pkgdata_DATA&lt;/code&gt; variable in &lt;code&gt;Makefile.am&lt;/code&gt;
 file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave this error:&lt;/p&gt;
@@ -141,6 +154,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 
@@ -331,6 +346,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 
