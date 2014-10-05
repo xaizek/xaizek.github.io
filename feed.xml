@@ -7,6 +7,20 @@
 		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Why restoring signal handlers is important</title>
+                <description>&lt;p&gt;I experienced strange failures of some commands in &lt;code&gt;gvim&lt;/code&gt; (e.g. errors on
+closing window of &lt;code&gt;:Gblame&lt;/code&gt;) for quite a while, but couldn&amp;#39;t figure out why the
+hell their occur.  Overall it probably took more than 20 hours to identify the
+issue and solve it not causing any other issues to arise.  At the end of the
+day it took single line to solve the issue...&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 05 Oct 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2014-10-05/why-restoring-signal-handlers-is-important</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2014-10-05/why-restoring-signal-handlers-is-important</guid>
+			</item>
+		
+			<item>
 				<title>Fixing CIFS mounts in Slackware</title>
                 <description>&lt;p&gt;I remember &lt;a href=&quot;https://en.wikipedia.org/wiki/CIFS&quot;&gt;CIFS/SMB&lt;/a&gt; working fine for me, but it occasionally
 mysteriously didn&amp;#39;t work on some machines even with 100% correct configuration
@@ -154,6 +168,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 
@@ -346,6 +362,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 
