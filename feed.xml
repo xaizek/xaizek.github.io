@@ -4,11 +4,11 @@
 		<title>SNOX Posts</title>
 		<description>Short notes on computer stuff</description>
 		<link>http://xaizek.github.io/</link>
-		<atom:link href="http://xaizek.github.io//feed.xml" rel="self" type="application/rss+xml"/>
+		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
 				<title>Why restoring signal handlers is important</title>
-                <description>&lt;p&gt;I experienced strange failures of some commands in &lt;code&gt;gvim&lt;/code&gt; (e.g. errors on
+				<description>&lt;p&gt;I experienced strange failures of some commands in &lt;code&gt;gvim&lt;/code&gt; (e.g. errors on
 closing window of &lt;code&gt;:Gblame&lt;/code&gt;) for quite a while, but couldn&amp;#39;t figure out why the
 hell their occur.  Overall it probably took more than 20 hours to identify the
 issue and solve it not causing any other issues to arise.  At the end of the
@@ -22,7 +22,7 @@ day it took single line to solve the issue...&lt;/p&gt;
 		
 			<item>
 				<title>Fixing CIFS mounts in Slackware</title>
-                <description>&lt;p&gt;I remember &lt;a href=&quot;https://en.wikipedia.org/wiki/CIFS&quot;&gt;CIFS/SMB&lt;/a&gt; working fine for me, but it occasionally
+				<description>&lt;p&gt;I remember &lt;a href=&quot;https://en.wikipedia.org/wiki/CIFS&quot;&gt;CIFS/SMB&lt;/a&gt; working fine for me, but it occasionally
 mysteriously didn&amp;#39;t work on some machines even with 100% correct configuration
 (e.g. line in &lt;a href=&quot;https://en.wikipedia.org/wiki/Fstab&quot;&gt;/etc/fstab&lt;/a&gt;).  It actually happened not only on
 Slackware, but also on Debian, though not sure what was causing issues there.&lt;/p&gt;
@@ -35,7 +35,7 @@ Slackware, but also on Debian, though not sure what was causing issues there.&lt
 		
 			<item>
 				<title>How to install data directory with automake</title>
-                <description>&lt;p&gt;I thought that adding directory to &lt;code&gt;pkgdata_DATA&lt;/code&gt; variable in &lt;code&gt;Makefile.am&lt;/code&gt;
+				<description>&lt;p&gt;I thought that adding directory to &lt;code&gt;pkgdata_DATA&lt;/code&gt; variable in &lt;code&gt;Makefile.am&lt;/code&gt;
 file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave this error:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;/usr/bin/ginstall: omitting directory ‘../data/vim/’
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -47,7 +47,7 @@ file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave thi
 		
 			<item>
 				<title>How to make bootable win7 installation USB stick in GNU/Linux</title>
-                <description>&lt;p&gt;For most bootable ISO images one of two approaches works:&lt;/p&gt;
+				<description>&lt;p&gt;For most bootable ISO images one of two approaches works:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;dd if=image.iso of=/dev/sdx&lt;/code&gt; if image is a hybrid CD-ROM/HD image.&lt;/li&gt;
@@ -67,7 +67,7 @@ to go another road.&lt;/p&gt;
 		
 			<item>
 				<title>Fix graphic errors after replacing NVIDIA card with Intel Graphics</title>
-                <description>&lt;p&gt;After upgrading motherboard and its components, regular graphics (windows,
+				<description>&lt;p&gt;After upgrading motherboard and its components, regular graphics (windows,
 video) worked fine with Intel HD Graphics, but trying to run something like
 &lt;code&gt;glxgears&lt;/code&gt; displayed nothing but blank window.  It was strange as Intel drivers
 are open source and known for their good work in GNU/Linux.&lt;/p&gt;
@@ -80,7 +80,7 @@ are open source and known for their good work in GNU/Linux.&lt;/p&gt;
 		
 			<item>
 				<title>Decrease LILO kernel load time</title>
-                <description>&lt;p&gt;Opened my &lt;a href=&quot;https://en.wikipedia.org/wiki/LILO_(boot_loader)&quot;&gt;LILO&lt;/a&gt; configuration file (&lt;code&gt;/etc/lilo.conf&lt;/code&gt;) recently to
+				<description>&lt;p&gt;Opened my &lt;a href=&quot;https://en.wikipedia.org/wiki/LILO_(boot_loader)&quot;&gt;LILO&lt;/a&gt; configuration file (&lt;code&gt;/etc/lilo.conf&lt;/code&gt;) recently to
 take a look at video mode options and noticed this line:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;cfg language-cfg&quot; data-lang=&quot;cfg&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#compact        # faster, but won&amp;#39;t work on all systems.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -92,7 +92,7 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 		
 			<item>
 				<title>Clang by example: Detecting unused functions</title>
-                <description>&lt;h4&gt;TOC&lt;/h4&gt;
+				<description>&lt;h4&gt;TOC&lt;/h4&gt;
 
 &lt;ol&gt;
 
@@ -202,7 +202,7 @@ looking for two types of functions declared with external linkage:&lt;/p&gt;
 		
 			<item>
 				<title>csplit: splitting text files by separator line pattern</title>
-                <description>&lt;p&gt;To split files by number of bytes or lines there is standard
+				<description>&lt;p&gt;To split files by number of bytes or lines there is standard
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Split_(Unix)&quot;&gt;&lt;code&gt;split&lt;/code&gt;&lt;/a&gt; command, but how to break file into pieces of variable
 size that are delimited by a separator?  Search revealed
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Csplit&quot;&gt;&lt;code&gt;csplit&lt;/code&gt;&lt;/a&gt; tool, hence this quick overview with a small example.&lt;/p&gt;
@@ -215,7 +215,7 @@ size that are delimited by a separator?  Search revealed
 		
 			<item>
 				<title>Prefer plain text format over HTML in mutt</title>
-                <description>&lt;p&gt;Although this subject is covered in multiple sources, it&amp;#39;s hard to find it for
+				<description>&lt;p&gt;Although this subject is covered in multiple sources, it&amp;#39;s hard to find it for
 some reason or at least it wasn&amp;#39;t that easy for me.  That&amp;#39;s why I repeat it
 once again here and provide links to more verbose explanations.&lt;/p&gt;
 
@@ -227,7 +227,7 @@ once again here and provide links to more verbose explanations.&lt;/p&gt;
 		
 			<item>
 				<title>How to add route for PPTP tunnel automatically</title>
-                <description>&lt;p&gt;Had an issue with setting up correct routing rule for &lt;a href=&quot;https://en.wikipedia.org/wiki/VPN&quot;&gt;VPN&lt;/a&gt; network
+				<description>&lt;p&gt;Had an issue with setting up correct routing rule for &lt;a href=&quot;https://en.wikipedia.org/wiki/VPN&quot;&gt;VPN&lt;/a&gt; network
 through &lt;a href=&quot;https://en.wikipedia.org/wiki/PPTP&quot;&gt;PPTP&lt;/a&gt;.&lt;/p&gt;
 
 </description>
@@ -238,7 +238,7 @@ through &lt;a href=&quot;https://en.wikipedia.org/wiki/PPTP&quot;&gt;PPTP&lt;/a&
 		
 			<item>
 				<title>rexima: couldn't open mixer device</title>
-                <description>&lt;p&gt;After installing &lt;em&gt;Slackware 14.1&lt;/em&gt; on a new machine, I got unexpected output
+				<description>&lt;p&gt;After installing &lt;em&gt;Slackware 14.1&lt;/em&gt; on a new machine, I got unexpected output
 when tried to run &lt;a href=&quot;http://www.svgalib.org/rus/rexima.html&quot;&gt;rexima&lt;/a&gt; interactive mixer (by the way, it&amp;#39;s in
 &lt;code&gt;extra&lt;/code&gt; section of &lt;em&gt;Slackware&lt;/em&gt; packages, so search might silently skip it, just
 do &lt;code&gt;slackpkg install rexima&lt;/code&gt; to install it).  The output was:&lt;/p&gt;
@@ -253,7 +253,7 @@ rexima: couldn&amp;#39;t open mixer device.
 		
 			<item>
 				<title>Removing sendmail from mail receiving chain</title>
-                <description>&lt;p&gt;One of common ways to receive mail includes using &lt;a href=&quot;https://en.wikipedia.org/wiki/Sendmail&quot;&gt;sendmail&lt;/a&gt; as
+				<description>&lt;p&gt;One of common ways to receive mail includes using &lt;a href=&quot;https://en.wikipedia.org/wiki/Sendmail&quot;&gt;sendmail&lt;/a&gt; as
 an &lt;a href=&quot;https://en.wikipedia.org/wiki/Message_transfer_agent&quot;&gt;MTA&lt;/a&gt;.  This causes some inconvenience especially when it&amp;#39;s the
 only purpose &lt;em&gt;sendmail&lt;/em&gt; is installed for.  To be able to receive mail
 &lt;em&gt;sendmail&lt;/em&gt; deamon must be running all the time, which also means that it
@@ -269,7 +269,7 @@ live without it?&lt;/p&gt;
 		
 			<item>
 				<title>How to make tabs visible in git diff</title>
-                <description>&lt;p&gt;I&amp;#39;m a bit tired looking at diffs like the following:&lt;/p&gt;
+				<description>&lt;p&gt;I&amp;#39;m a bit tired looking at diffs like the following:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;diff language-diff&quot; data-lang=&quot;diff&quot;&gt;         for (int i = 0; i &amp;lt; 3; ++i) {
 &lt;span class=&quot;gd&quot;&gt;-        for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
 &lt;span class=&quot;gi&quot;&gt;+                for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
@@ -286,7 +286,7 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 		
 			<item>
 				<title>Clang by example: Detecting postfix operators in for loops</title>
-                <description>&lt;h4&gt;TOC&lt;/h4&gt;
+				<description>&lt;h4&gt;TOC&lt;/h4&gt;
 
 &lt;ol&gt;
 
@@ -396,7 +396,7 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 		
 			<item>
 				<title>Fix constant rebuilding of static libraries by GNU make</title>
-                <description>&lt;h3&gt;The issue explained&lt;/h3&gt;
+				<description>&lt;h3&gt;The issue explained&lt;/h3&gt;
 
 &lt;p&gt;Say directory structure is as follows:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;$ tree
@@ -414,7 +414,7 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 		
 			<item>
 				<title>How to profile python application packaged via py2exe</title>
-                <description>&lt;h3&gt;Simple profiling using standard &lt;code&gt;cProfile&lt;/code&gt; module&lt;/h3&gt;
+				<description>&lt;h3&gt;Simple profiling using standard &lt;code&gt;cProfile&lt;/code&gt; module&lt;/h3&gt;
 
 &lt;p&gt;Usually a command similar to the one below is used to profile an application:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash language-bash&quot; data-lang=&quot;bash&quot;&gt;python -m cProfile -o app.prof app.py arg1 arg2
@@ -427,7 +427,7 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 		
 			<item>
 				<title>How to recompile source file on each build using make</title>
-                <description>&lt;h3&gt;Motivation&lt;/h3&gt;
+				<description>&lt;h3&gt;Motivation&lt;/h3&gt;
 
 &lt;p&gt;It&amp;#39;s sometimes useful to see precise date and time an application was compiled.
 So such information should be embedded into application at compile time and
@@ -441,7 +441,7 @@ displayed on user&amp;#39;s request.&lt;/p&gt;
 		
 			<item>
 				<title>How to disable subtitles in mplayer by default</title>
-                <description>&lt;h3&gt;Pre-history&lt;/h3&gt;
+				<description>&lt;h3&gt;Pre-history&lt;/h3&gt;
 
 &lt;p&gt;I really like &lt;code&gt;mplayer&lt;/code&gt; because:&lt;/p&gt;
 
@@ -463,7 +463,7 @@ are enabled by default.&lt;/p&gt;
 		
 			<item>
 				<title>How to define `_GNU_SOURCE` correctly with autoconf correctly</title>
-                <description>&lt;p&gt;&lt;code&gt;_XOPEN_SOURCE&lt;/code&gt;&lt;/p&gt;
+				<description>&lt;p&gt;&lt;code&gt;_XOPEN_SOURCE&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
 dnl features of Posix that are extensions to C, as well as platform extensions
 dnl not defined by Posix.
@@ -477,7 +477,7 @@ AC_USE_SYSTEM_EXTENSIONS
 		
 			<item>
 				<title>Fix tmux hang in X</title>
-                <description>&lt;p&gt;Recently I needed to use tmux.  Turned out that it wasn&amp;#39;t even installed on my
+				<description>&lt;p&gt;Recently I needed to use tmux.  Turned out that it wasn&amp;#39;t even installed on my
 system, which, of course, wasn&amp;#39;t a problem.  After it was installed and ran I
 was presented with a prompt that didn&amp;#39;t responed to anything.  The only thing
 that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
@@ -490,7 +490,7 @@ that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
 		
 			<item>
 				<title>How to define `_GNU_SOURCE` correctly with autoconf</title>
-                <description>&lt;p&gt;Mainly for historical reasons, vifm contained the following pieces of code:&lt;/p&gt;
+				<description>&lt;p&gt;Mainly for historical reasons, vifm contained the following pieces of code:&lt;/p&gt;
 
 </description>
 				<pubDate>Mon, 29 Jul 2013 00:00:00 +0300</pubDate>
@@ -500,7 +500,7 @@ that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
 		
 			<item>
 				<title>Out-of-class overload of unary operators in C++</title>
-                <description>&lt;p&gt;This may sound strange, but it seems that I have never thought about overloading
+				<description>&lt;p&gt;This may sound strange, but it seems that I have never thought about overloading
 of unary operators in C++, which are not implemented as member functions.  It&amp;#39;s
 not like it sounds strange or incorrect, I just never wanted to do it.  So, just
 to be able to say &amp;quot;I did it at least once&amp;quot;, lets try it out on a very basic
@@ -514,7 +514,7 @@ example with overloading of postfix increment operator:&lt;/p&gt;
 		
 			<item>
 				<title>Flattened aggregate initializers in C and C++</title>
-                <description>&lt;p&gt;Today I found an interesting statement on one of forum pages of &lt;a href=&quot;http://www.linux.org.ru/forum/development/9110363&quot;&gt;LOR&lt;/a&gt;:
+				<description>&lt;p&gt;Today I found an interesting statement on one of forum pages of &lt;a href=&quot;http://www.linux.org.ru/forum/development/9110363&quot;&gt;LOR&lt;/a&gt;:
 initializers of inner aggregates can be flattened.&lt;/p&gt;
 
 </description>
@@ -525,7 +525,7 @@ initializers of inner aggregates can be flattened.&lt;/p&gt;
 		
 			<item>
 				<title>How to set `xterm-256color` type of terminal in xterm on Slackware Linux?</title>
-                <description>&lt;p&gt;Recently support for processing escape sequences in preview window was added to
+				<description>&lt;p&gt;Recently support for processing escape sequences in preview window was added to
 vifm.  So I added highlighting of source code in my preview window using
 &lt;a href=&quot;https://sourceforge.net/projects/syntaxhighlight&quot;&gt;highlight&lt;/a&gt; tool specifying &lt;code&gt;-O ansi&lt;/code&gt; to make it generate ansi compatible
 escape codes.  But some of syntax group obtained the same color, because I had
@@ -541,7 +541,7 @@ began.&lt;/p&gt;
 		
 			<item>
 				<title>How to operate on selection in mutt?</title>
-                <description>&lt;p&gt;This is a very simple thing, but I just can&amp;#39;t make myself remember it. So here
+				<description>&lt;p&gt;This is a very simple thing, but I just can&amp;#39;t make myself remember it. So here
 is how it&amp;#39;s done:&lt;/p&gt;
 
 </description>
@@ -552,7 +552,7 @@ is how it&amp;#39;s done:&lt;/p&gt;
 		
 			<item>
 				<title>How to merge mailbox files of mbox format?</title>
-                <description>&lt;p&gt;This sounds like an easy task at first.  But after looking on the Internet for a
+				<description>&lt;p&gt;This sounds like an easy task at first.  But after looking on the Internet for a
 working and ready to be used solution, it turned out to be not so easy to find.
 There were some old scripts in python, but they didn&amp;#39;t look very promising to
 me.  So after spending some time on search &lt;a href=&quot;http://does-not-exist.org/mail-archives/mutt-users/msg03132.html&quot;&gt;this answer to my question&lt;/a&gt; was
@@ -566,7 +566,7 @@ found.&lt;/p&gt;
 		
 			<item>
 				<title>How to share code among several Web-service applications written in Java</title>
-                <description>&lt;p&gt;Some time ago I&amp;#39;ve spent a lot of time trying to figure out how one can share
+				<description>&lt;p&gt;Some time ago I&amp;#39;ve spent a lot of time trying to figure out how one can share
 common parts of code in two Web-services running in &lt;a href=&quot;http://tomcat.apache.org/&quot;&gt;Apache Tomcat&lt;/a&gt;.  What I
 wanted is to move several packages to a separate Eclipse project and refer to it
 from several other projects.  Somewhere on the Web a nice list of options to
@@ -585,7 +585,7 @@ server.&lt;/p&gt;
 		
 			<item>
 				<title>Double brace initializers in Java</title>
-                <description>&lt;p&gt;Unfortunately, some features of well known programming languages are much less
+				<description>&lt;p&gt;Unfortunately, some features of well known programming languages are much less
 known than others.  Eventually, those unknown features are quite powerful and
 useful.  Today I&amp;#39;m going to describe so called &amp;quot;double brace initialization&amp;quot;
 in Java, which is quite similar (and more powerful) than object initializers of
@@ -599,7 +599,7 @@ C#.&lt;/p&gt;
 		
 			<item>
 				<title>strchr() finds zero character</title>
-                <description>&lt;p&gt;As any other programmer once in a while I find some new tiny but quite useful
+				<description>&lt;p&gt;As any other programmer once in a while I find some new tiny but quite useful
 trick, which I then apply to my sources.  One of such trick is using of
 &lt;code&gt;strchr()&lt;/code&gt; function to compare if a value of type &lt;code&gt;char&lt;/code&gt; equals to one of
 values.&lt;/p&gt;
@@ -612,7 +612,7 @@ values.&lt;/p&gt;
 		
 			<item>
 				<title>Making ~/.inputrc work in slackware</title>
-                <description>&lt;p&gt;Today I accidentally trapped on &lt;a href=&quot;https://wiki.archlinux.org/index.php/Bash#Faster_completion&quot;&gt;this part&lt;/a&gt; of Arch Linux wiki page on Bash.
+				<description>&lt;p&gt;Today I accidentally trapped on &lt;a href=&quot;https://wiki.archlinux.org/index.php/Bash#Faster_completion&quot;&gt;this part&lt;/a&gt; of Arch Linux wiki page on Bash.
 And decided to try putting &lt;code&gt;set show-all-if-ambiguous On&lt;/code&gt; to my ~/.inputrc,
 which was created for this.&lt;/p&gt;
 
@@ -624,7 +624,7 @@ which was created for this.&lt;/p&gt;
 		
 			<item>
 				<title>Configuring keys in less</title>
-                <description>&lt;p&gt;Since I&amp;#39;m using Vim and terminal constantly the only right way of going through
+				<description>&lt;p&gt;Since I&amp;#39;m using Vim and terminal constantly the only right way of going through
 command-line history in my world is using &lt;code&gt;Control-P&lt;/code&gt; (&lt;code&gt;&amp;lt;c-p&amp;gt;&lt;/code&gt; or &lt;code&gt;^P&lt;/code&gt;; to go
 backwards) and &lt;code&gt;Control-N&lt;/code&gt; (&lt;code&gt;&amp;lt;c-n&amp;gt;&lt;/code&gt; or &lt;code&gt;^N&lt;/code&gt; to go forwards).&lt;/p&gt;
 
@@ -636,7 +636,7 @@ backwards) and &lt;code&gt;Control-N&lt;/code&gt; (&lt;code&gt;&amp;lt;c-n&amp;g
 		
 			<item>
 				<title>How to connect a computer behind NAT to another computer behind NAT using ssh</title>
-                <description>&lt;p&gt;I was wondering how can I connect to my laptop from work for some time, but
+				<description>&lt;p&gt;I was wondering how can I connect to my laptop from work for some time, but
 didn&amp;#39;t know how to do that without using VPN.  I even decided that it&amp;#39;s
 impossible to do something simple, but then... I realized that a third party
 server to which I have access through ssh can be used for this.&lt;/p&gt;
@@ -649,7 +649,7 @@ server to which I have access through ssh can be used for this.&lt;/p&gt;
 		
 			<item>
 				<title>An issue with colour prompt in bash</title>
-                <description>&lt;h3&gt;Prehistory&lt;/h3&gt;
+				<description>&lt;h3&gt;Prehistory&lt;/h3&gt;
 
 &lt;p&gt;Once I read somewhere that it&amp;#39;s possible to add some colours to your shell&amp;#39;s
 (bash in my case) prompt using escape sequences.  I thought that it will
@@ -666,7 +666,7 @@ to my &lt;code&gt;~/.bashrc&lt;/code&gt; file:&lt;/p&gt;
 		
 			<item>
 				<title>Browsing directories using Vim's wildmenu</title>
-                <description>&lt;p&gt;Today I accidentally found a very unexpected thing in Vim.  While trying to
+				<description>&lt;p&gt;Today I accidentally found a very unexpected thing in Vim.  While trying to
 make wildmenu disappear I hit some of arrow keys and great truth was uncovered
 to me:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;one can browse file system in wildmenu using arrow keys!
@@ -679,7 +679,7 @@ to me:&lt;/p&gt;
 		
 			<item>
 				<title>Enabling code highlighing in jekyll</title>
-                <description>&lt;p&gt;It&amp;#39;s not hard to do, but not as easy as one might expect.  So here are the main
+				<description>&lt;p&gt;It&amp;#39;s not hard to do, but not as easy as one might expect.  So here are the main
 steps one need to follow to make code highlighing work:&lt;/p&gt;
 
 </description>
@@ -690,7 +690,7 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 		
 			<item>
 				<title>Exception specifiers and finally keyword in Java</title>
-                <description>&lt;p&gt;Here is part of code I wrote once:&lt;/p&gt;
+				<description>&lt;p&gt;Here is part of code I wrote once:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -716,7 +716,7 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 		
 			<item>
 				<title>gem install issue</title>
-                <description>&lt;p&gt;This day I finally made a decision to start posting some notes on computer
+				<description>&lt;p&gt;This day I finally made a decision to start posting some notes on computer
 related stuff and mainly about how I solved some minor issues with software.
 Several month ago I already picked statically generated sites and GitHub pages
 as a hosting (I don&amp;#39;t expect other people to read this, I just don&amp;#39;t want to
