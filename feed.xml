@@ -7,6 +7,127 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Clang by example: Detecting wrong first include</title>
+				<description>&lt;h4&gt;TOC&lt;/h4&gt;
+
+&lt;ol&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;li&gt;
+&lt;a href='/2014-05-02/detecting-postfix-operators-in-for-loops'&gt; Detecting postfix operators in for loops&lt;/a&gt;
+
+&lt;/li&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;li&gt;
+&lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
+
+&lt;/li&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;li&gt;
+&lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
+
+(you are here)
+
+&lt;/li&gt;
+
+
+&lt;/ol&gt;
+
+&lt;h3&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;There is a well known (or at least I hope that it&amp;#39;s &lt;em&gt;well&lt;/em&gt; known) good practice
+to include header that corresponds to the current source file before including
+any other headers.  It&amp;#39;s recommended by multiple C++ coding style guides (for
+example by &lt;a href=&quot;http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Names_and_Order_of_Includes&quot;&gt;Google C++ Style Guide&lt;/a&gt;) and indeed
+makes sense to follow.&lt;/p&gt;
+
+&lt;p&gt;To put it short: it makes finding incomplete headers really easy.  If you
+forget to include required header, corresponding source file just won&amp;#39;t compile.
+This way there will be no hidden (implicit) dependencies among modules of a
+project as well as dependencies on system headers.  Below is a simple example
+that demonstrates such situation.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 23 Apr 2015 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io//2015-04-23/detecting-wrong-first-include</link>
+				<guid isPermaLink="true">http://xaizek.github.io//2015-04-23/detecting-wrong-first-include</guid>
+			</item>
+		
+			<item>
 				<title>Why restoring signal handlers is important</title>
 				<description>&lt;p&gt;I experienced strange failures of some commands in &lt;code&gt;gvim&lt;/code&gt; (e.g. errors on
 closing window of &lt;code&gt;:Gblame&lt;/code&gt;) for quite a while, but couldn&amp;#39;t figure out why the
@@ -180,6 +301,13 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 
 
 
+
+
+
+&lt;li&gt;
+&lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
+
+&lt;/li&gt;
 
 
 &lt;/ol&gt;
@@ -374,6 +502,13 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 
 
 
+
+
+
+&lt;li&gt;
+&lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
+
+&lt;/li&gt;
 
 
 &lt;/ol&gt;
