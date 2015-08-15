@@ -7,6 +7,21 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Range iterator for Boost.PropertyTree items</title>
+				<description>&lt;p&gt;The other day I was looking for a way to obtain fully qualified names of items
+in &lt;a href=&quot;http://www.boost.org/doc/libs/1_58_0/doc/html/property_tree.html&quot;&gt;Boost.PropertyTree&lt;/a&gt; in sorted order, but basically found only &lt;a href=&quot;http://duck-wrath.blogspot.com/2012/02/how-to-recursive-parse.html&quot;&gt;one post
+on the subject&lt;/a&gt;, which demonstrated recursive traversal of a tree in more
+detail than iteration over all keys.  What I wanted is an iterator based
+solution, which could be employed in C++11 &lt;a href=&quot;https://en.wikipedia.org/wiki/C%2B%2B11#Range-based_for_loop&quot;&gt;range-based for loop&lt;/a&gt;.
+So I ended up writing one.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 15 Aug 2015 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves</guid>
+			</item>
+		
+			<item>
 				<title>Clang by example: Detecting wrong first include</title>
 				<description>&lt;h4&gt;TOC&lt;/h4&gt;
 
@@ -103,6 +118,8 @@
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 &lt;/ol&gt;
@@ -310,6 +327,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 &lt;/li&gt;
 
 
+
+
 &lt;/ol&gt;
 
 &lt;h3&gt;Introduction&lt;/h3&gt;
@@ -509,6 +528,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 &lt;/ol&gt;
