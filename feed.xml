@@ -7,6 +7,22 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>C++11+ aggregate initializer surprise</title>
+				<description>&lt;p&gt;There is a nice thing in C++ called &lt;code&gt;friend&lt;/code&gt;ship between classes or classes and
+functions, which is used to put several entities in one security domain by
+allowing &amp;quot;friends&amp;quot; to access private fields.  This language feature is usually
+criticized as something that breaks encapsulation, which is not actually true as
+C++ is multi-paradigm language rather than being just OOP-language and such
+exceptions should be viewed as another way of doing things, not as something
+&amp;quot;wrong&amp;quot; (which is very subjective, by the way).&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 24 Oct 2015 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2015-10-24/aggregate-initializer-surprise</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-10-24/aggregate-initializer-surprise</guid>
+			</item>
+		
+			<item>
 				<title>Range iterator for Boost.PropertyTree items</title>
 				<description>&lt;p&gt;The other day I was looking for a way to obtain fully qualified names of items
 in &lt;a href=&quot;http://www.boost.org/doc/libs/1_58_0/doc/html/property_tree.html&quot;&gt;Boost.PropertyTree&lt;/a&gt; in sorted order, but basically found only &lt;a href=&quot;http://duck-wrath.blogspot.com/2012/02/how-to-recursive-parse.html&quot;&gt;one post
@@ -118,6 +134,8 @@ So I ended up writing one.&lt;/p&gt;
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 
@@ -329,6 +347,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 
 
 
+
+
 &lt;/ol&gt;
 
 &lt;h3&gt;Introduction&lt;/h3&gt;
@@ -528,6 +548,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 

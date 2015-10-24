@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>C++11+ aggregate initializer surprise</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>C++11+ aggregate initializer surprise</h1>
+      <h5 class="post_date">October 24, 2015</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/c++11">c++11</a>]
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/initialization">initialization</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>There is a nice thing in C++ called <code>friend</code>ship between classes or classes and
+functions, which is used to put several entities in one security domain by
+allowing &quot;friends&quot; to access private fields.  This language feature is usually
+criticized as something that breaks encapsulation, which is not actually true as
+C++ is multi-paradigm language rather than being just OOP-language and such
+exceptions should be viewed as another way of doing things, not as something
+&quot;wrong&quot; (which is very subjective, by the way).</p>
+
+<!-- cut -->
+
+<p>That said, sometimes it&#39;s useful to obtain finer control over which classes what
+methods/fields can access.  In this case there are at least
+<a href="https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Friendship_and_the_Attorney-Client">Attorney-Client</a> and <a href="http://www.innobec.com/en/blog/desktop-software/passkey-idiom-and-better-friendship-c">Passkey</a> idioms.  The first one seems
+to be particularly useful for libraries (e.g. it&#39;s used by <a href="http://www.boost.org/doc/libs/1_59_0/libs/iterator/doc/">Boost.Iterator</a>)
+or similar things where you have many-to-one kind of relationships (I also use
+it in tests).  The latter one is nice when you want to enable another class to
+access a couple of methods.  Thanks to new syntactic sugar available in C++
+since C++11 this one implies very little additional code, but there is a
+caveat...</p>
+
+<h3>Implementation</h3>
+
+<p>One should go and read <a href="http://www.innobec.com/en/blog/desktop-software/passkey-idiom-and-better-friendship-c">that post on Passkey</a> as I&#39;m not going to
+repeat what&#39;s said there.  Instead we go straight to my initial implementation
+which looks like this and does not allow object to be copied or moved (to forbid
+ &quot;cheating&quot; and reusing of the same &quot;passkey&quot; more than once):</p>
+<div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Passkey</span>
+<span class="p">{</span>
+    <span class="k">friend</span> <span class="n">T</span><span class="p">;</span>
+
+<span class="nl">private:</span>
+    <span class="n">Passkey</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+
+<span class="nl">public:</span>
+    <span class="n">Passkey</span><span class="p">(</span><span class="k">const</span> <span class="n">Passkey</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+    <span class="n">Passkey</span> <span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Passkey</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">pk</span> <span class="o">=</span> <span class="n">Passkey</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Here is usage example:</p>
+<div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Item</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">Item</span><span class="p">(</span><span class="n">pk</span><span class="o">&lt;</span><span class="n">Storage</span><span class="o">&gt;</span><span class="p">);</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="n">Storage</span><span class="o">::</span><span class="n">Storage</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Item</span> <span class="n">item</span><span class="p">({});</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+</code></pre></div>
+<p>Seems legit?  It works indeed, but the question is <em>when</em> it works.</p>
+
+<h3>Test</h3>
+
+<p>Here is a small test to get reader acquainted with the problem:</p>
+<div class="highlight"><pre><code class="c++ language-c++" data-lang="c++"><span class="cp">#include &lt;initializer_list&gt;</span>
+
+<span class="k">class</span> <span class="nc">Class</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">Class</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+    <span class="n">Class</span><span class="p">(</span><span class="n">Class</span> <span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+    <span class="n">Class</span><span class="p">(</span><span class="n">Class</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+    <span class="n">Class</span><span class="p">(</span><span class="k">const</span> <span class="n">Class</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+    <span class="n">Class</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+    <span class="n">Class</span> <span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Class</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+
+    <span class="n">Class</span><span class="p">(</span><span class="k">const</span> <span class="n">Class</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+    <span class="n">Class</span> <span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Class</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span>
+<span class="nf">func</span><span class="p">(</span><span class="n">Class</span> <span class="n">pk</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Class</span> <span class="n">c0</span><span class="p">;</span>      <span class="c1">// 1</span>
+    <span class="n">Class</span> <span class="n">c1</span><span class="p">{};</span>    <span class="c1">// 2</span>
+    <span class="n">Class</span> <span class="n">c2</span> <span class="o">=</span> <span class="p">{};</span> <span class="c1">// 3</span>
+    <span class="n">func</span><span class="p">({});</span>      <span class="c1">// 4</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Which of the lines marked from 1 to 4 do you expect to compile without errors?</p>
+
+<p>Give it a thought.</p>
+
+<h3>What the hell?</h3>
+
+<p>Mine answer was that none of them should compile because everything is marked as
+deleted, but here&#39;s what standard has to say:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">[dcl.init.aggr]
+An aggregate is an array or a class with no user-provided constructors, no
+private or protected non-static data members, no base classes, and no virtual
+functions.
+</code></pre></div>
+<p>Were you able to notice the caveat?  Here it is:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">... user-provided ...
+</code></pre></div>
+<p><code>default</code>ed or <code>delete</code>d constructors or operators are not counted as being
+&quot;user-provided&quot;, hence <code>Class</code> is an aggregate (a <a href="https://en.wikipedia.org/wiki/Passive_data_structure">POD</a>) (use
+<a href="http://en.cppreference.com/w/cpp/types/is_pod"><code>std::is_pod</code></a> to check yourself), and aggregate initialization is
+allowed.</p>
+
+<p>So, here goes the correct answer: only #1 fails to compile drawing Passkey
+rather useless.</p>
+
+<h3>Solution</h3>
+
+<p>Luckily, it&#39;s easy to fix with:</p>
+<div class="highlight"><pre><code class="diff language-diff" data-lang="diff"><span class="gd">-    Passkey() = delete;</span>
+<span class="gi">+    Passkey() {}</span>
+</code></pre></div>
+<p>Now user-provided constructor makes all four cases fail to compile as desired.
+Alternatively one could define a private data member to make type non-POD, but
+empty function body will do it for me.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2015-10-24/aggregate-initializer-surprise">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2015-10-24/aggregate-initializer-surprise';
+  var disqus_title = 'C++11+ aggregate initializer surprise -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2015-10-24/aggregate-initializer-surprise';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
