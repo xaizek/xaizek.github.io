@@ -7,6 +7,20 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Enabling output colorization in GCC</title>
+				<description>&lt;p&gt;I was waiting for GCC 4.9 for a while to get my hands on colorized color output,
+but after it became available in Slackware error output didn&amp;#39;t magically become
+colored.  This might not be the case for other distributions, but since it took
+me some time to make this work and after more than six month I still can&amp;#39;t find
+any related posts on the Internet right away here&amp;#39;s a short note.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 25 Oct 2015 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2015-10-25/enable-colorization-of-gcc-output</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-10-25/enable-colorization-of-gcc-output</guid>
+			</item>
+		
+			<item>
 				<title>C++11+ aggregate initializer surprise</title>
 				<description>&lt;p&gt;There is a nice thing in C++ called &lt;code&gt;friend&lt;/code&gt;ship between classes or classes and
 functions, which is used to put several entities in one security domain by
@@ -134,6 +148,8 @@ So I ended up writing one.&lt;/p&gt;
 (you are here)
 
 &lt;/li&gt;
+
+
 
 
 
@@ -349,6 +365,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 
 
 
+
+
 &lt;/ol&gt;
 
 &lt;h3&gt;Introduction&lt;/h3&gt;
@@ -548,6 +566,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 &lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
 
 &lt;/li&gt;
+
+
 
 
 
