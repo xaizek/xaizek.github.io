@@ -23,6 +23,13 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: #ff0000;
+    // Possible alternative.
+    // color: #ffffff;
+    // background-color: #ff5050;
+}
+
 li.tagged_post {
     margin-top: 0em;
     margin-bottom: 2em;
