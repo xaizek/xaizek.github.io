@@ -7,6 +7,23 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Switching from tmux to GNU Screen</title>
+				<description>&lt;p&gt;I was postponing learning how to use &lt;a href=&quot;https://en.wikipedia.org/wiki/Terminal_multiplexer&quot;&gt;terminal multiplexers&lt;/a&gt; for a
+long time until one day had to test integration with &lt;a href=&quot;https://en.wikipedia.org/wiki/Tmux&quot;&gt;tmux&lt;/a&gt;, which
+required learning it.  So I was using tmux since then and always thinking
+whether I could do better by using &lt;a href=&quot;https://en.wikipedia.org/wiki/GNU_Screen&quot;&gt;GNU Screen&lt;/a&gt; instead.  After
+all, most of &lt;a href=&quot;https://en.wikipedia.org/wiki/GNU&quot;&gt;GNU&lt;/a&gt; applications turn out to be quite versatile and
+extremely useful, so why GNU Screen wouldn&amp;#39;t have these properties?  This is
+especially reasonable question if one recalls that tmux was modeled after GNU
+Screen.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 08 Nov 2015 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen</guid>
+			</item>
+		
+			<item>
 				<title>Enabling output colorization in GCC</title>
 				<description>&lt;p&gt;I was waiting for GCC 4.9 for a while to get my hands on colorized color output,
 but after it became available in Slackware error output didn&amp;#39;t magically become
