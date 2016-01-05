@@ -7,6 +7,21 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>C++ manual pages</title>
+				<description>&lt;p&gt;One of the great things about C is that its documentation is available locally
+via &lt;code&gt;man&lt;/code&gt; command.  That&amp;#39;s very convenient and one might expect to get the same
+for C++, but (say) &lt;code&gt;man std::adjacent_difference&lt;/code&gt; will usually just print:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;No manual entry for std::adjacent_difference
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Luckily, there are ways to fix it.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 05 Jan 2016 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2016-01-05/cpp-man-pages</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2016-01-05/cpp-man-pages</guid>
+			</item>
+		
+			<item>
 				<title>Switching from tmux to GNU Screen</title>
 				<description>&lt;p&gt;I was postponing learning how to use &lt;a href=&quot;https://en.wikipedia.org/wiki/Terminal_multiplexer&quot;&gt;terminal multiplexers&lt;/a&gt; for a
 long time until one day had to test integration with &lt;a href=&quot;https://en.wikipedia.org/wiki/Tmux&quot;&gt;tmux&lt;/a&gt;, which
