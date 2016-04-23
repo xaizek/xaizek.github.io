@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Range iterator for Boost.PropertyTree items</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Range iterator for Boost.PropertyTree items</h1>
+      <h5 class="post_date">August 15, 2015</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/boost">boost</a>]
+        
+        [<a href="/tag/programming">programming</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>The other day I was looking for a way to obtain fully qualified names of items
+in <a href="http://www.boost.org/doc/libs/1_58_0/doc/html/property_tree.html">Boost.PropertyTree</a> in sorted order, but basically found only <a href="http://duck-wrath.blogspot.com/2012/02/how-to-recursive-parse.html">one post
+on the subject</a>, which demonstrated recursive traversal of a tree in more
+detail than iteration over all keys.  What I wanted is an iterator based
+solution, which could be employed in C++11 <a href="https://en.wikipedia.org/wiki/C%2B%2B11#Range-based_for_loop">range-based for loop</a>.
+So I ended up writing one.</p>
+
+<!-- cut -->
+
+<h3>Implementation</h3>
+
+<p>There are <a href="https://en.wikipedia.org/wiki/Doxygen">Doxygen</a> comments in the code, which should explain
+what&#39;s going on there.  The most interesting part (assuming previous knowledge
+of writing iterators and range iterators) is probably
+<code>propsIterator::increment()</code> method which advances to the next leaf of the tree.</p>
+
+<p>As <a href="https://en.wikipedia.org/wiki/Boost_(C%2B%2B_libraries)">Boost</a> is already used, <a href="http://www.boost.org/doc/libs/1_59_0/libs/iterator/doc/">Boost.Iterator</a> library is used
+here as well.</p>
+
+<p>It&#39;s probably obvious by now, but let&#39;s note one more time that this is
+<a href="https://en.wikipedia.org/wiki/C%2B%2B11">C++11</a> code, which should be compiled like:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ -std<span class="o">=</span>c++11 code.cpp
+</code></pre></div>
+<p>The code:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;algorithm&gt;</span>
+<span class="cp">#include &lt;iterator&gt;</span>
+<span class="cp">#include &lt;sstream&gt;</span>
+<span class="cp">#include &lt;stack&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+<span class="cp">#include &lt;utility&gt;</span>
+
+<span class="cp">#include &lt;boost/property_tree/ptree.hpp&gt;</span>
+<span class="cp">#include &lt;boost/range/iterator_range.hpp&gt;</span>
+
+<span class="k">namespace</span> <span class="n">detail</span> <span class="p">{</span>
+
+<span class="k">namespace</span> <span class="n">pt</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">property_tree</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief Storage for range iterator data.</span>
+<span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">propsRangeData</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Constructs data out of property tree.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param props Property tree to iterate over.</span>
+<span class="cm">     */</span>
+    <span class="k">explicit</span> <span class="n">propsRangeData</span><span class="p">(</span><span class="n">pt</span><span class="o">::</span><span class="n">ptree</span> <span class="o">&amp;</span><span class="n">props</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">it</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">props</span><span class="p">.</span><span class="n">ordered_begin</span><span class="p">(),</span> <span class="n">props</span><span class="p">.</span><span class="n">not_found</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Holds tree visit iterators as begin-end pairs.</span>
+<span class="cm">     */</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">stack</span><span class="o">&lt;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span>
+            <span class="n">pt</span><span class="o">::</span><span class="n">ptree</span><span class="o">::</span><span class="n">assoc_iterator</span><span class="p">,</span>
+            <span class="n">pt</span><span class="o">::</span><span class="n">ptree</span><span class="o">::</span><span class="n">assoc_iterator</span>
+        <span class="o">&gt;</span>
+    <span class="o">&gt;</span> <span class="n">it</span><span class="p">;</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Names of all parent nodes of the current one.</span>
+<span class="cm">     */</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">parents</span><span class="p">;</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Full name of the current node.</span>
+<span class="cm">     */</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">fullName</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief Iterator for property tree items.</span>
+<span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">propsIterator</span>
+  <span class="o">:</span> <span class="k">public</span> <span class="n">boost</span><span class="o">::</span><span class="n">iterator_facade</span><span class="o">&lt;</span>
+        <span class="n">propsIterator</span><span class="p">,</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">input_iterator_tag</span>
+    <span class="o">&gt;</span>
+<span class="p">{</span>
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">boost</span><span class="o">::</span><span class="n">iterator_core_access</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Constructs empty iterator (&quot;end&quot; iterator).</span>
+<span class="cm">     */</span>
+    <span class="n">propsIterator</span><span class="p">()</span> <span class="o">:</span> <span class="n">rd</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Constructs non-empty iterator.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param rd Pointer to data storage that outlives the iterator.</span>
+<span class="cm">     */</span>
+    <span class="n">propsIterator</span><span class="p">(</span><span class="n">propsRangeData</span> <span class="o">*</span><span class="n">rd</span><span class="p">)</span> <span class="o">:</span> <span class="n">rd</span><span class="p">(</span><span class="n">rd</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Special case of empty property tree.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span> <span class="o">==</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">increment</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Advances to the next property node.</span>
+<span class="cm">     */</span>
+    <span class="kt">void</span> <span class="n">increment</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// Turn into &quot;end&quot; iterator and boil out if visit stack is empty.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="o">*</span><span class="k">this</span> <span class="o">=</span> <span class="n">propsIterator</span><span class="p">();</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Go down until a leaf.</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">pt</span><span class="o">::</span><span class="n">ptree</span><span class="o">::</span><span class="n">assoc_iterator</span> <span class="o">&amp;</span><span class="n">it</span> <span class="o">=</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+
+            <span class="n">rd</span><span class="o">-&gt;</span><span class="n">parents</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">);</span>
+            <span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">ordered_begin</span><span class="p">(),</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">not_found</span><span class="p">());</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Format full name for the property.</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">oss</span><span class="p">;</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">copy</span><span class="p">(</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">parents</span><span class="p">.</span><span class="n">cbegin</span><span class="p">(),</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">parents</span><span class="p">.</span><span class="n">cend</span><span class="p">(),</span>
+                  <span class="n">std</span><span class="o">::</span><span class="n">ostream_iterator</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">oss</span><span class="p">,</span> <span class="s">&quot;.&quot;</span><span class="p">));</span>
+        <span class="n">rd</span><span class="o">-&gt;</span><span class="n">fullName</span> <span class="o">=</span> <span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">()</span> <span class="o">+</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
+
+        <span class="c1">// Go up until first unfinished level.</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">++</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span> <span class="o">==</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">rd</span><span class="o">-&gt;</span><span class="n">it</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="c1">// Parents vector is empty for top-level elements.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">parents</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">rd</span><span class="o">-&gt;</span><span class="n">parents</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Checks whether two iterators are equal.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param that Iterator to compare against @c *this.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @returns @c true if equal, @c false otherwise.</span>
+<span class="cm">     */</span>
+    <span class="kt">bool</span> <span class="n">equal</span><span class="p">(</span><span class="k">const</span> <span class="n">propsIterator</span> <span class="o">&amp;</span><span class="n">that</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">rd</span> <span class="o">==</span> <span class="n">that</span><span class="p">.</span><span class="n">rd</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Retrieves value of a valid iterator (not &quot;end&quot; iterator).</span>
+<span class="cm">     *</span>
+<span class="cm">     * @returns The value.</span>
+<span class="cm">     */</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">dereference</span><span class="p">()</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">fullName</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @brief Pointer to data storage.</span>
+<span class="cm">     */</span>
+    <span class="n">propsRangeData</span> <span class="o">*</span><span class="n">rd</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">using</span> <span class="n">propsRangeBase</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">iterator_range</span><span class="o">&lt;</span><span class="n">propsIterator</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief Range iterator over names of property tree items.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Each element is returned in fully qualified form: dot-separated path of</span>
+<span class="cm"> * nodes, e.g. &quot;root.middle.end&quot;.</span>
+<span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">propsRange</span> <span class="o">:</span> <span class="k">private</span> <span class="n">detail</span><span class="o">::</span><span class="n">propsRangeData</span><span class="p">,</span> <span class="k">public</span> <span class="n">detail</span><span class="o">::</span><span class="n">propsRangeBase</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">explicit</span> <span class="n">propsRange</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">property_tree</span><span class="o">::</span><span class="n">ptree</span> <span class="o">&amp;</span><span class="n">props</span><span class="p">)</span>
+        <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">propsRangeData</span><span class="p">(</span><span class="n">props</span><span class="p">),</span>
+          <span class="n">detail</span><span class="o">::</span><span class="n">propsRangeBase</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">propsIterator</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
+                                 <span class="n">detail</span><span class="o">::</span><span class="n">propsIterator</span><span class="p">())</span>
+    <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3>Usage Example</h3>
+
+<p>As an example let&#39;s iterate over all keys of a simple data in
+<a href="http://www.boost.org/doc/libs/1_58_0/doc/html/property_tree/parsers.html#property_tree.parsers.info_parser">INFO format</a> and print out associated values (note absence of <code>#include</code>
+for the code above, so add it at the top or include in some other way):</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;sstream&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="cp">#include &lt;boost/property_tree/info_parser.hpp&gt;</span>
+
+<span class="k">namespace</span> <span class="n">pt</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">property_tree</span><span class="p">;</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">data</span> <span class="o">=</span> <span class="n">R</span><span class="s">&quot;(</span>
+        <span class="n">root1</span>
+        <span class="p">{</span>
+            <span class="n">middle1</span>
+            <span class="p">{</span>
+                <span class="n">leaf3</span> <span class="mi">13</span>
+                <span class="n">leaf1</span> <span class="mi">666</span>
+                <span class="n">leaf0</span> <span class="mi">234</span>
+            <span class="p">}</span>
+            <span class="n">leaf</span> <span class="n">val</span>
+            <span class="n">one_more_leaf</span> <span class="mi">2</span>
+        <span class="p">}</span>
+        <span class="n">root2</span>
+        <span class="p">{</span>
+            <span class="n">middle</span>
+            <span class="p">{</span>
+                <span class="n">leaf_value</span> <span class="n">here</span>
+                <span class="n">leaf_again</span> <span class="s">&quot;and here&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">)</span><span class="s">&quot;;</span>
+
+    <span class="n">boost</span><span class="o">::</span><span class="n">property_tree</span><span class="o">::</span><span class="n">ptree</span> <span class="n">props</span><span class="p">;</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">istringstream</span> <span class="n">iss</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+        <span class="n">read_info</span><span class="p">(</span><span class="n">iss</span><span class="p">,</span> <span class="n">props</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="nl">key</span> <span class="p">:</span> <span class="n">propsRange</span><span class="p">(</span><span class="n">props</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">key</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; = &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">props</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">root1.leaf = val
+root1.middle1.leaf0 = 234
+root1.middle1.leaf1 = 666
+root1.middle1.leaf3 = 13
+root1.one_more_leaf = 2
+root2.middle.leaf_again = and here
+root2.middle.leaf_value = here
+</code></pre></div>
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2015-08-15/enumerating-boost-property-leaves">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2015-08-15/enumerating-boost-property-leaves';
+  var disqus_title = 'Range iterator for Boost.PropertyTree items -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Out-of-class overload of unary operators in C++</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Out-of-class overload of unary operators in C++</h1>
+      <h5 class="post_date">April 29, 2013</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/c++">c++</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>This may sound strange, but it seems that I have never thought about overloading
+of unary operators in C++, which are not implemented as member functions.  It&#39;s
+not like it sounds strange or incorrect, I just never wanted to do it.  So, just
+to be able to say &quot;I did it at least once&quot;, lets try it out on a very basic
+example with overloading of postfix increment operator:</p>
+
+<!-- cut -->
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;cstdlib&gt;</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+
+<span class="k">class</span> <span class="nc">A</span>
+<span class="p">{</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Overloaded!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">a</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The output is easy to guess:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Overloaded!
+</code></pre></div>
+<p>That&#39;s it.  I don&#39;t have anything more to say about it, because the idea of this
+post is to fix the fact about this simple thing.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2013-04-29/cpp-out-of-class-unary-op-overload">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-04-29/cpp-out-of-class-unary-op-overload';
+  var disqus_title = 'Out-of-class overload of unary operators in C++ -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2013-04-29/cpp-out-of-class-unary-op-overload';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

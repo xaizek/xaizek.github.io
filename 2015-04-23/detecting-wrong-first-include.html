@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Clang by example: Detecting wrong first include</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Clang by example: Detecting wrong first include</h1>
+      <h5 class="post_date">April 23, 2015</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/clang">clang</a>]
+        
+        [<a href="/tag/llvm">llvm</a>]
+        
+        [<a href="/tag/tutorial">tutorial</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h4>TOC</h4>
+
+<ol>
+<li>
+<a href='/2014-05-02/detecting-postfix-operators-in-for-loops'> Detecting postfix operators in for loops</a>
+</li>
+<li>
+<a href='/2014-08-28/detecting-unused-functions'> Detecting unused functions</a>
+</li>
+<li>
+<a href='/2015-04-23/detecting-wrong-first-include'> Detecting wrong first include</a>
+(you are here)
+</li>
+</ol>
+
+<h3>Introduction</h3>
+
+<p>There is a well known (or at least I hope that it&#39;s <em>well</em> known) good practice
+to include header that corresponds to the current source file before including
+any other headers.  It&#39;s recommended by multiple C++ coding style guides (for
+example by <a href="http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Names_and_Order_of_Includes">Google C++ Style Guide</a>) and indeed
+makes sense to follow.</p>
+
+<p>To put it short: it makes finding incomplete headers really easy.  If you
+forget to include required header, corresponding source file just won&#39;t compile.
+This way there will be no hidden (implicit) dependencies among modules of a
+project as well as dependencies on system headers.  Below is a simple example
+that demonstrates such situation.</p>
+
+<!-- cut -->
+
+<p>Let&#39;s look at three files:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// util.hpp</span>
+
+<span class="cp">#ifndef BAD_FIRST_INCLUDE__UTIL_HPP__</span>
+<span class="cp">#define BAD_FIRST_INCLUDE__UTIL_HPP__</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">truncatePath</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">path</span><span class="p">);</span>
+
+<span class="cp">#endif </span><span class="c1">// BAD_FIRST_INCLUDE__UTIL_HPP__</span>
+</code></pre></div><div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// util.cpp</span>
+
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="cp">#include &quot;util.hpp&quot;</span>
+
+<span class="c1">// ...</span>
+</code></pre></div><div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// main.cpp</span>
+
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="cp">#include &quot;util.hpp&quot;</span>
+
+<span class="c1">// ...</span>
+</code></pre></div>
+<p>Although both cpp-files should compile without errors, it&#39;s easy to see that
+<code>util.hpp</code> file lacks include of <code>&lt;string&gt;</code> system header.  There is no errors
+because both cpp-files include <code>&lt;string&gt;</code> before including <code>util.hpp</code>, which
+hides the fact that <code>util.hpp</code> is not standalone as it depends on source files
+it&#39;s included in.  Simple swapping two includes in <code>util.cpp</code> file like this:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// util.cpp</span>
+
+<span class="cp">#include &quot;util.hpp&quot;</span>
+
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="c1">// ...</span>
+</code></pre></div>
+<p>Makes the issue pop up almost immediately, precisely when <code>util.cpp</code> file is
+compiled.  As <code>std::string</code> is unknown at point of inclusion of <code>util.hpp</code>,
+compiler will issue errors on its usages in <code>util.hpp</code>.</p>
+
+<p>This discussion is meant to outline usefulness of the approach when &quot;self
+include&quot; is placed at the top of the file above all other includes.  Hope
+everyone are convinced now.  Even though this usage of the approach clearly
+provides some benefits, not everyone use it and some don&#39;t even know about it.
+Here is where a need for tool that checks whether programmer followed described
+approach or not arises.</p>
+
+<p>Such a tool could also check that corresponding header file is included at
+all.  Since implementing this check doesn&#39;t add much interesting details to
+the code and requires some heuristics to check whether the header exists in the
+first place, it&#39;s left out of this memo.  Nevertheless, implementing it later
+requires only additions to the code.</p>
+
+<h3>New type of FrontendAction</h3>
+
+<p>Comparing to previous articles, here we don&#39;t need AST at all.  Parsing
+performed by preprocessor at <a href="http://en.wikipedia.org/wiki/Lexing">lexical analysis stage</a> of source file
+processing is enough to extract <a href="http://en.wikipedia.org/wiki/Include_directive#C">include directives</a>.  That
+is the reason why we need to get more familiar with
+<a href="http://clang.llvm.org/doxygen/classclang_1_1FrontendAction.html">FrontendAction</a>.  There are plenty of them and it&#39;s important
+to pick one that fits better.</p>
+
+<p>So far we&#39;ve indirectly met with the <a href="http://clang.llvm.org/doxygen/classclang_1_1ASTFrontendAction.html">ASTFrontendAction</a>
+at the very end of our <code>main()</code> functions.  Here is the code:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">return</span> <span class="n">tool</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">newFrontendActionFactory</span><span class="p">(</span><span class="o">&amp;</span><span class="n">finder</span><span class="p">.</span><span class="n">getMatchFinder</span><span class="p">()));</span>
+</code></pre></div>
+<p><code>finder.getMatchFinder()</code> returns <a href="http://clang.llvm.org/doxygen/classclang_1_1ast__matchers_1_1MatchFinder.html">MatchFinder &amp;</a>.  So where is
+the <code>FrontendAction</code>?  In this case it&#39;s implicitly created by one of several
+overloads of <a href="http://clang.llvm.org/doxygen/namespaceclang_1_1tooling.html#a88824d0377026b69ecf2a788fab5d9ed">newFrontendActionFactory()</a> function.  If
+you look at <code>MatchFinder</code> closer, you&#39;ll see that it doesn&#39;t inherit from any
+class.  It works thanks to <a href="https://en.wikipedia.org/wiki/Duck_typing#In_C.2B.2B">duck typing</a>, overloaded used in this
+case assumes that its argument implements method with the following signature
+(or the similar one that can be used without compilation errors):</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">clang</span><span class="o">::</span><span class="n">ASTConsumer</span> <span class="o">*</span><span class="n">newASTConsumer</span><span class="p">();</span>
+</code></pre></div>
+<p>Then value returned by this function is wrapped within a local class derived
+from <code>ASTFrontendAction</code>.</p>
+
+<p>To implement our current task <a href="http://clang.llvm.org/doxygen/namespaceclang_1_1tooling.html#a67e08bff3f79bc24d5040fc970747478">another overload of
+newFrontendActionFactory()</a> function is needed.  In this
+case it takes <em>type</em> of <code>FrontendAction</code> derived class as its only template
+parameter and instantiates it when required.</p>
+
+<p>If you can&#39;t understand/recollect why do we need to use any factory at all,
+here is fast answer: each file is processed by new instance of
+<code>FrontendAction</code>, hence the need for a factory of such objects.</p>
+
+<p>Now that we know how to create new <code>FrontendAction</code>s, let&#39;s pick concrete type
+of action we want to use.  There are already several actions related to
+preprocessor stage, which can be viewed at <a href="http://clang.llvm.org/doxygen/classclang_1_1PreprocessorFrontendAction.html">documentation page for
+PreprocessorFrontendAction</a>.  It shouldn&#39;t be hard to guess that we&#39;d
+like to use <a href="http://clang.llvm.org/doxygen/classclang_1_1PreprocessOnlyAction.html">PreprocessOnlyAction</a> class, it successfully
+prevents creation of AST which should make processing of really huge sources
+fast and smooth for our tool.</p>
+
+<p>For curious ones, here is how <code>PreprocessOnlyAction</code> prevents AST generation in
+code:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">virtual</span> <span class="kt">bool</span> <span class="n">usesPreprocessorOnly</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<p>Here is <a href="http://clang.llvm.org/doxygen/classclang_1_1FrontendAction.html#ae66bb6aa625039465a152344bc6307ff">documentation on usesPreprocessorOnly()</a>.  Yes, it&#39;s
+that easy, still not really obvious when you don&#39;t know it.</p>
+
+<h3>Implementing IncludeFinderAction</h3>
+
+<p>It should be clear now that <code>IncludeFinderAction</code> needs to derive from
+<code>PreprocessOnlyAction</code>, but what methods should it implement or override?
+Documentation mentions only
+<a href="http://clang.llvm.org/doxygen/classclang_1_1PreprocessOnlyAction.html#a7f85597021641413c598f38fd74d96b0">PreprocessOnlyAction::ExecuteAction</a>, so the choice is
+somewhat limited here and we need to overwrite exactly this method:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">void</span>
+<span class="n">IncludeFinderAction</span><span class="o">::</span><span class="n">ExecuteAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">IncludeFinder</span> <span class="n">includeFinder</span><span class="p">(</span><span class="n">getCompilerInstance</span><span class="p">());</span>
+    <span class="n">getCompilerInstance</span><span class="p">().</span><span class="n">getPreprocessor</span><span class="p">().</span><span class="n">addPPCallbacks</span><span class="p">(</span>
+        <span class="n">includeFinder</span><span class="p">.</span><span class="n">createPreprocessorCallbacks</span><span class="p">()</span>
+    <span class="p">);</span>
+
+    <span class="n">clang</span><span class="o">::</span><span class="n">PreprocessOnlyAction</span><span class="o">::</span><span class="n">ExecuteAction</span><span class="p">();</span>
+
+    <span class="n">includeFinder</span><span class="p">.</span><span class="n">diagnoseAndReport</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Version of <code>ExecuteAction()</code> from parent class is invoked in the middle of our
+code as we want this to happen:</p>
+
+<ol>
+<li>Create our auxiliary class that does the most interesting part of job
+(IncludeFinder).</li>
+<li><a href="http://clang.llvm.org/doxygen/classclang_1_1Preprocessor.html#a671c7ba389abdc470a76ca6e40b3158d">Subscribe</a> it to preprocessor actions.</li>
+<li>Let preprocessor process input file as it would do normally.</li>
+<li>Analyze preprocessing results and print out results to a user.</li>
+</ol>
+
+<p>Note usage of <a href="http://clang.llvm.org/doxygen/classclang_1_1FrontendAction.html#a023fec1b6c32f5a8cc913fc30ae7844e">getCompilerInstance()</a> in the code above.
+It comes from <code>FrontendAction</code> class and returns reference to
+<a href="http://clang.llvm.org/doxygen/classclang_1_1CompilerInstance.html">CompilerInstance</a> class which holds root objects that allow
+retrieval of all necessary information about source file processing.</p>
+
+<h3>Preprocessor callbacks</h3>
+
+<p>Some questions might arise when one is looking at the following lines:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">getCompilerInstance</span><span class="p">().</span><span class="n">getPreprocessor</span><span class="p">().</span><span class="n">addPPCallbacks</span><span class="p">(</span>
+    <span class="n">includeFinder</span><span class="p">.</span><span class="n">createPreprocessorCallbacks</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Particularly the following ones:</p>
+
+<ol>
+<li>Why don&#39;t we &quot;remove&quot; any callbacks later?</li>
+<li>Why callbacks are &quot;created&quot;?</li>
+</ol>
+
+<p>There is one answer for both questions (well, almost): <code>Preprocessor</code> takes
+ownership over <a href="http://clang.llvm.org/doxygen/classclang_1_1PPCallbacks.html">PPCallbacks</a> object(s) passed to it.  Actually,
+that was the first part of the answer, there would be no need to create
+anything if we could unsubscribe listener.  So the second part is: callbacks
+can&#39;t be removed after they are added.  This means that callbacks handler must
+be allocated on heap.</p>
+
+<p>It seems to be a design decision, because internally
+<a href="http://clang.llvm.org/doxygen/classclang_1_1PPChainedCallbacks.html">PPChainedCallbacks</a> class is used and there are other
+similar classes, e.g. <a href="http://clang.llvm.org/doxygen/classclang_1_1ChainedASTReaderListener.html">ChainedASTReaderListener</a>.  Such
+chained structures doesn&#39;t provide means for removing chains, only to add them
+and to call corresponding methods.</p>
+
+<h3>Implementing callbacks</h3>
+
+<p>Due to callback details described in the previous section callbacks need to be
+implemented with a proxy class.  Here is how it works in general:</p>
+
+<p><img src="/images/first-include-scheme.png" alt="Figure 1.  Using proxy for preprocessor callbacks."></p>
+
+<p>And here is more detailed description:</p>
+
+<ol>
+<li><code>ExecuteAction()</code> method creates <code>CallbacksProxy</code> class with a reference to
+corresponding <code>IncludeFinder</code> instance and hands it over to an instance of
+<code>Preprocessor</code> class (solid arrows).</li>
+<li>When interesting callbacks occur <code>Preprocessor</code> calls <code>CallbacksProxy</code>,
+which dispatches the call to <code>IncludeFinder</code> (dashed arrows).</li>
+</ol>
+
+<p>As for the list of callbacks, <code>PPCallbacks</code> currently has 30 of them and we
+need only one: <a href="http://clang.llvm.org/doxygen/classclang_1_1PPCallbacks.html#a557d9738c329793513a6f57d6b60de52">PPCallbacks::InclusionDirective</a>.  It is
+called once for every <code>#include</code> (and alike) directive in the source code.  The
+callback is called even when the file inclusion directive refers to doesn&#39;t
+exist.  Seems to be exactly what we need.</p>
+
+<h3>Processing inclusions</h3>
+
+<p>There are two phases of processing here:</p>
+
+<ol>
+<li>Collecting all <code>#include</code> directives in a file.</li>
+<li>Deciding whether self-include exists and is at correct place in the file.</li>
+</ol>
+
+<p>The first phase is quite straightforward:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">clang</span><span class="o">::</span><span class="n">SourceManager</span> <span class="o">&amp;</span><span class="n">sm</span> <span class="o">=</span> <span class="n">compiler</span><span class="p">.</span><span class="n">getSourceManager</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">isInMainFile</span><span class="p">(</span><span class="n">hashLoc</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">lineNum</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">getSpellingLineNumber</span><span class="p">(</span><span class="n">hashLoc</span><span class="p">);</span>
+    <span class="n">includes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">lineNum</span><span class="p">,</span> <span class="n">fileName</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Note <a href="http://clang.llvm.org/doxygen/classclang_1_1SourceManager.html#a30bc78248de9022150189daa58ca1397">SourceManager::isInMainFile()</a> method, you might want to
+use it one day too.  It&#39;s an easy way to filter out only those elements that
+are located in the main file that is processed (one of source files passed to
+the tool).  This way we do <em>not</em> print files referenced by our includes,
+includes of our includes and so on.</p>
+
+<p>Apart from that we also extract line number in the source file using
+<a href="http://clang.llvm.org/doxygen/classclang_1_1SourceManager.html#a6fba713e87cd0b876af279e853738e74">SourceManager::getSpellingLineNumber()</a> method, which
+is also quite handy and simpler than another way of obtaining same information
+using <code>FullSourceLoc</code> as was shown in previous articles.</p>
+
+<p>The second phase doesn&#39;t have anything new about clang, but for completeness
+here are main points how check for include file is performed:</p>
+
+<ol>
+<li>Backward slashes (<code>\</code>) in full path to the source file are replaced with
+forward slashes (<code>/</code>).</li>
+<li>Trailing component of the path is extracted, which should be filename.</li>
+<li>Extension of the file is removed to get its name only (part of file name
+without extension is usually called &quot;root&quot;).</li>
+<li>For each of found inclusion directives:
+
+<ol>
+<li>Root of file is obtained and checked to match root of the source file.
+Skip this header if name doesn&#39;t match.</li>
+<li>Extension is extracted and checked against list of known extensions of
+header files.  Headers with unknown extensions are skipped after issuing
+corresponding warning.</li>
+<li>We get to this step only if match is found.  If we found more than one
+match, print a warning.</li>
+</ol></li>
+</ol>
+
+<p>The last check that is left is the primitive one: just check that the first
+element of our collection of includes is the one that corresponds to the source
+file.</p>
+
+<h3>Testing</h3>
+
+<p>Repository of the tool contains some [test files].  Let&#39;s try the tool on a
+couple of them.  First with <code>tests/good.cpp</code> file:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &quot;good.hpp&quot;</span>
+
+<span class="cp">#include &lt;utility&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-bash" data-lang="bash">&gt; self-inc-first tests/good.cpp --
+</code></pre></div>
+<p>No output, as expected.</p>
+
+<p>Now take a look at <code>tests/bad.cpp</code> file:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;string&gt;</span>
+
+<span class="cp">#include &quot;bad.hpp&quot;</span>
+</code></pre></div>
+<p>Output with truncated paths:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">&gt; self-inc-first tests/bad.cpp --
+.../tests/bad.cpp:3:should be the first include in the file
+</code></pre></div>
+<p>Which is correct as well.</p>
+
+<h3>Conclusion</h3>
+
+<p>We&#39;ve wrote another tool that enforces following good programming practices in
+C++ code.  Although as of now it doesn&#39;t automatically guesses cases when
+header inclusion is completely missing in the file, the tool is already useful.</p>
+
+<p>Expected workflow with it can be as follows:</p>
+
+<ol>
+<li>Run <code>self-inc-first</code> over all files of the project.</li>
+<li>Move includes according to obtained output.</li>
+<li>Fix compilation errors.</li>
+</ol>
+
+<p>After doing this actions, all source files should become self-contained.  A
+simple rule that can significantly simplify building in the future.</p>
+
+<h3>Resources</h3>
+
+<ul>
+<li><a href="http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml">Google C++ Style Guide</a>.</li>
+<li><a href="https://github.com/xaizek/self-inc-first">GitHub repository of self-inc-first tool</a>.</li>
+</ul>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2015-04-23/detecting-wrong-first-include">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2015-04-23/detecting-wrong-first-include';
+  var disqus_title = 'Clang by example: Detecting wrong first include -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2015-04-23/detecting-wrong-first-include';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

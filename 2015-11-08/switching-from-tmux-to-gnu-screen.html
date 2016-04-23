@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Switching from tmux to GNU Screen</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Switching from tmux to GNU Screen</h1>
+      <h5 class="post_date">November  8, 2015</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/terminal">terminal</a>]
+        
+        [<a href="/tag/keys">keys</a>]
+        
+        [<a href="/tag/gnu">gnu</a>]
+        
+        [<a href="/tag/screen">screen</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>I was postponing learning how to use <a href="https://en.wikipedia.org/wiki/Terminal_multiplexer">terminal multiplexers</a> for a
+long time until one day had to test integration with <a href="https://en.wikipedia.org/wiki/Tmux">tmux</a>, which
+required learning it.  So I was using tmux since then and always thinking
+whether I could do better by using <a href="https://en.wikipedia.org/wiki/GNU_Screen">GNU Screen</a> instead.  After
+all, most of <a href="https://en.wikipedia.org/wiki/GNU">GNU</a> applications turn out to be quite versatile and
+extremely useful, so why GNU Screen wouldn&#39;t have these properties?  This is
+especially reasonable question if one recalls that tmux was modeled after GNU
+Screen.</p>
+
+<!-- cut -->
+
+<p>There is enough basic tutorials and configuration dumps of <code>.screenrc</code> out there
+on the Internet, so I won&#39;t create one more.  Instead, I&#39;ll explain what wasn&#39;t
+immediately clear to me, mention wrong facts about GNU Screen (some of which are
+not really &quot;wrong&quot;, they just outdated by now) and provide <code>.screenrc</code> with
+comments (well, yeah, there is a configuration dump at the end).</p>
+
+<h3>Terminology difficulties</h3>
+
+<p>Let&#39;s take Vim&#39;s terminology as a good example and then proceed to tmux and GNU
+Screen.  Vim has the following entities when it comes to files and how they
+appear on the screen:</p>
+
+<ul>
+<li>buffer -- holds the file</li>
+<li>window -- displays one of buffers</li>
+<li>tab -- displays one or more windows</li>
+</ul>
+
+<p>tmux provides nice example of how one should <em>never</em> name things (it still gives
+me hard time remembering the naming):</p>
+
+<ul>
+<li>window -- this is a &quot;tab&quot; in Vim and pretty much any other application</li>
+<li>pane -- this is a &quot;window&quot; in Vim (very intuitive to name different things with
+      very similar words, isn&#39;t it?..)</li>
+</ul>
+
+<p>Naming is not strong part of GNU Screen as well, but there is a logic behind
+most it:</p>
+
+<ul>
+<li>window -- this is like a &quot;buffer&quot; in Vim (strange naming, but it gets better)</li>
+<li>region -- this is like a &quot;window&quot; in Vim (makes sense, &quot;region&quot; suits well)</li>
+<li>layout -- a &quot;tab&quot; in Vim (near perfect match, &quot;tab&quot; is just a layout
+        container)</li>
+</ul>
+
+<p>At least both applications could agree on calling sessions &quot;sessions&quot;...</p>
+
+<h3>Layout</h3>
+
+<p>Continuing to use Vim as a base for comparison.  This time tmux generally
+behaves closer to what I would expect, but GNU Screen is getting there if one
+uses buffer commands in Vim.</p>
+
+<p>Creating new &quot;window&quot; in tmux creates a tab where you can place multiple
+&quot;panes&quot;, closing an application running in a &quot;pane&quot; removes that part of the
+screen.  It&#39;s like combination of <code>:tabnew</code> and <code>:q</code> in Vim.</p>
+
+<p>GNU Screen puts regions above their content and one can easily loop through all
+applications in each of the regions.  If application is closed, GNU Screen puts
+next available &quot;window&quot; where just closed application used to be.  Something
+similar happens on <code>:bdelete</code> in Vim.  There is even a thing called &quot;empty
+region&quot;, which is like empty buffer in Vim you get after typing <code>:bdelete</code> too
+many times.  It&#39;s this &quot;empty region&quot; you see by default right after a split.</p>
+
+<h4>Splits</h4>
+
+<p>Many people still think that GNU Screen doesn&#39;t provide vertical splits, which
+is not true since Version 4.2.0 (17/04/2014), which added <code>-v</code> option to <code>split</code>
+command.</p>
+
+<h4>Tabs</h4>
+
+<p>Other people (or the same) might not know that one can have multiple independent
+layouts at the same time without running GNU Screen in GNU Screen (yes, people
+did this and had to type prefix key multiple times).  Also available since 4.2.0
+version.</p>
+
+<h4>Result of differences</h4>
+
+<p>In tmux I usually ended up having too many open &quot;windows&quot; (which are tabs, in
+case you got lost), GNU Screen seems to improve my workflow by limiting
+amount of different layouts only to those I actually need, which should be a
+good thing and should teach me to be more careful regarding closing application
+and corresponding region.  Although, this might be very specific to my workflow,
+as I tend to overuse tabs even if I don&#39;t really need them.</p>
+
+<h3>Command syntax</h3>
+
+<p>I heard that GNU Screen had horrible configuration syntax, but I don&#39;t see it
+being much different from the one tmux has.  Honestly, I still don&#39;t know why
+there are <code>set-option</code>, <code>set-window-option</code>, <code>set-option -g</code> and
+<code>set-window-option -g</code> in tmux and when one should use one or another.  So I
+find configuration in GNU Screen more straightforward and obvious, although it
+differs from <code>:set</code> in Vim, but this allows additional options and extended
+syntax, which is handy.</p>
+
+<h4>Command grouping</h4>
+
+<p>One notable difference is how one can run multiple commands.  In tmux commands
+can be separated by <code>\;</code> (two characters), GNU Screen requires using <code>eval</code>
+command which interprets each argument as a separate command (it seems to have
+some differences compared to normal shell expansion, note that).</p>
+
+<h3>Other</h3>
+
+<h4>Status line</h4>
+
+<p>Global one is called &quot;hardstatus&quot; and there is also a &quot;caption&quot; (per region).
+Looks like it can&#39;t be put at the top of the window, unlike tmux.  On the other
+hand, it&#39;s not an issue here as editing command-line happens above the &quot;caption&quot;
+and it&#39;s not as confusing as in tmux (although highlight is a bit strange at
+least with my setup).  Another good thing about it is that completion matches
+are displayed similar to Vim with &#39;wildmenu&#39; option turned on.</p>
+
+<p>Not sure how to display list of layouts on status line, don&#39;t see escape codes
+for this.</p>
+
+<h4>Colors</h4>
+
+<p>Don&#39;t see a way to specify colors from 256 palette, only standard 16.  tmux has
+<code>colourXXX</code> for this.</p>
+
+<h4>Boundaries</h4>
+
+<p>Not able to set custom characters for boundaries or different boundary for
+current region.</p>
+
+<h4>Text copying</h4>
+
+<p>Can&#39;t pipe copy buffer to a command in GNU Screen, but one can write it to a
+file and then do something with it.</p>
+
+<p>Also can&#39;t find history of copied text (<kbd>prefix+=</kbd> by default in tmux),
+but there are registers.</p>
+
+<p>On searches with <kbd>/</kbd> or <kbd>?</kbd> previous search is automatically
+cleared for you, which is great, never understood why it&#39;s not the case in tmux
+(it&#39;s probably one of a few applications with such strange implementation).</p>
+
+<h4>Directory of a split</h4>
+
+<p>Don&#39;t see a nice way of using working directory of current process in newly
+created split.</p>
+
+<h4>Command classes</h4>
+
+<p>I&#39;m not aware of similar feature in tmux, but GNU Screen allows creation of new
+modes, although they are named &quot;classes&quot; here.</p>
+
+<p>There are two parts for this.  First, commands are defined in some command
+class:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">bind -c &lt;class&gt; &lt;key&gt; &lt;command&gt;
+</code></pre></div>
+<p>Second, some key is used to enter this class:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">bind &lt;key&gt; command -c &lt;class&gt;
+</code></pre></div>
+<p>An example of resize mode is provided below.</p>
+
+<p>Note that each command leaves the mode, so to stay in it one needs to &quot;re-enter&quot;
+it again:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">bind -c &lt;class&gt; &lt;key&gt; eval &quot;&lt;command&gt;&quot; &quot;command -c &lt;class&gt;&quot;
+</code></pre></div>
+<p>Actually, it is not exactly a mode, but a way to define custom prefix characters
+and put some key bindings in separates namespaces.  Yet, it&#39;s powerful enough to
+emulate modes on some level.</p>
+
+<h3>Configuration</h3>
+
+<p>Precaution for colors you see below: mine are changed for <code>xterm</code> via
+<code>~/.xresources</code>.</p>
+
+<p>Not sure if it&#39;s the same on all systems, but at least on Slackware there are a
+bunch of settings in sample <code>.screenrc</code> that correct termcapinfo and alike,
+won&#39;t repeat them here (they present in <a href="https://github.com/xaizek/dotfiles/blob/master/screenrc">actual configuration file</a>).</p>
+
+<h4>General configuration</h4>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># don&#39;t display lengthy license and version information on startup</span>
+startup_message off
+
+<span class="c"># don&#39;t log new windows to utmp (who and such won&#39;t work, which is fine)</span>
+deflogin off
+
+<span class="c"># automatically detach on terminal hangup (so that one can attach again and</span>
+<span class="c"># continue working)</span>
+autodetach on
+
+<span class="c"># ignore case on searches in copy-mode</span>
+ignorecase on
+
+<span class="c"># assume UTF-8 encoding</span>
+defutf8 on
+
+<span class="c"># use 256-color palette</span>
+term screen-256color
+
+<span class="c"># disable flow control as it conflicts with Ctrl-S prefix</span>
+defflow off
+
+<span class="c"># erase background with current bg color</span>
+defbce on
+
+<span class="c"># remove delay after pressing escape key inside screen</span>
+maptimeout 0
+
+<span class="c"># start screen with a new layout (none by default)</span>
+layout new initial
+
+<span class="c"># wait up to three seconds before hiding last message (default is 5 seconds)</span>
+msgwait 3
+
+<span class="c"># enable alternative screen</span>
+altscreen on
+
+<span class="c"># use big scrollback buffer</span>
+defscrollback 5000
+
+<span class="c"># suppress trailing blank lines when scrolling up text into the history buffer</span>
+compacthist on
+</code></pre></div>
+<h4>Interface</h4>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># set color of borders and command-line (cyan background, black foreground)</span>
+rendition <span class="nv">so</span> <span class="o">=</span> ck
+</code></pre></div>
+<h5>Titles</h5>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># status line with current window highlighted</span>
+hardstatus alwayslastline <span class="s1">&#39;%{Rk}%?%{dd}%E ESC %{Rk}%:     %?%=%?%{gk} %-Lw%?%{kW} %n*%f%t%?(%u)%? %{= gk}%?%+Lw %{Rk}%:%{Rk} %?%=&#39;</span>
+</code></pre></div>
+<p>This requires additional configuration for bash:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># set screen title</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$TMUX&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># when in shell, to current path</span>
+    <span class="k">case</span> <span class="nv">$TERM</span> in
+        screen*<span class="o">)</span>
+            <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\[\033k\w\033\\\]&#39;</span><span class="nv">$PS1</span>
+            <span class="p">;;</span>
+        *<span class="o">)</span> <span class="p">;;</span>
+    <span class="k">esac</span>
+    <span class="c"># otherwise to command name</span>
+    <span class="nv">PROMPT_COMMAND</span><span class="o">=</span><span class="s2">&quot;echo -ne &#39;\033k\033\0134&#39;;$PROMPT_COMMAND&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+<p>This way title is:</p>
+
+<ul>
+<li>set to current directory (<code>\w</code> in <code>$PS1</code> above) if we&#39;re in a shell</li>
+<li>set to command name (e.g. <code>vim</code>) after we run a command from shell</li>
+</ul>
+
+<p>Hardline looks like this:</p>
+
+<p><img src="/images/screen-hardline.png" alt="hardline of screen"></p>
+
+<p>From left to right:</p>
+
+<ul>
+<li><code>ESC</code> -- signals about pressed prefix key (disappears afterwards)</li>
+<li>light red -- regular background</li>
+<li>light green -- background of inactive window</li>
+<li>black background -- active window</li>
+</ul>
+
+<h4>Bindings</h4>
+
+<h5>Basic</h5>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># change prefix key to Ctrl-S</span>
+escape <span class="s2">&quot;^S^S&quot;</span>
+
+<span class="c"># vim-like navigation between windows</span>
+<span class="nb">bind </span>h focus left
+<span class="nb">bind </span>j focus down
+<span class="nb">bind </span>k focus up
+<span class="nb">bind </span>l focus right
+
+<span class="c"># reload configuration file (note that this creates extra layout due to</span>
+<span class="c"># `layout new initial` command)</span>
+<span class="nb">bind </span>r <span class="nb">source</span> ~/.screenrc
+
+<span class="c"># create new window with a shell prompt</span>
+<span class="nb">bind </span>C screen
+
+<span class="c"># split horizontally creating new shell prompt</span>
+<span class="nb">bind</span> - <span class="nb">eval </span>split <span class="s1">&#39;focus down&#39;</span> screen
+
+<span class="c"># split vertically creating new shell prompt</span>
+<span class="nb">bind</span> <span class="p">|</span> <span class="nb">eval</span> <span class="s1">&#39;split -v&#39;</span> <span class="s1">&#39;focus right&#39;</span> screen
+</code></pre></div>
+<h5>Layouts</h5>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># create new layout with a shell prompt</span>
+<span class="nb">bind </span>c <span class="nb">eval</span> <span class="s1">&#39;layout new&#39;</span> screen
+
+<span class="c"># switch between layouts with Alt+Number</span>
+bindkey <span class="s2">&quot;^[0&quot;</span> layout <span class="k">select</span> 0
+bindkey <span class="s2">&quot;^[1&quot;</span> layout <span class="k">select</span> 1
+bindkey <span class="s2">&quot;^[2&quot;</span> layout <span class="k">select</span> 2
+bindkey <span class="s2">&quot;^[3&quot;</span> layout <span class="k">select</span> 3
+bindkey <span class="s2">&quot;^[4&quot;</span> layout <span class="k">select</span> 4
+bindkey <span class="s2">&quot;^[5&quot;</span> layout <span class="k">select</span> 5
+bindkey <span class="s2">&quot;^[6&quot;</span> layout <span class="k">select</span> 6
+bindkey <span class="s2">&quot;^[7&quot;</span> layout <span class="k">select</span> 7
+bindkey <span class="s2">&quot;^[8&quot;</span> layout <span class="k">select</span> 8
+bindkey <span class="s2">&quot;^[9&quot;</span> layout <span class="k">select</span> 9
+
+<span class="c"># switch to next layout</span>
+<span class="nb">bind </span>n layout next
+
+<span class="c"># switch to previous layout</span>
+<span class="nb">bind </span>p layout prev
+
+<span class="c"># create new empty layout</span>
+<span class="nb">bind </span>N layout new
+
+<span class="c"># remove current layout</span>
+<span class="nb">bind </span>q layout remove
+</code></pre></div>
+<h5>Copy-mode</h5>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># v - start selection</span>
+<span class="c"># y - start line-wise selection</span>
+<span class="c"># J - scroll down</span>
+<span class="c"># K - scroll up</span>
+markkeys <span class="s2">&quot;^M=v:y=V:^E=J:^Y=K&quot;</span>
+
+<span class="c"># &gt; - copy selection to system clipboard</span>
+bindkey -m &gt; <span class="nb">eval</span> <span class="s2">&quot;stuff &#39; &#39;&quot;</span> writebuf <span class="s2">&quot;exec sh -c &#39;xsel &lt; /tmp/screen-exchange&#39;&quot;</span>
+</code></pre></div>
+<h5>Resize-mode</h5>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># put screen into resize mode</span>
+<span class="nb">bind </span>R <span class="nb">command</span> -c rs
+
+<span class="c"># use hjkl keys to resize regions</span>
+<span class="nb">bind</span> -c rsz h <span class="nb">eval</span> <span class="s2">&quot;resize -h -5&quot;</span> <span class="s2">&quot;command -c rsz&quot;</span>
+<span class="nb">bind</span> -c rsz j <span class="nb">eval</span> <span class="s2">&quot;resize -v -5&quot;</span> <span class="s2">&quot;command -c rsz&quot;</span>
+<span class="nb">bind</span> -c rsz k <span class="nb">eval</span> <span class="s2">&quot;resize -v +5&quot;</span> <span class="s2">&quot;command -c rsz&quot;</span>
+<span class="nb">bind</span> -c rsz l <span class="nb">eval</span> <span class="s2">&quot;resize -h +5&quot;</span> <span class="s2">&quot;command -c rsz&quot;</span>
+
+<span class="c"># use HJKL keys to move between regions</span>
+<span class="nb">bind</span> -c rsz H <span class="nb">eval</span> <span class="s2">&quot;focus left&quot;</span>  <span class="s2">&quot;command -c rsz&quot;</span>
+<span class="nb">bind</span> -c rsz J <span class="nb">eval</span> <span class="s2">&quot;focus down&quot;</span>  <span class="s2">&quot;command -c rsz&quot;</span>
+<span class="nb">bind</span> -c rsz K <span class="nb">eval</span> <span class="s2">&quot;focus up&quot;</span>    <span class="s2">&quot;command -c rsz&quot;</span>
+<span class="nb">bind</span> -c rsz L <span class="nb">eval</span> <span class="s2">&quot;focus right&quot;</span> <span class="s2">&quot;command -c rsz&quot;</span>
+</code></pre></div>
+<h3>Conclusion</h3>
+
+<p>Again it started as testing of integration, but I&#39;m using GNU Screen more than a
+week now and probably will stick with it.  There are some things worth
+improving (I get strange 10 second delay before closing a shell which spawned at
+least one graphical application and got used to opening new split in working
+directory of current process), but general impression is good.  The upshot is:
+try it yourself rather than reading posts about how superior tmux is, the latter
+is really not that different from GNU Screen.</p>
+
+<h3>Useful links</h3>
+
+<ul>
+<li><a href="http://adb.cba.pl/gnu-screen-tips-page-my.html">Tips and tricks</a></li>
+<li><a href="https://web.archive.org/web/20110324201635/http://www.michaelkelleher.info/">Archived Michael Kelleher&#39;s blog</a></li>
+</ul>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2015-11-08/switching-from-tmux-to-gnu-screen">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2015-11-08/switching-from-tmux-to-gnu-screen';
+  var disqus_title = 'Switching from tmux to GNU Screen -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

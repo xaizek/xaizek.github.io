@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Flattened aggregate initializers in C and C++</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Flattened aggregate initializers in C and C++</h1>
+      <h5 class="post_date">April 28, 2013</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/c">c</a>]
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/initialization">initialization</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Today I found an interesting statement on one of forum pages of <a href="http://www.linux.org.ru/forum/development/9110363">LOR</a>:
+initializers of inner aggregates can be flattened.</p>
+
+<!-- cut -->
+
+<p>Consider this example:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;cstddef&gt;</span>
+<span class="cp">#include &lt;cstdlib&gt;</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="k">struct</span> <span class="n">item</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="n">item</span> <span class="n">items</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;A&quot;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;B&quot;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;c[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span>
+                  <span class="o">&lt;&lt;</span> <span class="s">&quot;i[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span>
+                  <span class="o">&lt;&lt;</span> <span class="s">&quot;s[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The output of a compiled example is easy to guess:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">c[0]: a
+i[0]: 0
+s[0]: A
+c[1]: b
+i[1]: 1
+s[1]: B
+c[2]: c
+i[2]: 2
+s[2]:
+</code></pre></div>
+<p>Now lets remove inner curly braces in initialization of the <code>items</code> array by
+replacing</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++">    <span class="k">const</span> <span class="n">item</span> <span class="n">items</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;A&quot;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;B&quot;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="p">}</span>
+    <span class="p">};</span>
+</code></pre></div>
+<p>with</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++">    <span class="k">const</span> <span class="n">item</span> <span class="n">items</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;A&quot;</span><span class="p">,</span>
+        <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span>
+        <span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="mi">2</span>
+    <span class="p">};</span>
+</code></pre></div>
+<p>It works the same way as the first example!  If you want the compiler to warn
+you when such initialization takes place, pass <code>-Wall</code> or <code>-Wmissing-braces</code>
+argument to gcc to get such warnings:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">flattened.cpp:20:5: warning: missing braces around initializer for ‘const item’ [-Wmissing-braces]
+flattened.cpp:20:5: warning: missing braces around initializer for ‘const item’ [-Wmissing-braces]
+flattened.cpp:20:5: warning: missing braces around initializer for ‘const item’ [-Wmissing-braces]
+</code></pre></div>
+<p>The most interesting part of this is that it&#39;s not one of compiler&#39;s extensions,
+it&#39;s a well documented behaviour.  Here is what <a href="http://flash-gordon.me.uk/ansi.c.txt">ANSI C</a> standard says
+about it (3.5.7 Initialization):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">If the initializer of a subaggregate or contained union begins with a left
+brace, the initializers enclosed by that brace and its matching right
+brace initialize the members of the subaggregate or the first member
+of the contained union.  Otherwise, only enough initializers from the
+list are taken to account for the members of the first subaggregate or
+the first member of the contained union; any remaining initializers
+are left to initialize the next member of the aggregate of which the
+current subaggregate or contained union is a part.
+</code></pre></div>
+<p>Here is what draft <a href="http://open-std.org/JTC1/SC22/WG21/docs/papers/2011/n3242.pdf">#3242 of C++11 standard</a> says (8.5.1/11):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">In a declaration of the form
+    T x = { a };
+braces can be elided in an initializer-list as follows.  If the
+initializer-list begins with a left brace, then the succeeding
+comma-separated list of initializer-clauses initializes the members of a
+subaggregate; it is erroneous for there to be more initializer-clauses than
+members.  If, however, the initializer-list for a sub-aggregate does not
+begin with a left brace, then only enough initializer-clauses from the list
+are taken to initialize the members of the subaggregate; any remaining
+initializer-clauses are left to initialize the next member of the aggregate
+of which the current subaggregate is a member.
+</code></pre></div>
+<p>But looks like this doesn&#39;t work with unified curly brace initializers in C++11:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;cstddef&gt;</span>
+<span class="cp">#include &lt;cstdlib&gt;</span>
+
+<span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="k">struct</span> <span class="n">item</span>
+<span class="p">{</span>
+    <span class="n">item</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">)</span>
+        <span class="o">:</span><span class="n">i</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">,</span><span class="n">j</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="n">item</span> <span class="n">items</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;i[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span>
+                  <span class="o">&lt;&lt;</span> <span class="s">&quot;j[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">j</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Compiling of the example code above with <code>-std=c++11</code> flag passed to gcc results
+in:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">flattened-ctors.cpp: In function ‘int main()’:
+flattened-ctors.cpp:25:5: error: could not convert ‘1’ from ‘int’ to ‘const item’
+flattened-ctors.cpp:25:5: error: could not convert ‘2’ from ‘int’ to ‘const item’
+flattened-ctors.cpp:25:5: error: could not convert ‘3’ from ‘int’ to ‘const item’
+flattened-ctors.cpp:25:5: error: could not convert ‘4’ from ‘int’ to ‘const item’
+flattened-ctors.cpp:25:5: error: could not convert ‘5’ from ‘int’ to ‘const item’
+flattened-ctors.cpp:25:5: error: could not convert ‘6’ from ‘int’ to ‘const item’
+</code></pre></div>
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2013-04-28/cpp-aggregate-initializers">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2013-04-28/cpp-aggregate-initializers';
+  var disqus_title = 'Flattened aggregate initializers in C and C++ -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2013-04-28/cpp-aggregate-initializers';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

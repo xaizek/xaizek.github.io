@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to recompile source file on each build using make</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>How to recompile source file on each build using make</h1>
+      <h5 class="post_date">January 18, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/make">make</a>]
+        
+        [<a href="/tag/build">build</a>]
+        
+        [<a href="/tag/programming">programming</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h3>Motivation</h3>
+
+<p>It&#39;s sometimes useful to see precise date and time an application was compiled.
+So such information should be embedded into application at compile time and
+displayed on user&#39;s request.</p>
+
+<!-- cut -->
+
+<h3>Initial solution</h3>
+
+<p>Usage of such timestamps is quite straightforward.  There are two standard
+macros that are generally used for this, namely <code>__DATE__</code> and <code>__TIME__</code> (see
+<a href="standard-predefined-macros">Standard Predefined Macros</a>).  As first try I just
+wrote the following piece of code:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">list</span><span class="p">[</span><span class="n">x</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Compiled at: &quot;</span> <span class="n">__DATE__</span> <span class="s">&quot; &quot;</span> <span class="n">__TIME__</span><span class="p">);</span>
+</code></pre></div>
+<p>It displayed message of this form:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Compiled at: Jan 18 2014 14:07:23
+</code></pre></div>
+<p>The issue is that when the file with this code (<code>version.c</code>) is not compiled
+output of an application never changes (quite obvious...).  So that simple code
+isn&#39;t enough and build process should satisfy a couple of requirements:</p>
+
+<ol>
+<li><code>version.c</code> should be recompiled if any other file is compiled.</li>
+<li><code>version.c</code> should be recompiled if application is relinked.</li>
+<li><code>version.c</code> should <strong>not</strong> be recompiled if application is not relinked.</li>
+</ol>
+
+<h3>Working solution</h3>
+
+<p>Adding various fake targets into <code>Makefile.am</code> didn&#39;t work out great.  Search
+on the Web didn&#39;t get much good results, but eventually <a href="https://www.mail-archive.com/help-gnu-utils@gnu.org/msg01292.html">this post</a>
+on one of mailing lists helped to do the thing correctly.  Here&#39;s a quote from
+it:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">One way which should work with any make is to have the object in
+question depend on all source files even though the action only refers to
+one of them.
+</code></pre></div>
+<p>In a <code>Makefile.am</code> it looks like this:</p>
+<div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nf">version.o</span><span class="o">:</span> <span class="k">$(</span><span class="nv">filter</span>-<span class="nv">out</span> <span class="nv">version</span>.<span class="nv">o</span>, <span class="k">$</span>(<span class="nv">app_OBJECTS</span><span class="k">)</span>)
+</code></pre></div>
+<p>Note filtering out <code>version.o</code> from its list of dependencies to avoid creating
+of circular dependency, in which case <code>make</code> prints warning about dropped
+circular dependency.</p>
+
+<p>And here is how it satisfies requirements outlined above.  The first
+requirement holds as recompilation of any of object files will update
+modification date of appropriate <code>.o</code>-file, thus triggering <code>version.o</code>
+compilation rule.</p>
+
+<p>The second requirement also holds simply because list of dependencies for the
+link target is almost the same as for <code>version.o</code> target (it additionally
+includes <code>version.o</code>).  Thanks to topological sorting make will recompile
+<code>version.o</code> before linking the application, which is what we need.</p>
+
+<p>Finally, the third requirement works for the same reason as the second one.
+When all files (including output executable) are up to date, none of
+<code>version.o</code> prerequisites is newer it, hence <code>version.o</code> not recompiled, no
+need to relink anything.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-01-18/recompile-file-with-any-other-using-make">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-01-18/recompile-file-with-any-other-using-make';
+  var disqus_title = 'How to recompile source file on each build using make -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

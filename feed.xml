@@ -7,28 +7,11 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
-				<title>Convertng Vim documentation file to HTML</title>
-				<description>&lt;p&gt;Vim has a great documentation for sure.  Part of its greatness is documentation
-format itself.  The only difficulty is that it can&amp;#39;t be easily converted to and
-from other formats, which might be sometimes desirable or at least useful to
-provide same documentation in different form.  In particular, conversion into
-HTML is sometimes useful and although there is an HTML version of Vim
-documentation, the tool with which it&amp;#39;s produced has never been made public.
-There is another way around it without the need to write such a tool from
-scratch.&lt;/p&gt;
-
-</description>
-				<pubDate>Wed, 13 Jan 2016 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2016-01-13/converting-vim-doc-to-html</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2016-01-13/converting-vim-doc-to-html</guid>
-			</item>
-		
-			<item>
 				<title>C++ manual pages</title>
 				<description>&lt;p&gt;One of the great things about C is that its documentation is available locally
 via &lt;code&gt;man&lt;/code&gt; command.  That&amp;#39;s very convenient and one might expect to get the same
 for C++, but (say) &lt;code&gt;man std::adjacent_difference&lt;/code&gt; will usually just print:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;No manual entry for std::adjacent_difference
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;No manual entry for std::adjacent_difference
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Luckily, there are ways to fix it.&lt;/p&gt;
 
@@ -106,13 +89,13 @@ So I ended up writing one.&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;
-&lt;a href='/2014-05-02/detecting-postfix-operators-in-for-loops'&gt; Detecting postfix operators in for loops&lt;/a&gt;
+&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
+&lt;a href=&#39;/2014-08-28/detecting-unused-functions&#39;&gt; Detecting unused functions&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
+&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include&#39;&gt; Detecting wrong first include&lt;/a&gt;
 (you are here)
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -168,7 +151,7 @@ Slackware, but also on Debian, though not sure what was causing issues there.&lt
 				<title>How to install data directory with automake</title>
 				<description>&lt;p&gt;I thought that adding directory to &lt;code&gt;pkgdata_DATA&lt;/code&gt; variable in &lt;code&gt;Makefile.am&lt;/code&gt;
 file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave this error:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;/usr/bin/ginstall: omitting directory ‘../data/vim/’
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/usr/bin/ginstall: omitting directory ‘../data/vim/’
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Sun, 28 Sep 2014 00:00:00 +0300</pubDate>
@@ -213,7 +196,7 @@ are open source and known for their good work in GNU/Linux.&lt;/p&gt;
 				<title>Decrease LILO kernel load time</title>
 				<description>&lt;p&gt;Opened my &lt;a href=&quot;https://en.wikipedia.org/wiki/LILO_(boot_loader)&quot;&gt;LILO&lt;/a&gt; configuration file (&lt;code&gt;/etc/lilo.conf&lt;/code&gt;) recently to
 take a look at video mode options and noticed this line:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;cfg language-cfg&quot; data-lang=&quot;cfg&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#compact        # faster, but won&amp;#39;t work on all systems.&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cfg&quot; data-lang=&quot;cfg&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#compact        # faster, but won&amp;#39;t work on all systems.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Tue, 02 Sep 2014 00:00:00 +0300</pubDate>
@@ -227,14 +210,14 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;
-&lt;a href='/2014-05-02/detecting-postfix-operators-in-for-loops'&gt; Detecting postfix operators in for loops&lt;/a&gt;
+&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
+&lt;a href=&#39;/2014-08-28/detecting-unused-functions&#39;&gt; Detecting unused functions&lt;/a&gt;
 (you are here)
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
+&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include&#39;&gt; Detecting wrong first include&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -296,7 +279,7 @@ through &lt;a href=&quot;https://en.wikipedia.org/wiki/PPTP&quot;&gt;PPTP&lt;/a&
 when tried to run &lt;a href=&quot;http://www.svgalib.org/rus/rexima.html&quot;&gt;rexima&lt;/a&gt; interactive mixer (by the way, it&amp;#39;s in
 &lt;code&gt;extra&lt;/code&gt; section of &lt;em&gt;Slackware&lt;/em&gt; packages, so search might silently skip it, just
 do &lt;code&gt;slackpkg install rexima&lt;/code&gt; to install it).  The output was:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;$ rexima
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ rexima
 rexima: couldn&amp;#39;t open mixer device.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
@@ -324,7 +307,7 @@ live without it?&lt;/p&gt;
 			<item>
 				<title>How to make tabs visible in git diff</title>
 				<description>&lt;p&gt;I&amp;#39;m a bit tired looking at diffs like the following:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;diff language-diff&quot; data-lang=&quot;diff&quot;&gt;         for (int i = 0; i &amp;lt; 3; ++i) {
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;         for (int i = 0; i &amp;lt; 3; ++i) {
 &lt;span class=&quot;gd&quot;&gt;-        for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
 &lt;span class=&quot;gi&quot;&gt;+                for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
                          for (int k = 0; k &amp;lt; 4; ++k) {
@@ -344,14 +327,14 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 
 &lt;ol&gt;
 &lt;li&gt;
-&lt;a href='/2014-05-02/detecting-postfix-operators-in-for-loops'&gt; Detecting postfix operators in for loops&lt;/a&gt;
+&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
 (you are here)
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href='/2014-08-28/detecting-unused-functions'&gt; Detecting unused functions&lt;/a&gt;
+&lt;a href=&#39;/2014-08-28/detecting-unused-functions&#39;&gt; Detecting unused functions&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href='/2015-04-23/detecting-wrong-first-include'&gt; Detecting wrong first include&lt;/a&gt;
+&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include&#39;&gt; Detecting wrong first include&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -376,7 +359,7 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 				<description>&lt;h3&gt;The issue explained&lt;/h3&gt;
 
 &lt;p&gt;Say directory structure is as follows:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;$ tree
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ tree
 .
 |-- Makefile
 `-- lib.cpp
@@ -394,7 +377,7 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 				<description>&lt;h3&gt;Simple profiling using standard &lt;code&gt;cProfile&lt;/code&gt; module&lt;/h3&gt;
 
 &lt;p&gt;Usually a command similar to the one below is used to profile an application:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash language-bash&quot; data-lang=&quot;bash&quot;&gt;python -m cProfile -o app.prof app.py arg1 arg2
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;python -m cProfile -o app.prof app.py arg1 arg2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Tue, 04 Feb 2014 00:00:00 +0200</pubDate>
@@ -441,7 +424,7 @@ are enabled by default.&lt;/p&gt;
 			<item>
 				<title>How to define `_GNU_SOURCE` correctly with autoconf correctly</title>
 				<description>&lt;p&gt;&lt;code&gt;_XOPEN_SOURCE&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
 dnl features of Posix that are extensions to C, as well as platform extensions
 dnl not defined by Posix.
 AC_USE_SYSTEM_EXTENSIONS
@@ -646,7 +629,7 @@ to my &lt;code&gt;~/.bashrc&lt;/code&gt; file:&lt;/p&gt;
 				<description>&lt;p&gt;Today I accidentally found a very unexpected thing in Vim.  While trying to
 make wildmenu disappear I hit some of arrow keys and great truth was uncovered
 to me:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;one can browse file system in wildmenu using arrow keys!
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;one can browse file system in wildmenu using arrow keys!
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
@@ -668,11 +651,11 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 			<item>
 				<title>Exception specifiers and finally keyword in Java</title>
 				<description>&lt;p&gt;Here is part of code I wrote once:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Execute&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Execute&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmiss&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;

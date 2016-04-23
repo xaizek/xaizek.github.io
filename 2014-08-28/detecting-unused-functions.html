@@ -1,0 +1,469 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Clang by example: Detecting unused functions</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Clang by example: Detecting unused functions</h1>
+      <h5 class="post_date">August 28, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/clang">clang</a>]
+        
+        [<a href="/tag/llvm">llvm</a>]
+        
+        [<a href="/tag/tutorial">tutorial</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h4>TOC</h4>
+
+<ol>
+<li>
+<a href='/2014-05-02/detecting-postfix-operators-in-for-loops'> Detecting postfix operators in for loops</a>
+</li>
+<li>
+<a href='/2014-08-28/detecting-unused-functions'> Detecting unused functions</a>
+(you are here)
+</li>
+<li>
+<a href='/2015-04-23/detecting-wrong-first-include'> Detecting wrong first include</a>
+</li>
+</ol>
+
+<h3>Introduction</h3>
+
+<p>This memo provides description of a tool that scans a set of source files
+looking for two types of functions declared with external linkage:</p>
+
+<ol>
+<li><p>Those that are defined, but completely unused.</p></li>
+<li><p>Those that are used only inside same translation unit they are defined in.</p></li>
+</ol>
+
+<!-- cut -->
+
+<p>As a result we want to get:</p>
+
+<ol>
+<li>Diagnostics that functions of the first type are unused, which means that one
+of the following holds:
+
+<ul>
+<li>a function can and needs to be removed;</li>
+<li>there are duplicated pieces of code;</li>
+<li>another function is used by mistake.</li>
+</ul></li>
+<li>Diagnostics that functions of the second type can be marked as static (in
+case the code is not part of a library; going to ignore this as it can be
+added later), as they are probably:
+
+<ul>
+<li>just not marked as static, which can be done harmless;</li>
+<li>are not used anymore from outside translation unit they reside in;</li>
+<li>have wrong name in public header.</li>
+</ul></li>
+</ol>
+
+<p>Not all static analyzers provide such diagnostics and those that do do not
+advise to mark functions that are used only inside one translation unit with
+static rather than external linkage.  As existing tools don&#39;t do exactly this,
+the &quot;programmers way&quot; of fixing this is to write our own tool.  Actually, much
+better option is too implement this diagnostic in <a href="http://cppcheck.sourceforge.net/">cppcheck</a> and send
+patch upstream, but we&#39;re mostly interested in learning more about AST of Clang
+and want to use it to solve the task.  Still nothing stops one from contributing
+to cppcheck.</p>
+
+<p>For simplicity, we&#39;re going to do this for C rather that C++ to omit dealing
+with namespaces and methods.  This allows us to concentrate on new stuff about
+Clang representation of source, leaving extending the tool to cover more use
+cases out of the scope.</p>
+
+<p>This article also contains less sources, only the most interesting excerpts from
+the code are presented.</p>
+
+<h3>Matching</h3>
+
+<p>To do something useful we need to find elements of AST we&#39;re interested in
+first.  This time they are:</p>
+
+<ol>
+<li>Function declarations.</li>
+<li>Function calls.</li>
+<li>Getting address of a function.</li>
+</ol>
+
+<p>Matchers used for the first item is very simple and its name is easy to find in
+documentation/headers with AST matchers/or even just to guess it:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">static</span> <span class="n">DeclarationMatcher</span> <span class="n">funcDecl</span> <span class="o">=</span> <span class="n">functionDecl</span><span class="p">().</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;func&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>The last two items we want to be able to find require additional investigation.
+Lets make it simple by asking clang to dump AST of the following simple code to
+the screen (file named <code>func-ptr.c</code>):</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span>
+<span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">func</span><span class="p">;</span>
+    <span class="n">f</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Using this command:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">clang -Xclang -ast-dump -fsyntax-only func-ptr.c
+</code></pre></div>
+<p>Here is full output:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">TranslationUnitDecl 0x2e86560 &lt;&lt;invalid sloc&gt;&gt;
+|-TypedefDecl 0x2e86a60 &lt;&lt;invalid sloc&gt;&gt; __int128_t &#39;__int128&#39;
+|-TypedefDecl 0x2e86ac0 &lt;&lt;invalid sloc&gt;&gt; __uint128_t &#39;unsigned __int128&#39;
+|-TypedefDecl 0x2e86e10 &lt;&lt;invalid sloc&gt;&gt; __builtin_va_list &#39;__va_list_tag [1]&#39;
+|-FunctionDecl 0x2e86f20 &lt;func-ptr.c:1:1, line:4:1&gt; func &#39;void (void)&#39;
+| `-CompoundStmt 0x2e86fc0 &lt;line:3:1, line:4:1&gt;
+`-FunctionDecl 0x2e870a0 &lt;line:6:1, line:12:1&gt; main &#39;int (void)&#39;
+`-CompoundStmt 0x2ece4a0 &lt;line:8:1, line:12:1&gt;
+    |-DeclStmt 0x2ece3e0 &lt;line:9:5, col:28&gt;
+    | `-VarDecl 0x2ece340 &lt;col:5, col:24&gt; f &#39;void (*)(void)&#39;
+    |   `-UnaryOperator 0x2ece3c0 &lt;col:23, col:24&gt; &#39;void (*)(void)&#39; prefix &#39;&amp;&#39;
+    |     `-DeclRefExpr 0x2ece398 &lt;col:24&gt; &#39;void (void)&#39; Function 0x2e86f20 &#39;func&#39; &#39;void (void)&#39;
+    |-CallExpr 0x2ece438 &lt;line:10:5, col:7&gt; &#39;void&#39;
+    | `-ImplicitCastExpr 0x2ece420 &lt;col:5&gt; &#39;void (*)(void)&#39; &lt;LValueToRValue&gt;
+    |   `-DeclRefExpr 0x2ece3f8 &lt;col:5&gt; &#39;void (*)(void)&#39; lvalue Var 0x2ece340 &#39;f&#39; &#39;void (*)(void)&#39;
+    `-ReturnStmt 0x2ece480 &lt;line:11:5, col:12&gt;
+    `-IntegerLiteral 0x2ece460 &lt;col:12&gt; &#39;int&#39; 0
+</code></pre></div>
+<p>Look at this part:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">|-DeclStmt 0x2ece3e0 &lt;line:9:5, col:28&gt;
+| `-VarDecl 0x2ece340 &lt;col:5, col:24&gt; f &#39;void (*)(void)&#39;
+|   `-UnaryOperator 0x2ece3c0 &lt;col:23, col:24&gt; &#39;void (*)(void)&#39; prefix &#39;&amp;&#39;
+|     `-DeclRefExpr 0x2ece398 &lt;col:24&gt; &#39;void (void)&#39; Function 0x2e86f20 &#39;func&#39; &#39;void (void)&#39;
+</code></pre></div>
+<p>which corresponds to obtaining address of the function:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">)(</span><span class="kt">void</span><span class="p">)</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">func</span><span class="p">;</span>
+</code></pre></div>
+<p>Lets construct AST matcher for it:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">static</span> <span class="n">StatementMatcher</span> <span class="n">funcAddrOp</span> <span class="o">=</span>
+    <span class="n">unaryOperator</span><span class="p">(</span>            <span class="c1">// any unary operator, e.g. *, &amp;, --</span>
+        <span class="n">hasOperatorName</span><span class="p">(</span><span class="s">&quot;&amp;&quot;</span><span class="p">),</span> <span class="c1">// exact unary operator: &amp;</span>
+        <span class="n">declRefExpr</span><span class="p">(</span>          <span class="c1">// referencing a variable/declaration</span>
+            <span class="n">to</span><span class="p">(</span>               <span class="c1">// something that is ...</span>
+                <span class="n">functionDecl</span><span class="p">(</span> <span class="c1">// ... a function</span>
+
+                <span class="p">).</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;ref&quot;</span><span class="p">)</span> <span class="c1">// bind matched function ref to &quot;ref&quot; name</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">).</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;op&quot;</span><span class="p">);</span>             <span class="c1">// bind matched unary op to &quot;op&quot; name</span>
+</code></pre></div>
+<p>Looks like a nice matcher, but we&#39;re not going to use it.  The reason is that
+address of a function can be taken by implicit cast if one removes <code>&amp;</code> in front
+of function name.  That&#39;s why it makes sense to use a simpler and more general
+matcher, which is just an inner part of the one listed above:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">static</span> <span class="n">StatementMatcher</span> <span class="n">funcRef</span> <span class="o">=</span>
+    <span class="n">declRefExpr</span><span class="p">(</span>              <span class="c1">// referencing a variable/declaration</span>
+        <span class="n">to</span><span class="p">(</span>                   <span class="c1">// something that is ...</span>
+            <span class="n">functionDecl</span><span class="p">(</span>     <span class="c1">// ... a function</span>
+
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">).</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;ref&quot;</span><span class="p">);</span>            <span class="c1">// bind matched function ref to &quot;ref&quot; name</span>
+</code></pre></div>
+<p>This effectively matches the leaf node:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">|     `-DeclRefExpr 0x2ece398 &lt;col:24&gt; &#39;void (void)&#39; Function 0x2e86f20 &#39;func&#39; &#39;void (void)&#39;
+</code></pre></div>
+<p>As it&#39;s similar to the leaf node of a call expression, we&#39;re getting all
+referencing cases we want with only one matcher.</p>
+
+<p>Note that <code>funcDecl</code> is of type <code>DeclarationMatcher</code> rather then usual
+<code>StatementMatcher</code>.  This is because each of core components of AST have its
+own hierarchies with different root objects, which means that such elements
+must be matched using different types of matchers.</p>
+
+<h3>Filtering</h3>
+
+<p>One might ask: how would we get function <em>definition</em> if we&#39;re only looking for
+declarations of functions?  It&#39;s easy to understand if recall that every
+definition is also a declaration.  So there is no such thing as function
+definition in Clang&#39;s AST, there are <em>declarations with bodies</em> instead.  To
+check for body, use <a href="http://clang.llvm.org/doxygen/classclang_1_1FunctionDecl.html#af9fe03ad0755ddd1e71d7e0821b1b973">isThisDeclarationADefinition()</a> method.
+There are also methods that check whether given function has body at all, don&#39;t
+confuse them with the method we actually need.</p>
+
+<p>On each match of a function declaration we want to make sure that function is
+visible outside current module as we&#39;re not interested in static functions.
+This can be done with the help of <a href="http://clang.llvm.org/doxygen/classclang_1_1NamedDecl.html#a187df384f8395af15f326b823535a87e">isExternallyVisible()</a> method.</p>
+
+<p>If you think of checking general programs, the first external function that
+comes to mind is probably the <code>main()</code> function.  We don&#39;t want to mark it as
+unused, so filter it out by invoking handy <a href="http://clang.llvm.org/doxygen/classclang_1_1FunctionDecl.html#a9cebbc2513c139feda057f7814241709">isMain()</a> method.</p>
+
+<p>Match of <code>funcRef</code> matcher gives us result of type <a href="http://clang.llvm.org/doxygen/classclang_1_1DeclRefExpr.html#a22eec021070f5d0733e90b6c5c127a25">DeclRefExpr</a>
+which we need to resolve to function declaration it&#39;s referring to.  This is
+done by the following code:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">if</span> <span class="p">(</span><span class="k">const</span> <span class="n">FunctionDecl</span> <span class="o">*</span><span class="n">func</span> <span class="o">=</span> <span class="n">ref</span><span class="o">-&gt;</span><span class="n">getDecl</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getAsFunction</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Here <a href="http://clang.llvm.org/doxygen/classclang_1_1DeclRefExpr.html#a22eec021070f5d0733e90b6c5c127a25">getDecl()</a> returns <a href="http://clang.llvm.org/doxygen/classclang_1_1ValueDecl.html">ValueDecl</a> which corresponds to
+a variable, function or enumeration constant definition.  Then we query
+obtained <code>ValueDecl</code> object whether it can be converted to a function and get
+it as a function if the answer is yes.  The check of return value is needed
+even if &quot;it&#39;s definitely a function&quot; because a node can return <code>0</code> in case of
+parsing errors (say, the code is correct, but some headers are missing).</p>
+
+<h3>Counting</h3>
+
+<p>Counting functions and references to them is more tricky than finding ones for
+the following reasons:</p>
+
+<ol>
+<li><p>Functions can be declared in any number of modules or can be declared
+multiple times in one translation unit.</p></li>
+<li><p>Function can be referred to before it&#39;s defined.</p></li>
+<li><p>Third-party and system functions are matched as well.</p></li>
+</ol>
+
+<p>As we want to get same results while scanning one file at a time in any order,
+bullets listed above should be treated carefully.</p>
+
+<p>The implementation addresses items listed above in the following way:</p>
+
+<ol>
+<li><p>Functions are stored in a map indexed by their names.  There will be no name
+conflicts as we match only external functions and there are no overloaded
+functions in C.</p></li>
+<li><p>Each function information object stores list of references.</p></li>
+<li><p>Each function declaration and reference is associated with name of a file it
+resides in used to check whether function is ever referenced outside
+translation unit it is defined in.</p></li>
+</ol>
+
+<h3>Printing</h3>
+
+<p>To print exact position of something <a href="http://clang.llvm.org/doxygen/classclang_1_1SourceLocation.html">SourceLocation</a> class lacks
+connection with actual source code.  That&#39;s why <a href="http://clang.llvm.org/doxygen/classclang_1_1FullSourceLoc.html">FullSourceLoc</a>
+needs to be constructed from an instance of <code>SourceLocation</code> and a reference to
+<a href="http://clang.llvm.org/doxygen/classclang_1_1SourceManager.html">SourceManager</a>.  Here&#39;s how retrieval of source file name and
+line number can look like:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">FullSourceLoc</span> <span class="nf">fullLoc</span><span class="p">(</span><span class="n">func</span><span class="o">-&gt;</span><span class="n">getNameInfo</span><span class="p">().</span><span class="n">getBeginLoc</span><span class="p">(),</span> <span class="o">*</span><span class="n">sm</span><span class="p">);</span>
+<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">fileName</span> <span class="o">=</span> <span class="n">sm</span><span class="o">-&gt;</span><span class="n">getFilename</span><span class="p">(</span><span class="n">fullLoc</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">lineNum</span> <span class="o">=</span> <span class="n">fullLoc</span><span class="p">.</span><span class="n">getSpellingLineNumber</span><span class="p">();</span>
+</code></pre></div>
+<p>Note <code>getNameInfo().getBeginLoc()</code> part.  Getting location by calling
+<code>getLocation()</code> directly on an object of type <code>FunctionDecl</code> will return
+location of return type of the function.  To be more programmer-friendly
+we want to guide one directly to function name, which is more convenient in my
+opinion.  If it&#39;s still unclear why, here are two samples:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">func1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="c1">// &lt;- getLocation()   &lt;- getNameInfo().getBeginLoc()</span>
+<span class="p">...</span>
+
+<span class="kt">void</span>             <span class="c1">// &lt;- getLocation()</span>
+<span class="n">func2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>      <span class="c1">// &lt;- getNameInfo().getBeginLoc()</span>
+<span class="p">...</span>
+</code></pre></div>
+<h3>Blocking diagnostics output</h3>
+
+<p>One somewhat annoying in our use case thing about Clang is that by default it
+prints diagnostics on code being analyzed.  We want to suppress such diagnostic
+messages to leave only our own.  The correct way of doing this is to call
+<a href="http://clang.llvm.org/doxygen/classclang_1_1DiagnosticsEngine.html#a93b80b51607c3a690741e2ee21e86ba0">DiagnosticsEngine::setSuppressAllDiagnostics</a>, but it&#39;s not clear how to
+get instance of <code>DiagnosticsEngine</code> used by tool while it builds ASTs.  So we
+go another way and subclass <a href="http://clang.llvm.org/doxygen/classclang_1_1DiagnosticConsumer.html">DiagnosticConsumer</a> to override its
+<code>IncludeInDiagnosticCounts</code> method and make it return <code>false</code>:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="err">: </span><span class="nc">public</span> <span class="n">DiagnosticConsumer</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">virtual</span> <span class="kt">bool</span>
+    <span class="n">IncludeInDiagnosticCounts</span><span class="p">()</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="n">diagConsumer</span><span class="p">;</span>
+<span class="n">tool</span><span class="p">.</span><span class="n">setDiagnosticConsumer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">diagConsumer</span><span class="p">);</span>
+</code></pre></div>
+<p>This way such diagnostics are not counted as relevant when Clang tries to
+present parsing results to a user.</p>
+
+<h3>Testing</h3>
+
+<p>Assuming that you have successfully built the tool from <a href="https://github.com/xaizek/unused-funcs">the repository</a>
+lets give run it over a simple test files.  The first file (<code>main.c</code>) looks
+like this:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="nf">firstStatic</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">secondStatic</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">firstExtern</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="k">extern</span> <span class="kt">void</span> <span class="nf">secondExtern</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">firstStatic</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>  <span class="p">{</span> <span class="p">}</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">secondStatic</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">firstExtern</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>  <span class="p">{</span> <span class="p">}</span>
+<span class="kt">void</span> <span class="nf">secondExtern</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">firstExtern</span><span class="p">();</span>
+    <span class="n">secondStatic</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Lets check output when the first file is analyzed alone (paths are truncated):</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">&gt; unused-funcs main.c --
+.../main.c:20:firstExtern:can be made static
+.../main.c:25:secondExtern:unused
+</code></pre></div>
+<p>Let&#39;s go over the file manually to check whether obtained output is correct:</p>
+
+<ol>
+<li><code>main()</code> is treated separately.</li>
+<li><code>firstStatic()</code> and <code>secondStatic()</code> are both ignored because they are
+marked as <code>static</code>.</li>
+<li><code>firstExtern()</code> declared as not <code>static</code> and isn&#39;t used.</li>
+<li><code>secondExtern()</code> declared as <code>extern</code> and used only within the same
+translation unit.</li>
+</ol>
+
+<p>Looks good.</p>
+
+<p>Now add the second file (<code>util.c</code>):</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">extern</span> <span class="kt">void</span> <span class="nf">firstExtern</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">secondExtern</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="kt">void</span>
+<span class="nf">thirdExtern</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">firstExtern</span><span class="p">();</span>
+    <span class="n">secondExtern</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>And see what&#39;s changed in the output (paths are truncated):</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">&gt; unused-funcs main.c util.c --
+.../util.c:5:thirdExtern:unused
+</code></pre></div>
+<p>Expected changes are as follows:</p>
+
+<ol>
+<li>Both <code>firstExtern()</code> and <code>secondExtern()</code> are not used outside their home
+module, so no diagnostics should mention them.</li>
+<li>New unused <code>extern</code> function (<code>thirdExtern()</code>) was introduced.</li>
+</ol>
+
+<p>Looks correct too.</p>
+
+<p>By the way, here&#39;s the output for <code>func-ptr.c</code> test file from the &quot;Matching&quot;
+section above:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">&gt; unused-funcs func-ptr.c --
+.../func-ptr.c:2:func:can be made static
+</code></pre></div>
+<h3>Conclusion</h3>
+
+<p>As you&#39;ve been warned, this is more C-related implementation than C++, but such
+limitation allowed for concise description and ready-to-use state after putting
+not that much effort in the implementation.</p>
+
+<p>The resultant tool can be adjusted in multiple ways by changing
+matching/counting/output parts independently:</p>
+
+<ul>
+<li>getting list of all external functions references from the code;</li>
+<li>building graph description of cross-module dependencies to be rendered by
+<a href="http://graphviz.org/">Graphviz</a> (fine-grain version could list exact functions used);</li>
+<li>collecting statistics like ratio of provided <code>extern</code> function vs. number of
+used <code>extern</code> functions, or number of external usages for each function marked
+as <code>extern</code>;</li>
+<li>previous bullet combined with some thresholds can be used to detect
+translation units with <a href="https://en.wikipedia.org/wiki/Cohesion_(computer_science)">low cohesion</a>/<a href="https://en.wikipedia.org/wiki/Coupling_(computer_programming)">high coupling</a>;</li>
+<li>etc.</li>
+</ul>
+
+<p>Note that as Clang takes macros into account the tool can produce not accurate
+results if conditional compilation is used. Precisely, it analyzes some
+particular combination of defines and ignores all other. That&#39;s why it&#39;s better
+to check updated code against combinations of macro defines or at least
+remember about them. This is especially important for cross-platform
+applications or programs that allow to disable some of their features at
+compile-time.</p>
+
+<h3>Resources</h3>
+
+<ul>
+<li><a href="https://github.com/xaizek/unused-funcs">GitHub repository of unused-funcs tool</a>.</li>
+</ul>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-08-28/detecting-unused-functions">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-08-28/detecting-unused-functions';
+  var disqus_title = 'Clang by example: Detecting unused functions -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-08-28/detecting-unused-functions';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
