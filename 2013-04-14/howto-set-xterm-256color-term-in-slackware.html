@@ -91,7 +91,7 @@ ssh.  Those issues bother people and some of them solve the issue this way</p>
 it is executed every time, but does real work only in some cases.  The better
 approach would to execute such code only for xterm.  But it doesn&#39;t have any
 configuration file, or does it?  Wait, there is <code>~/.Xdefaults</code> file, when one
-can set application-specific resources.  Lets do the right thing and read
+can set application-specific resources.  Let&#39;s do the right thing and read
 documentation at first (<code>man xterm</code>):</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">-tn name
     This  option specifies the name of the terminal type to be set in the
@@ -108,7 +108,7 @@ termName (class TermName)
     variable.
 </code></pre></div>
 <p>I don&#39;t want to supply an extra <code>-tn</code> parameter to xterm everytime I use it, so
-lets set <code>termName</code> resource in the <code>~/.Xdefaults</code> file:</p>
+let&#39;s set <code>termName</code> resource in the <code>~/.Xdefaults</code> file:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">XTerm*termName: xterm-256color
 </code></pre></div>
 <p>and apply the changes:</p>
@@ -125,7 +125,7 @@ appropriate terminfo configuration file exists:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>ls -l /usr/share/terminfo/x/xterm-256color
 -rw-r--r-- <span class="m">1</span> root root 2.3K Jun <span class="m">26</span>  <span class="m">2011</span> /usr/share/terminfo/x/xterm-256color
 </code></pre></div>
-<p>OK, lets try using <code>-tn</code> parameter:</p>
+<p>OK, let&#39;s try using <code>-tn</code> parameter:</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># in old instance</span>
 <span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>xterm -tn xterm-256color
 <span class="c"># in new instance</span>
@@ -143,7 +143,7 @@ xterm
 <span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$TERM</span>
 xterm-color
 </code></pre></div>
-<p>So it works in general, it just doesn&#39;t work for <code>xterm-256color</code>.  OK, lets
+<p>So it works in general, it just doesn&#39;t work for <code>xterm-256color</code>.  OK, let&#39;s
 reread the manual:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">EMULATIONS
    ...

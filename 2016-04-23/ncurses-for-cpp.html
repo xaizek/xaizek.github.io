@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Convertng Vim documentation file to HTML</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: black; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Convertng Vim documentation file to HTML</h1>
+      <h5 class="post_date">April 23, 2016</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/vim">vim</a>]
+        
+        [<a href="/tag/web">web</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Vim has a great documentation for sure.  Part of its greatness is documentation
+format itself.  The only difficulty is that it can&#39;t be easily converted to and
+from other formats, which might be sometimes desirable or at least useful to
+provide same documentation in different form.  In particular, conversion into
+HTML is sometimes useful and although there is an HTML version of Vim
+documentation, the tool with which it&#39;s produced has never been made public.
+There is another way around it without the need to write such a tool from
+scratch.</p>
+
+<!-- cut -->
+
+<h4>Situation</h4>
+
+<p>First, <a href="http://sourceforge.net/p/vimdoc/bugs/7/">people asked</a> to make that tool of <a href="http://sourceforge.net/p/vimdoc">VimDoc</a> project
+public, but the request was ignored.</p>
+
+<p>Second, there is <a href="http://vimhelp.appspot.com/">VimHelp site</a>, which sources are available
+<a href="https://github.com/c4rlo/vimhelp">here</a>.</p>
+
+<p>Third, <code>:TOhtml</code> won&#39;t produce the desired result, it&#39;s more like generating
+HTML from Office Word...  Good for some tasks, but doesn&#39;t suite well in this
+situation.</p>
+
+<h4>Results</h4>
+
+<p>Frustrated by absence of the tool that as I thought should already be available,
+I took <a href="https://github.com/c4rlo/vimhelp/blob/master/vimh2h.py">conversion class</a> from VimHelp and added:</p>
+
+<ul>
+<li>minimal argument parsing</li>
+<li>input/output handling</li>
+<li>anchors to tags declaration</li>
+<li>automatic tags generation (via third-party Perl script called <code>helpztags</code>)</li>
+</ul>
+
+<p>It&#39;s called <a href="https://github.com/xaizek/vimdoc2html">VimDoc2HTML</a>.</p>
+
+<p>Example of how files look like after conversion is available <a href="http://vifm.info/vimdoc.shtml">here</a>.</p>
+
+<h4>Similar tools</h4>
+
+<p>There are some other tools related to VimDoc conversions that I have found while
+looking for VimDoc -&gt; HTML converter.</p>
+
+<h5>Conversion to PDF</h5>
+
+<p>There is a way to generate PDF file containing entire Vim&#39;s reference.  It is
+described in <a href="http://nathangrigg.net/2013/09/reproducing-vim-help-as-a-fully-cross-referenced-pdf/">this post</a> and is available
+<a href="https://github.com/nathangrigg/vimhelppdf">here</a>.  Based on the same parser I used.</p>
+
+<h5>Conversion from HTML and Markdown</h5>
+
+<p>Conversion in this direction seems to be more popular task.  Somebody <a href="http://superuser.com/questions/415470/generating-help-files-for-vim">asked
+about it</a> and there is now a tool for that <a href="http://peterodding.com/code/vim/tools">here</a></p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2016-04-23/ncurses-for-cpp">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2016-04-23/ncurses-for-cpp';
+  var disqus_title = 'Convertng Vim documentation file to HTML -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2016-04-23/ncurses-for-cpp';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
