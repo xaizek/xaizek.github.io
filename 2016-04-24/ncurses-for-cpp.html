@@ -14,7 +14,7 @@
   <body>
     <header>
       <h4>
-        <a style="color: black; text-decoration: none;" href="/">
+        <a style="color: #ccc; text-decoration: none;" href="/">
           Some notes on computer stuff
         </a>
         <span style="float: right">
@@ -30,7 +30,7 @@
         </span>
       </h4>
       <h1>ncurses wrappers for C++</h1>
-      <h5 class="post_date">April 23, 2016</h5>
+      <h5 class="post_date">April 24, 2016</h5>
       <div class="tag_list">
         
         [<a href="/tag/curses">curses</a>]
@@ -70,14 +70,14 @@ are quite usable.  The obvious benefits over usual C API are more
 object-oriented interface, taking advantage of function grouping via classes,
 more strict type checking, function overloading and default values of arguments.
 The downsides are lack of documentation (although there are comments in headers
-and a demo project) and some implementation flaws.</p>
+and a demo project <code>demo.cc</code> in sources) and some implementation flaws.</p>
 
 <p>So I <a href="http://stackoverflow.com/a/11368903/1535516">found these wrappers</a> wanting to do some quick prototyping of
 TUI and decided to try using them.  Lack of documentation and above mentioned
 flaws made this harder then it should be, hence this post which tries to give
-some pointers on how to and how not to use some of these wrappers.  The
-description is nowhere near complete and touches only on topics I had to
-struggle with.</p>
+a few pointers on how to and how not to use some of these wrappers.  The
+description here is nowhere near complete and touches only on several topics I
+struggled with.</p>
 
 <h3>NCursesApplication</h3>
 
@@ -144,25 +144,26 @@ title is needed, otherwise corresponding window just isn&#39;t created inside
 
 <h4>Construction and item ownership</h4>
 
-<p>Menus can be constructed either by passing them list of items via constructors
+<p>Menus can be constructed either by passing them list of items (which are
+pointers to objects of types derived from <code>NCursesMenuItem</code>) via constructors
 or by invoking different special constructor and using <code>InitMenu()</code> function
-afterwards.</p>
+afterward.</p>
 
-<p>Menu class supports two item management schemes:</p>
+<p><code>NCursesMenu</code> class supports two item management schemes:</p>
 
 <ol>
-<li>Lifetime of the list of items and items are managed by the client.</li>
+<li>Lifetimes of the list of items and items are managed by the client.</li>
 <li>The list of items along with items are transfered to <code>NCursesMenu</code> class.</li>
 </ol>
 
 <p>The scheme is picked via <code>autoDelete_Items</code> parameter of
-constructor/<code>InitMenu()</code>.  Beware that menu items should be removed from menu
-before they can be destroyed, this means that when not using heap special care
-might need to be taken to delete <code>NCursesMenu</code> before deleting any of its items.
+constructor/<code>InitMenu()</code>.  Beware that <strong>menu items should be detached from menu
+before they can be destroyed</strong>, this means that when not using heap special care
+must be taken to delete <code>NCursesMenu</code> before deleting any of its items.
 If you don&#39;t do that, the program is likely to be terminated because of <strong>nested
 exception thrown from item destructors</strong> (yeah, they do this kind of thing...).</p>
 
-<p>Below is an example of how to work around this via <a href="https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Base-from-Member">Base-from-Member</a>
+<p>Example below shows how to work around this via <a href="https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Base-from-Member">Base-from-Member</a>
 idiom.</p>
 
 <h4>Constraints on list of menu items</h4>
@@ -173,8 +174,8 @@ leaking <code>N - 1</code> if there are <code>N</code> duplicates), which won&#3
 
 <p><strong>Terminating null-element</strong>.  List should be terminated with a pointer to an
 empty <code>NCursesMenuItem</code> object (the one constructed by calling
-<code>NCursesMenuItem()</code>).  Empty menu items can be removed freely as they don&#39;t own
-resources.</p>
+<code>NCursesMenuItem()</code>).  Such empty menu items can be removed freely as they don&#39;t
+own resources.</p>
 
 <p><strong>Not empty</strong>.  There must be at least one non-null item or exception is thrown.</p>
 
@@ -182,7 +183,7 @@ resources.</p>
 
 <p>Special menu keys can be customized by overwriting virtual function
 <code>NCursesMenu::virtualize()</code>, which should return codes suitable for passing into
-<code>menu_driver()</code>.  For example <kbd>j</kbd> and <kbd>k</kbd> keys can be
+<code>menu_driver()</code>.  For example, <kbd>j</kbd> and <kbd>k</kbd> keys can be
 configured to move up and down by one item, just like in Vim:</p>
 <div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">virtual</span> <span class="kt">int</span> <span class="nf">virtualize</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
 <span class="p">{</span>
@@ -203,13 +204,15 @@ E.g.:</p>
 <h4>Broken <code>setItems()</code></h4>
 
 <p><code>setItems()</code> doesn&#39;t seem to work in all cases.  It always tries to free memory,
-even the one it doesn&#39;t own.</p>
+even the one it doesn&#39;t own.  So if you thought that you could use it to work
+around issue with destroying items before the menu, the answer is <em>no, you
+can&#39;t</em>.</p>
 
 <h4>Multiple selection</h4>
 
 <p>First, it should be enabled:</p>
 <div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">options_off</span><span class="p">(</span><span class="n">O_ONEVALUE</span><span class="p">);</span> <span class="c1">// disable single-selection mode</span>
-<span class="n">set_mark</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">);</span>           <span class="c1">// setup selected item marker</span>
+<span class="n">set_mark</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">);</span>           <span class="c1">// setup selected item marker (not directory related)</span>
 </code></pre></div>
 <p>Second, whether each item is selected or not can be determined via
 <code>NCursesMenuItem::value()</code> method:</p>
@@ -221,7 +224,7 @@ even the one it doesn&#39;t own.</p>
 
 <p>If you want to display something and keep it there, use panels (<code>NCursesPanel</code>)
 and not just windows (<code>NCursesWindow</code>; panels are windows with additional
-functionality), which will be automatically updated as needed.</p>
+layering functionality), which will be automatically updated as needed.</p>
 
 <h3>Accessing <code>stdscr</code></h3>
 
@@ -336,12 +339,12 @@ brevity):</p>
 <span class="k">static</span> <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">wstring</span> <span class="n">to_wide</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="n">mbstowcs</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="p">();</span>
     <span class="p">}</span>
 
     <span class="n">std</span><span class="o">::</span><span class="n">wstring</span> <span class="n">result</span><span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1U</span><span class="p">,</span> <span class="sc">L&#39;\0&#39;</span><span class="p">);</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">mbstowcs</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1U</span><span class="p">);</span>
+    <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mbstowcs</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1U</span><span class="p">));</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -354,17 +357,30 @@ brevity):</p>
 </code></pre></div>
 <h3>Example</h3>
 
-<p>As a simple exercise let&#39;s write simple filter-like tool that allows picking one
+<p>As an exercise let&#39;s write simple filter-like tool that allows picking one
 or more elements from the list.  It will accept list items either via arguments
 or from standard input.</p>
 
-<p>The code above was C++11, this one is C++98.  It&#39;s also bigger in side so posted
-<a href="https://gist.github.com/xaizek/831145edf62f5e6daf2bc490ba44490b">elsewhere</a>.  There are some comments which restate some details
+<p>The code above was C++11, this one is C++98.  It&#39;s also bigger in size so posted
+<a href="https://gist.github.com/xaizek/831145edf62f5e6daf2bc490ba44490b">elsewhere</a>.  There are comments which restate some details
 of using ncurses++ from above.</p>
+
+<p>I didn&#39;t bother handling resizing, so it might not work.</p>
+
+<h3>Further information</h3>
+
+<p>There is almost no documentation at all, so read the sources (in source package
+it&#39;s under <code>c++/</code> directory), <code>README-first</code> file there or just headers
+(<code>cursesapp.h</code>, <code>cursesf.h</code>, <code>cursesm.h</code>, <code>cursesp.h</code>, <code>cursesw.h</code>,
+<code>cursslk.h</code>).</p>
+
+<p>Couldn&#39;t find any articles either, but with some patience one can figure out
+details of the code.  It&#39;s small enough and it&#39;s a set of wrappers, so nothing
+sophisticated.</p>
 
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
-    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2016-04-23/ncurses-for-cpp">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2016-04-24/ncurses-for-cpp">
       // load comments
     </a>
   </span>
@@ -372,9 +388,9 @@ of using ncurses++ from above.</p>
 
 <script type="text/javascript">
   var disqus_shortname = 'snox';
-  var disqus_identifier = '/2016-04-23/ncurses-for-cpp';
+  var disqus_identifier = '/2016-04-24/ncurses-for-cpp';
   var disqus_title = 'ncurses wrappers for C++ -- SNOX';
-  var disqus_url = 'http://xaizek.github.io/2016-04-23/ncurses-for-cpp';
+  var disqus_url = 'http://xaizek.github.io/2016-04-24/ncurses-for-cpp';
 
   (function () {
      var s = document.createElement('script');

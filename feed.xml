@@ -7,24 +7,7 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
-				<title>Convertng Vim documentation file to HTML</title>
-				<description>&lt;p&gt;Vim has a great documentation for sure.  Part of its greatness is documentation
-format itself.  The only difficulty is that it can&amp;#39;t be easily converted to and
-from other formats, which might be sometimes desirable or at least useful to
-provide same documentation in different form.  In particular, conversion into
-HTML is sometimes useful and although there is an HTML version of Vim
-documentation, the tool with which it&amp;#39;s produced has never been made public.
-There is another way around it without the need to write such a tool from
-scratch.&lt;/p&gt;
-
-</description>
-				<pubDate>Sat, 23 Apr 2016 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2016-04-23/ncurses-for-cpp</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2016-04-23/ncurses-for-cpp</guid>
-			</item>
-		
-			<item>
-				<title>Convertng Vim documentation file to HTML</title>
+				<title>Converting Vim documentation file to HTML</title>
 				<description>&lt;p&gt;Vim has a great documentation for sure.  Part of its greatness is documentation
 format itself.  The only difficulty is that it can&amp;#39;t be easily converted to and
 from other formats, which might be sometimes desirable or at least useful to
