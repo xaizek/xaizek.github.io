@@ -1,18 +1,723 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>{{ site.name }} Posts</title>
-		<description>{{ site.description }}</description>
-		<link>{{ site.url }}</link>
-		<atom:link href="{{ site.url }}feed.xml" rel="self" type="application/rss+xml"/>
-		{% for post in site.posts %}
+		<title>SNOX Posts</title>
+		<description>Short notes on computer stuff</description>
+		<link>http://xaizek.github.io/</link>
+		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+		
 			<item>
-				<title>{{ post.title }}</title>
-				<description>{{ post.content | split: '<!-- cut -->' | first | xml_escape }}</description>
-				<pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-				<link>{{ site.url }}{{ post.url  | remove_first: "/"}}</link>
-				<guid isPermaLink="true">{{ site.url }}{{ post.url | remove_first: "/" }}</guid>
+				<title>ncurses wrappers for C++</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Curses_(programming_library)&quot;&gt;curses&lt;/a&gt; is a well known set of libraries (with mostly common API)
+for creating &lt;a href=&quot;https://en.wikipedia.org/wiki/Text-based_user_interface&quot;&gt;TUIs&lt;/a&gt;.  What is significantly less known though is that
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Ncurses&quot;&gt;ncurses&lt;/a&gt; implementation comes with C++ wrappers for its C API.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 24 Apr 2016 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2016-04-24/ncurses-for-cpp</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2016-04-24/ncurses-for-cpp</guid>
 			</item>
-		{% endfor %}
+		
+			<item>
+				<title>Converting Vim documentation file to HTML</title>
+				<description>&lt;p&gt;Vim has a great documentation for sure.  Part of its greatness is documentation
+format itself.  The only difficulty is that it can&amp;#39;t be easily converted to and
+from other formats, which might be sometimes desirable or at least useful to
+provide same documentation in different form.  In particular, conversion into
+HTML is sometimes useful and although there is an HTML version of Vim
+documentation, the tool with which it&amp;#39;s produced has never been made public.
+There is another way around it without the need to write such a tool from
+scratch.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 13 Jan 2016 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2016-01-13/converting-vim-doc-to-html</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2016-01-13/converting-vim-doc-to-html</guid>
+			</item>
+		
+			<item>
+				<title>C++ manual pages</title>
+				<description>&lt;p&gt;One of the great things about C is that its documentation is available locally
+via &lt;code&gt;man&lt;/code&gt; command.  That&amp;#39;s very convenient and one might expect to get the same
+for C++, but (say) &lt;code&gt;man std::adjacent_difference&lt;/code&gt; will usually just print:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;No manual entry for std::adjacent_difference
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Luckily, there are ways to fix it.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 05 Jan 2016 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2016-01-05/cpp-man-pages</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2016-01-05/cpp-man-pages</guid>
+			</item>
+		
+			<item>
+				<title>Switching from tmux to GNU Screen</title>
+				<description>&lt;p&gt;I was postponing learning how to use &lt;a href=&quot;https://en.wikipedia.org/wiki/Terminal_multiplexer&quot;&gt;terminal multiplexers&lt;/a&gt; for a
+long time until one day had to test integration with &lt;a href=&quot;https://en.wikipedia.org/wiki/Tmux&quot;&gt;tmux&lt;/a&gt;, which
+required learning it.  So I was using tmux since then and always thinking
+whether I could do better by using &lt;a href=&quot;https://en.wikipedia.org/wiki/GNU_Screen&quot;&gt;GNU Screen&lt;/a&gt; instead.  After
+all, most of &lt;a href=&quot;https://en.wikipedia.org/wiki/GNU&quot;&gt;GNU&lt;/a&gt; applications turn out to be quite versatile and
+extremely useful, so why GNU Screen wouldn&amp;#39;t have these properties?  This is
+especially reasonable question if one recalls that tmux was modeled after GNU
+Screen.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 08 Nov 2015 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen</guid>
+			</item>
+		
+			<item>
+				<title>Enabling output colorization in GCC</title>
+				<description>&lt;p&gt;I was waiting for GCC 4.9 for a while to get my hands on colorized color output,
+but after it became available in Slackware error output didn&amp;#39;t magically become
+colored.  This might not be the case for other distributions, but since it took
+me some time to make this work and after more than six month I still can&amp;#39;t find
+any related posts on the Internet right away here&amp;#39;s a short note.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 25 Oct 2015 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2015-10-25/enable-colorization-of-gcc-output</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-10-25/enable-colorization-of-gcc-output</guid>
+			</item>
+		
+			<item>
+				<title>C++11+ aggregate initializer surprise</title>
+				<description>&lt;p&gt;There is a nice thing in C++ called &lt;code&gt;friend&lt;/code&gt;ship between classes or classes and
+functions, which is used to put several entities in one security domain by
+allowing &amp;quot;friends&amp;quot; to access private fields.  This language feature is usually
+criticized as something that breaks encapsulation, which is not actually true as
+C++ is multi-paradigm language rather than being just OOP-language and such
+exceptions should be viewed as another way of doing things, not as something
+&amp;quot;wrong&amp;quot; (which is very subjective, by the way).&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 24 Oct 2015 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2015-10-24/aggregate-initializer-surprise</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-10-24/aggregate-initializer-surprise</guid>
+			</item>
+		
+			<item>
+				<title>Range iterator for Boost.PropertyTree items</title>
+				<description>&lt;p&gt;The other day I was looking for a way to obtain fully qualified names of items
+in &lt;a href=&quot;http://www.boost.org/doc/libs/1_58_0/doc/html/property_tree.html&quot;&gt;Boost.PropertyTree&lt;/a&gt; in sorted order, but basically found only &lt;a href=&quot;http://duck-wrath.blogspot.com/2012/02/how-to-recursive-parse.html&quot;&gt;one post
+on the subject&lt;/a&gt;, which demonstrated recursive traversal of a tree in more
+detail than iteration over all keys.  What I wanted is an iterator based
+solution, which could be employed in C++11 &lt;a href=&quot;https://en.wikipedia.org/wiki/C%2B%2B11#Range-based_for_loop&quot;&gt;range-based for loop&lt;/a&gt;.
+So I ended up writing one.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 15 Aug 2015 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves</guid>
+			</item>
+		
+			<item>
+				<title>Clang by example: Detecting wrong first include</title>
+				<description>&lt;h4&gt;TOC&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2014-08-28/detecting-unused-functions&#39;&gt; Detecting unused functions&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include&#39;&gt; Detecting wrong first include&lt;/a&gt;
+(you are here)
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;There is a well known (or at least I hope that it&amp;#39;s &lt;em&gt;well&lt;/em&gt; known) good practice
+to include header that corresponds to the current source file before including
+any other headers.  It&amp;#39;s recommended by multiple C++ coding style guides (for
+example by &lt;a href=&quot;http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Names_and_Order_of_Includes&quot;&gt;Google C++ Style Guide&lt;/a&gt;) and indeed
+makes sense to follow.&lt;/p&gt;
+
+&lt;p&gt;To put it short: it makes finding incomplete headers really easy.  If you
+forget to include required header, corresponding source file just won&amp;#39;t compile.
+This way there will be no hidden (implicit) dependencies among modules of a
+project as well as dependencies on system headers.  Below is a simple example
+that demonstrates such situation.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 23 Apr 2015 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2015-04-23/detecting-wrong-first-include</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2015-04-23/detecting-wrong-first-include</guid>
+			</item>
+		
+			<item>
+				<title>Why restoring signal handlers is important</title>
+				<description>&lt;p&gt;I experienced strange failures of some commands in &lt;code&gt;gvim&lt;/code&gt; (e.g. errors on
+closing window of &lt;code&gt;:Gblame&lt;/code&gt;) for quite a while, but couldn&amp;#39;t figure out why the
+hell their occur.  Overall it probably took more than 20 hours to identify the
+issue and solve it not causing any other issues to arise.  At the end of the
+day it took single line to solve the issue...&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 05 Oct 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-10-05/why-restoring-signal-handlers-is-important</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-10-05/why-restoring-signal-handlers-is-important</guid>
+			</item>
+		
+			<item>
+				<title>Fixing CIFS mounts in Slackware</title>
+				<description>&lt;p&gt;I remember &lt;a href=&quot;https://en.wikipedia.org/wiki/CIFS&quot;&gt;CIFS/SMB&lt;/a&gt; working fine for me, but it occasionally
+mysteriously didn&amp;#39;t work on some machines even with 100% correct configuration
+(e.g. line in &lt;a href=&quot;https://en.wikipedia.org/wiki/Fstab&quot;&gt;/etc/fstab&lt;/a&gt;).  It actually happened not only on
+Slackware, but also on Debian, though not sure what was causing issues there.&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 29 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-09-29/fixing-cifs-mount-in-slackware</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-09-29/fixing-cifs-mount-in-slackware</guid>
+			</item>
+		
+			<item>
+				<title>How to install data directory with automake</title>
+				<description>&lt;p&gt;I thought that adding directory to &lt;code&gt;pkgdata_DATA&lt;/code&gt; variable in &lt;code&gt;Makefile.am&lt;/code&gt;
+file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave this error:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/usr/bin/ginstall: omitting directory ‘../data/vim/’
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Sun, 28 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-09-28/how-to-install-data-directory-with-automake</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-09-28/how-to-install-data-directory-with-automake</guid>
+			</item>
+		
+			<item>
+				<title>How to make bootable win7 installation USB stick in GNU/Linux</title>
+				<description>&lt;p&gt;For most bootable ISO images one of two approaches works:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;dd if=image.iso of=/dev/sdx&lt;/code&gt; if image is a hybrid CD-ROM/HD image.&lt;/li&gt;
+&lt;li&gt;Extracting image via &lt;a href=&quot;https://en.wikipedia.org/wiki/UNetbootin&quot;&gt;UNetbootin&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;However, none of this works for Windows setup disks, even if you do this on
+Windows.  Usually I go with &lt;a href=&quot;https://en.wikipedia.org/wiki/UltraISO&quot;&gt;UltraISO&lt;/a&gt;&amp;#39;s &amp;quot;Write hard drive
+image&amp;quot;, which works fine.  But there is no UltraISO for GNU/Linux and one has
+to go another road.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 18 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-09-18/how-to-make-bootable-win7-usb-stick-in-linux</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-09-18/how-to-make-bootable-win7-usb-stick-in-linux</guid>
+			</item>
+		
+			<item>
+				<title>Fix graphic errors after replacing NVIDIA card with Intel Graphics</title>
+				<description>&lt;p&gt;After upgrading motherboard and its components, regular graphics (windows,
+video) worked fine with Intel HD Graphics, but trying to run something like
+&lt;code&gt;glxgears&lt;/code&gt; displayed nothing but blank window.  It was strange as Intel drivers
+are open source and known for their good work in GNU/Linux.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 07 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-09-07/fix-intel-graphics-after-nvidia</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-09-07/fix-intel-graphics-after-nvidia</guid>
+			</item>
+		
+			<item>
+				<title>Decrease LILO kernel load time</title>
+				<description>&lt;p&gt;Opened my &lt;a href=&quot;https://en.wikipedia.org/wiki/LILO_(boot_loader)&quot;&gt;LILO&lt;/a&gt; configuration file (&lt;code&gt;/etc/lilo.conf&lt;/code&gt;) recently to
+take a look at video mode options and noticed this line:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cfg&quot; data-lang=&quot;cfg&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#compact        # faster, but won&amp;#39;t work on all systems.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Tue, 02 Sep 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-09-02/boot-with-lilo-faster</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-09-02/boot-with-lilo-faster</guid>
+			</item>
+		
+			<item>
+				<title>Clang by example: Detecting unused functions</title>
+				<description>&lt;h4&gt;TOC&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2014-08-28/detecting-unused-functions&#39;&gt; Detecting unused functions&lt;/a&gt;
+(you are here)
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include&#39;&gt; Detecting wrong first include&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;This memo provides description of a tool that scans a set of source files
+looking for two types of functions declared with external linkage:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Those that are defined, but completely unused.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Those that are used only inside same translation unit they are defined in.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+				<pubDate>Thu, 28 Aug 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-08-28/detecting-unused-functions</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-08-28/detecting-unused-functions</guid>
+			</item>
+		
+			<item>
+				<title>csplit: splitting text files by separator line pattern</title>
+				<description>&lt;p&gt;To split files by number of bytes or lines there is standard
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Split_(Unix)&quot;&gt;&lt;code&gt;split&lt;/code&gt;&lt;/a&gt; command, but how to break file into pieces of variable
+size that are delimited by a separator?  Search revealed
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Csplit&quot;&gt;&lt;code&gt;csplit&lt;/code&gt;&lt;/a&gt; tool, hence this quick overview with a small example.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 23 Jul 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-07-23/splitting-text-files-by-pattern</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-07-23/splitting-text-files-by-pattern</guid>
+			</item>
+		
+			<item>
+				<title>Prefer plain text format over HTML in mutt</title>
+				<description>&lt;p&gt;Although this subject is covered in multiple sources, it&amp;#39;s hard to find it for
+some reason or at least it wasn&amp;#39;t that easy for me.  That&amp;#39;s why I repeat it
+once again here and provide links to more verbose explanations.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 22 Jul 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-07-22/prefer-plain-text-format-over-html-in-mutt</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-07-22/prefer-plain-text-format-over-html-in-mutt</guid>
+			</item>
+		
+			<item>
+				<title>How to add route for PPTP tunnel automatically</title>
+				<description>&lt;p&gt;Had an issue with setting up correct routing rule for &lt;a href=&quot;https://en.wikipedia.org/wiki/VPN&quot;&gt;VPN&lt;/a&gt; network
+through &lt;a href=&quot;https://en.wikipedia.org/wiki/PPTP&quot;&gt;PPTP&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 07 Jul 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-07-07/pptp-add-route-automatically</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-07-07/pptp-add-route-automatically</guid>
+			</item>
+		
+			<item>
+				<title>rexima: couldn't open mixer device</title>
+				<description>&lt;p&gt;After installing &lt;em&gt;Slackware 14.1&lt;/em&gt; on a new machine, I got unexpected output
+when tried to run &lt;a href=&quot;http://www.svgalib.org/rus/rexima.html&quot;&gt;rexima&lt;/a&gt; interactive mixer (by the way, it&amp;#39;s in
+&lt;code&gt;extra&lt;/code&gt; section of &lt;em&gt;Slackware&lt;/em&gt; packages, so search might silently skip it, just
+do &lt;code&gt;slackpkg install rexima&lt;/code&gt; to install it).  The output was:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ rexima
+rexima: couldn&amp;#39;t open mixer device.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Sun, 06 Jul 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-07-06/rexima-could-not-open-mixer-device</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-07-06/rexima-could-not-open-mixer-device</guid>
+			</item>
+		
+			<item>
+				<title>Removing sendmail from mail receiving chain</title>
+				<description>&lt;p&gt;One of common ways to receive mail includes using &lt;a href=&quot;https://en.wikipedia.org/wiki/Sendmail&quot;&gt;sendmail&lt;/a&gt; as
+an &lt;a href=&quot;https://en.wikipedia.org/wiki/Message_transfer_agent&quot;&gt;MTA&lt;/a&gt;.  This causes some inconvenience especially when it&amp;#39;s the
+only purpose &lt;em&gt;sendmail&lt;/em&gt; is installed for.  To be able to receive mail
+&lt;em&gt;sendmail&lt;/em&gt; deamon must be running all the time, which also means that it
+consumes some (small) amount of resources.  It&amp;#39;s not a problem at all (even
+though it slows down system startup a little bit), but why keep it if we can
+live without it?&lt;/p&gt;
+
+</description>
+				<pubDate>Fri, 04 Jul 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-07-04/removing-sendmail-from-mail-receiving-chain</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-07-04/removing-sendmail-from-mail-receiving-chain</guid>
+			</item>
+		
+			<item>
+				<title>How to make tabs visible in git diff</title>
+				<description>&lt;p&gt;I&amp;#39;m a bit tired looking at diffs like the following:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;         for (int i = 0; i &amp;lt; 3; ++i) {
+&lt;span class=&quot;gd&quot;&gt;-        for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
+&lt;span class=&quot;gi&quot;&gt;+                for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
+                         for (int k = 0; k &amp;lt; 4; ++k) {
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Can anybody tell whether spaces were replaces with tabs or tabs were replaced
+with spaces without knowing anything else about the code?  Probably, not.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 22 Jun 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-06-22/make-tabs-visible-in-git-diff</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-06-22/make-tabs-visible-in-git-diff</guid>
+			</item>
+		
+			<item>
+				<title>Clang by example: Detecting postfix operators in for loops</title>
+				<description>&lt;h4&gt;TOC&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
+(you are here)
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2014-08-28/detecting-unused-functions&#39;&gt; Detecting unused functions&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include&#39;&gt; Detecting wrong first include&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;Introduction&lt;/h3&gt;
+
+&lt;h4&gt;Foreword&lt;/h4&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Llvm&quot;&gt;LLVM&lt;/a&gt; project has been started back in 2000, but became widely
+known and used quite recently, about 4 years as of now (2014).  It&amp;#39;s used by
+hardware manufactures to implement programming languages for their products as
+well as by software engineering companies to develop their own programs.  There
+are two main reasons why LLVM gained such popularity:&lt;/p&gt;
+
+</description>
+				<pubDate>Fri, 02 May 2014 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops</guid>
+			</item>
+		
+			<item>
+				<title>Fix constant rebuilding of static libraries by GNU make</title>
+				<description>&lt;h3&gt;The issue explained&lt;/h3&gt;
+
+&lt;p&gt;Say directory structure is as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ tree
+.
+|-- Makefile
+`-- lib.cpp
+
+0 directories, 2 files
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Wed, 05 Feb 2014 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make</guid>
+			</item>
+		
+			<item>
+				<title>How to profile python application packaged via py2exe</title>
+				<description>&lt;h3&gt;Simple profiling using standard &lt;code&gt;cProfile&lt;/code&gt; module&lt;/h3&gt;
+
+&lt;p&gt;Usually a command similar to the one below is used to profile an application:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;python -m cProfile -o app.prof app.py arg1 arg2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Tue, 04 Feb 2014 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app</guid>
+			</item>
+		
+			<item>
+				<title>How to recompile source file on each build using make</title>
+				<description>&lt;h3&gt;Motivation&lt;/h3&gt;
+
+&lt;p&gt;It&amp;#39;s sometimes useful to see precise date and time an application was compiled.
+So such information should be embedded into application at compile time and
+displayed on user&amp;#39;s request.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 18 Jan 2014 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make</guid>
+			</item>
+		
+			<item>
+				<title>How to disable subtitles in mplayer by default</title>
+				<description>&lt;h3&gt;Pre-history&lt;/h3&gt;
+
+&lt;p&gt;I really like &lt;code&gt;mplayer&lt;/code&gt; because:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;it is very powerful;&lt;/li&gt;
+&lt;li&gt;yet quite easy to use from command-line;&lt;/li&gt;
+&lt;li&gt;has sane defaults;&lt;/li&gt;
+&lt;li&gt;no GUI which just stands between me and video I want to watch.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So far, so good.  The only thing that bothered me for a while is that subtitles
+are enabled by default.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 16 Nov 2013 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2013-11-16/mplayer-with-disabled-subtitles-by-default</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-11-16/mplayer-with-disabled-subtitles-by-default</guid>
+			</item>
+		
+			<item>
+				<title>How to define `_GNU_SOURCE` correctly with autoconf correctly</title>
+				<description>&lt;p&gt;&lt;code&gt;_XOPEN_SOURCE&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
+dnl features of Posix that are extensions to C, as well as platform extensions
+dnl not defined by Posix.
+AC_USE_SYSTEM_EXTENSIONS
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Wed, 16 Oct 2013 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2013-10-16/autoconf-how-to-define-gnu-source-correctly</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-10-16/autoconf-how-to-define-gnu-source-correctly</guid>
+			</item>
+		
+			<item>
+				<title>Fix tmux hang in X</title>
+				<description>&lt;p&gt;Recently I needed to use tmux.  Turned out that it wasn&amp;#39;t even installed on my
+system, which, of course, wasn&amp;#39;t a problem.  After it was installed and ran I
+was presented with a prompt that didn&amp;#39;t responed to anything.  The only thing
+that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 25 Sep 2013 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2013-09-25/fix-misterious-tmux-hang-in-x</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-09-25/fix-misterious-tmux-hang-in-x</guid>
+			</item>
+		
+			<item>
+				<title>How to define `_GNU_SOURCE` correctly with autoconf</title>
+				<description>&lt;p&gt;Mainly for historical reasons, vifm contained the following pieces of code:&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 29 Jul 2013 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2013-07-29/autoconf-how-to-define-gnu-source</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-07-29/autoconf-how-to-define-gnu-source</guid>
+			</item>
+		
+			<item>
+				<title>Out-of-class overload of unary operators in C++</title>
+				<description>&lt;p&gt;This may sound strange, but it seems that I have never thought about overloading
+of unary operators in C++, which are not implemented as member functions.  It&amp;#39;s
+not like it sounds strange or incorrect, I just never wanted to do it.  So, just
+to be able to say &amp;quot;I did it at least once&amp;quot;, lets try it out on a very basic
+example with overloading of postfix increment operator:&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 29 Apr 2013 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2013-04-29/cpp-out-of-class-unary-op-overload</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-04-29/cpp-out-of-class-unary-op-overload</guid>
+			</item>
+		
+			<item>
+				<title>Flattened aggregate initializers in C and C++</title>
+				<description>&lt;p&gt;Today I found an interesting statement on one of forum pages of &lt;a href=&quot;http://www.linux.org.ru/forum/development/9110363&quot;&gt;LOR&lt;/a&gt;:
+initializers of inner aggregates can be flattened.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 28 Apr 2013 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2013-04-28/cpp-aggregate-initializers</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-04-28/cpp-aggregate-initializers</guid>
+			</item>
+		
+			<item>
+				<title>How to set `xterm-256color` type of terminal in xterm on Slackware Linux?</title>
+				<description>&lt;p&gt;Recently support for processing escape sequences in preview window was added to
+vifm.  So I added highlighting of source code in my preview window using
+&lt;a href=&quot;https://sourceforge.net/projects/syntaxhighlight&quot;&gt;highlight&lt;/a&gt; tool specifying &lt;code&gt;-O ansi&lt;/code&gt; to make it generate ansi compatible
+escape codes.  But some of syntax group obtained the same color, because I had
+my terminal configured to display up to 8 colors.  To solve the issue, I decided
+to start using &lt;code&gt;xterm-256color&lt;/code&gt; terminal mode in xterm.  Here&amp;#39;s where all fun
+began.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 14 Apr 2013 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware</guid>
+			</item>
+		
+			<item>
+				<title>How to operate on selection in mutt?</title>
+				<description>&lt;p&gt;This is a very simple thing, but I just can&amp;#39;t make myself remember it. So here
+is how it&amp;#39;s done:&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 30 Mar 2013 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2013-03-30/operate-on-selection-in-mutt</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-03-30/operate-on-selection-in-mutt</guid>
+			</item>
+		
+			<item>
+				<title>How to merge mailbox files of mbox format?</title>
+				<description>&lt;p&gt;This sounds like an easy task at first.  But after looking on the Internet for a
+working and ready to be used solution, it turned out to be not so easy to find.
+There were some old scripts in python, but they didn&amp;#39;t look very promising to
+me.  So after spending some time on search &lt;a href=&quot;http://does-not-exist.org/mail-archives/mutt-users/msg03132.html&quot;&gt;this answer to my question&lt;/a&gt; was
+found.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 30 Mar 2013 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2013-03-30/merge-mbox-mailboxes</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2013-03-30/merge-mbox-mailboxes</guid>
+			</item>
+		
+			<item>
+				<title>How to share code among several Web-service applications written in Java</title>
+				<description>&lt;p&gt;Some time ago I&amp;#39;ve spent a lot of time trying to figure out how one can share
+common parts of code in two Web-services running in &lt;a href=&quot;http://tomcat.apache.org/&quot;&gt;Apache Tomcat&lt;/a&gt;.  What I
+wanted is to move several packages to a separate Eclipse project and refer to it
+from several other projects.  Somewhere on the Web a nice list of options to
+achieve this was found.  All (or almost all) of them were connected with the
+&lt;code&gt;Classpath&lt;/code&gt; settings pane in the project options.  But unfortunately no matter
+what &lt;code&gt;Classpath&lt;/code&gt; options I set, it didn&amp;#39;t work.  I&amp;#39;ve also tried exporting
+project with the common functionallity to a jar file and linking to it from
+other project.  That didn&amp;#39;t work either, that jar file wasn&amp;#39;t deployed to Tomcat
+server.&lt;/p&gt;
+
+</description>
+				<pubDate>Fri, 09 Nov 2012 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2012-11-09/code-sharing-among-java-web-services</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-11-09/code-sharing-among-java-web-services</guid>
+			</item>
+		
+			<item>
+				<title>Double brace initializers in Java</title>
+				<description>&lt;p&gt;Unfortunately, some features of well known programming languages are much less
+known than others.  Eventually, those unknown features are quite powerful and
+useful.  Today I&amp;#39;m going to describe so called &amp;quot;double brace initialization&amp;quot;
+in Java, which is quite similar (and more powerful) than object initializers of
+C#.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 18 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-18/java-double-brace-initializers</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-18/java-double-brace-initializers</guid>
+			</item>
+		
+			<item>
+				<title>strchr() finds zero character</title>
+				<description>&lt;p&gt;As any other programmer once in a while I find some new tiny but quite useful
+trick, which I then apply to my sources.  One of such trick is using of
+&lt;code&gt;strchr()&lt;/code&gt; function to compare if a value of type &lt;code&gt;char&lt;/code&gt; equals to one of
+values.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 17 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-17/strchr-finds-zero-char</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-17/strchr-finds-zero-char</guid>
+			</item>
+		
+			<item>
+				<title>Making ~/.inputrc work in slackware</title>
+				<description>&lt;p&gt;Today I accidentally trapped on &lt;a href=&quot;https://wiki.archlinux.org/index.php/Bash#Faster_completion&quot;&gt;this part&lt;/a&gt; of Arch Linux wiki page on Bash.
+And decided to try putting &lt;code&gt;set show-all-if-ambiguous On&lt;/code&gt; to my ~/.inputrc,
+which was created for this.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 13 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-13/making-inputrc-work-in-slackware</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-13/making-inputrc-work-in-slackware</guid>
+			</item>
+		
+			<item>
+				<title>Configuring keys in less</title>
+				<description>&lt;p&gt;Since I&amp;#39;m using Vim and terminal constantly the only right way of going through
+command-line history in my world is using &lt;code&gt;Control-P&lt;/code&gt; (&lt;code&gt;&amp;lt;c-p&amp;gt;&lt;/code&gt; or &lt;code&gt;^P&lt;/code&gt;; to go
+backwards) and &lt;code&gt;Control-N&lt;/code&gt; (&lt;code&gt;&amp;lt;c-n&amp;gt;&lt;/code&gt; or &lt;code&gt;^N&lt;/code&gt; to go forwards).&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 11 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-11/configuring-keys-in-less</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-11/configuring-keys-in-less</guid>
+			</item>
+		
+			<item>
+				<title>How to connect a computer behind NAT to another computer behind NAT using ssh</title>
+				<description>&lt;p&gt;I was wondering how can I connect to my laptop from work for some time, but
+didn&amp;#39;t know how to do that without using VPN.  I even decided that it&amp;#39;s
+impossible to do something simple, but then... I realized that a third party
+server to which I have access through ssh can be used for this.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 10 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-10/bypass-two-nats-using-ssh</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-10/bypass-two-nats-using-ssh</guid>
+			</item>
+		
+			<item>
+				<title>An issue with colour prompt in bash</title>
+				<description>&lt;h3&gt;Prehistory&lt;/h3&gt;
+
+&lt;p&gt;Once I read somewhere that it&amp;#39;s possible to add some colours to your shell&amp;#39;s
+(bash in my case) prompt using escape sequences.  I thought that it will
+greatly decrease time one spend finding the beginning of a command that was just
+run.  Prompt colouring is also useful to distinguish between root and regular
+user prompt.  So after some experiments with &lt;code&gt;echo&lt;/code&gt; command, I added this line
+to my &lt;code&gt;~/.bashrc&lt;/code&gt; file:&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 09 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-09/bash-colour-prompt-issue</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-09/bash-colour-prompt-issue</guid>
+			</item>
+		
+			<item>
+				<title>Browsing directories using Vim's wildmenu</title>
+				<description>&lt;p&gt;Today I accidentally found a very unexpected thing in Vim.  While trying to
+make wildmenu disappear I hit some of arrow keys and great truth was uncovered
+to me:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;one can browse file system in wildmenu using arrow keys!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-08/vim-wild-menu</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-08/vim-wild-menu</guid>
+			</item>
+		
+			<item>
+				<title>Enabling code highlighing in jekyll</title>
+				<description>&lt;p&gt;It&amp;#39;s not hard to do, but not as easy as one might expect.  So here are the main
+steps one need to follow to make code highlighing work:&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-08/jekyll-highlight</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-08/jekyll-highlight</guid>
+			</item>
+		
+			<item>
+				<title>Exception specifiers and finally keyword in Java</title>
+				<description>&lt;p&gt;Here is part of code I wrote once:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Execute&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmiss&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RemoteException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CommandFault&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;finally&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-08/java-exception</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-08/java-exception</guid>
+			</item>
+		
+			<item>
+				<title>gem install issue</title>
+				<description>&lt;p&gt;This day I finally made a decision to start posting some notes on computer
+related stuff and mainly about how I solved some minor issues with software.
+Several month ago I already picked statically generated sites and GitHub pages
+as a hosting (I don&amp;#39;t expect other people to read this, I just don&amp;#39;t want to
+forget anything of it :-), so such hosting is enough for my needs).  So I found
+a post &lt;a href=&quot;http://davidwinter.me/articles/2011/10/29/setting-up-github-pages/&quot;&gt;Setting up Github Pages&lt;/a&gt; written by David Winter and started
+following steps described there.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 07 Oct 2012 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2012-10-07/gem-install-issue</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2012-10-07/gem-install-issue</guid>
+			</item>
+		
 	</channel>
 </rss>
