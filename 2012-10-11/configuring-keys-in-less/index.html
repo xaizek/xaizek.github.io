@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Configuring keys in less</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Configuring keys in less</h1>
+      <h5 class="post_date">October 11, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/less">less</a>]
+        
+        [<a href="/tag/terminal">terminal</a>]
+        
+        [<a href="/tag/keys">keys</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Since I&#39;m using Vim and terminal constantly the only right way of going through
+command-line history in my world is using <code>Control-P</code> (<code>&lt;c-p&gt;</code> or <code>^P</code>; to go
+backwards) and <code>Control-N</code> (<code>&lt;c-n&gt;</code> or <code>^N</code> to go forwards).</p>
+
+<!-- cut -->
+
+<p>And I missed this key bindings while using less to view man pages or long output
+of commands (e.g. <code>git log</code>).  As always the first thing to do in such case
+should be reading of man page of a tool.  Here is what I&#39;ve found there:</p>
+
+<ol>
+<li>Less has support of key bindings configuration file of binary format
+(<code>~/.less</code> by default)</li>
+<li>There is a special tool called <code>lesskey</code>, which generates <code>~/.less</code> binary
+file from a text file (<code>~/.lesskey</code> by default)</li>
+</ol>
+
+<p>If you want to know more about this stuff, just read <code>man less</code> and
+<code>man lesskey</code>.  Below is an example of adding support of several shortcuts for
+less.</p>
+
+<p>First of all one needs to create a file named <code>~/.lesskey</code> (read <code>man lesskey</code>
+if you want to name it in another way) and put these lines in it:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#line-edit
+\e abort
+^P up
+^N down
+</code></pre></div>
+<p>You should already know that less has some kind of modality and thus it has
+several modes.  No surprise that one needs to specify target mode for key
+bingings, which is <code>#line-edit</code> in the example above.  There should be no spaces
+after sharp symbol.  Bellow that line tree more lines follow.  The first one
+makes less leave line-edit mode if user presses <code>Escape</code> key (<code>&lt;esc&gt;</code>).  The
+second one makes <code>Control-P</code> work as <code>Arrow Up</code> works by default, while the
+third line binds <code>Control-N</code> to <code>Arrow Down</code> action.</p>
+
+<p>Here is where we need to use <code>lesskey</code> tool.  Just run it and it will generate a
+<code>~/.less</code> file of binary format from the contents of <code>~/.lesskey</code>.  Now try
+running less for something, type <code>/</code> (forward slash) to enter line-edit mode and
+press <code>Control-N</code> and <code>Control-P</code> to check if it works, well it should work now.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2012-10-11/configuring-keys-in-less/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-11/configuring-keys-in-less/';
+  var disqus_title = 'Configuring keys in less -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2012-10-11/configuring-keys-in-less/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

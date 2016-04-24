@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Fix graphic errors after replacing NVIDIA card with Intel Graphics</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Fix graphic errors after replacing NVIDIA card with Intel Graphics</h1>
+      <h5 class="post_date">September  7, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/linux">linux</a>]
+        
+        [<a href="/tag/xorg">xorg</a>]
+        
+        [<a href="/tag/hardware">hardware</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>After upgrading motherboard and its components, regular graphics (windows,
+video) worked fine with Intel HD Graphics, but trying to run something like
+<code>glxgears</code> displayed nothing but blank window.  It was strange as Intel drivers
+are open source and known for their good work in GNU/Linux.</p>
+
+<!-- cut -->
+
+<p>It took me a while to find <a href="https://github.com/Bumblebee-Project/Bumblebee/issues/356">this long thread</a>, which helped diagnosing
+the issue.  I won&#39;t repeat it, so if you need help grabbing useful information
+from logs or anything similar go read it.</p>
+
+<p>In short, list of issues I encountered includes:</p>
+
+<ul>
+<li><code>glxgears</code> displaying huge number of frames, like
+<code>
+5205 frames in 5.0 seconds = 1040.517 FPS
+</code>
+(possible as nothing was actually drawn/displayed).</li>
+<li><code>xdriinfo</code> saying:
+<code>
+xdriinfo: libGL is too old
+</code>
+.</li>
+<li>Something like <code>Failed to load NV-GLX</code>.</li>
+<li>Several more, which I don&#39;t remember.</li>
+</ul>
+
+<p>The solution turned out to be quite simple, although not very obvious:</p>
+
+<ol>
+<li><p>Remove NVIDIA drivers, e.g. run as root
+<code>
+./NVIDIA-Linux-x86_64-304.88.run --uninstall
+</code>
+Surprised there is such an option?  Try passing <code>-A</code> (<code>--advanced-options</code>)
+to the installer to see whole list.</p></li>
+<li><p>Reinstall <a href="https://en.wikipedia.org/wiki/Mesa_(computer_graphics)">MESA</a>.  Why?  Because NVIDIA installer replaces some
+libraries with its own versions, which breaks graphic subsystem for other
+graphic cards.</p></li>
+</ol>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-09-07/fix-intel-graphics-after-nvidia/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-09-07/fix-intel-graphics-after-nvidia/';
+  var disqus_title = 'Fix graphic errors after replacing NVIDIA card with Intel Graphics -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-09-07/fix-intel-graphics-after-nvidia/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to install data directory with automake</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>How to install data directory with automake</h1>
+      <h5 class="post_date">September 28, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/issue">issue</a>]
+        
+        [<a href="/tag/autoconf">autoconf</a>]
+        
+        [<a href="/tag/build">build</a>]
+        
+        [<a href="/tag/make">make</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>I thought that adding directory to <code>pkgdata_DATA</code> variable in <code>Makefile.am</code>
+file would be enough, but <code>make install</code> command gave this error:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">/usr/bin/ginstall: omitting directory ‘../data/vim/’
+</code></pre></div>
+<!-- cut -->
+
+<p>I already knew that just listing all the files I want to copy in <code>pkgdata_DATA</code>
+won&#39;t help as it doesn&#39;t care about paths and flattens directory structure.</p>
+
+<p>I <a href="http://vaab.blog.kal.fr/2011/06/26/install-omitting-directory/">have</a> <a href="http://lists.gnu.org/archive/html/automake/2008-08/msg00091.html">found</a> <a href="http://lists.gnu.org/archive/html/automake/2008-08/msg00091.html">several</a> <a href="http://stackoverflow.com/questions/9242524/data-files-with-gnus-autoconf-and-automake">posts</a> on
+this topic and stopped on approach described in <a href="http://lists.gnu.org/archive/html/automake/2008-08/msg00091.html">this post</a> (see
+first quoted e-mail).  It basically covers it, but I&#39;d like to provide a more
+verbose description.</p>
+
+<p>Here we go.  The task is to install one of directories available in the source
+tree to <code>share/{appname}/</code>.  The sub-tree structure is as follows:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">./autoload/
+./autoload/vifm/
+./doc/
+./ftdetect/
+./ftplugin/
+./plugin/
+./syntax/
+</code></pre></div>
+<p>These are all directories and as we know now <code>install</code> refuses to copy them.
+This means that one needs to list files to copy and specify correct prefixes
+for them.</p>
+
+<p>Good news is that directory creation automatically takes care of non-existing
+parent directories, so no need to worry about destination path and about
+<code>autoload/</code> directory in it.  Other six directories contain these files:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">./doc/tags
+./doc/vifm.txt
+./autoload/vifm/edit.vim
+./plugin/vifm.vim
+./syntax/vifm.vim
+./ftplugin/vifm.vim
+./ftplugin/vifm-cmdedit.vim
+./ftplugin/vifm-edit.vim
+./ftdetect/vifm.vim
+</code></pre></div>
+<p>Note <code>doc/tags</code> file, which we don&#39;t want to install.  Luckily, we can just
+omit it from list of files and that&#39;s it.  If we were copying whole
+directories, this would&#39;ve been much harder to take care of, which is the
+reason why I decided to do not use <code>install-data-hook</code> instead (described in
+one of posts linked above).</p>
+
+<p>Now look at directory structure of the project:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">|
+|-- data/
+|  |
+|  `-- vim/
+|
+`-- src/Makefile.am
+</code></pre></div>
+<p>And here are new lines for <code>src/Makefile.am</code>:</p>
+<div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nv">vim_dir</span> <span class="o">=</span> <span class="k">$(</span>pkgdatadir<span class="k">)</span>/vim
+<span class="nv">vim_autoload_vifm_dir</span> <span class="o">=</span> <span class="k">$(</span>vim_dir<span class="k">)</span>/autoload/vifm
+<span class="nv">vim_doc_dir</span> <span class="o">=</span> <span class="k">$(</span>vim_dir<span class="k">)</span>/doc
+<span class="nv">vim_ftdetect_dir</span> <span class="o">=</span> <span class="k">$(</span>vim_dir<span class="k">)</span>/ftdetect
+<span class="nv">vim_ftplugin_dir</span> <span class="o">=</span> <span class="k">$(</span>vim_dir<span class="k">)</span>/ftplugin
+<span class="nv">vim_plugin_dir</span> <span class="o">=</span> <span class="k">$(</span>vim_dir<span class="k">)</span>/plugin
+<span class="nv">vim_syntax_dir</span> <span class="o">=</span> <span class="k">$(</span>vim_dir<span class="k">)</span>/syntax
+
+<span class="nv">vim_autoload_vifm__DATA</span> <span class="o">=</span> ../data/vim/autoload/vifm/edit.vim
+<span class="nv">vim_doc__DATA</span> <span class="o">=</span> ../data/vim/doc/vifm.txt
+<span class="nv">vim_ftdetect__DATA</span> <span class="o">=</span> ../data/vim/ftdetect/vifm.vim
+<span class="nv">vim_ftplugin__DATA</span> <span class="o">=</span> ../data/vim/ftplugin/vifm.vim <span class="se">\</span>
+                     ../data/vim/ftplugin/vifm-cmdedit.vim <span class="se">\</span>
+                     ../data/vim/ftplugin/vifm-edit.vim
+<span class="nv">vim_plugin__DATA</span> <span class="o">=</span> ../data/vim/plugin/vifm.vim
+<span class="nv">vim_syntax__DATA</span> <span class="o">=</span> ../data/vim/syntax/vifm.vim
+</code></pre></div>
+<p>Here are some details:</p>
+
+<ul>
+<li><code>$(pkgdatadir)</code> - expanded to path like <code>../share/{appname}/</code>;</li>
+<li><code>vim_dir</code> - destination directory;</li>
+<li>other <code>*_dir</code> variables - destination subdirectories;</li>
+<li><code>*__DATA</code> variables - list of files to install into corresponding
+                     subdirectory;</li>
+<li>underscore is doubled (<code>__</code>) because each <code>{x}_DATA</code> directory is matched
+with <code>{x}dir</code> and in this case there is already an underscore before the
+<code>dir</code> suffix.</li>
+</ul>
+
+<p>Hope this will help somebody to deal with <a href="https://en.wikipedia.org/wiki/Automake">automake</a>.  It&#39;s
+a great tool, that just lacks instructions that are easy to grasp (<a href="https://www.gnu.org/software/automake/manual/automake.html">here are
+docs</a>, by the way).</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-09-28/how-to-install-data-directory-with-automake/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-09-28/how-to-install-data-directory-with-automake/';
+  var disqus_title = 'How to install data directory with automake -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-09-28/how-to-install-data-directory-with-automake/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

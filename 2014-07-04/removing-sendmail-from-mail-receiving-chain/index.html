@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Removing sendmail from mail receiving chain</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Removing sendmail from mail receiving chain</h1>
+      <h5 class="post_date">July  4, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/mail">mail</a>]
+        
+        [<a href="/tag/linux">linux</a>]
+        
+        [<a href="/tag/howto">howto</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>One of common ways to receive mail includes using <a href="https://en.wikipedia.org/wiki/Sendmail">sendmail</a> as
+an <a href="https://en.wikipedia.org/wiki/Message_transfer_agent">MTA</a>.  This causes some inconvenience especially when it&#39;s the
+only purpose <em>sendmail</em> is installed for.  To be able to receive mail
+<em>sendmail</em> deamon must be running all the time, which also means that it
+consumes some (small) amount of resources.  It&#39;s not a problem at all (even
+though it slows down system startup a little bit), but why keep it if we can
+live without it?</p>
+
+<!-- cut -->
+
+<p>Generic scheme of receiving mail is as follows:</p>
+
+<p><center>
+<img src="/images/standard-mail-chain.png" alt="Standard mail chain">
+</center></p>
+
+<p>Here <em>sendmail</em> passes all mail it gets to <a href="https://en.wikipedia.org/wiki/Procmail">procmail</a>, which is
+configured in <code>~/.forward</code> file.  The idea is to get rid of <em>sendmail</em> such
+that:</p>
+
+<ul>
+<li>It won&#39;t be started with system.</li>
+<li>It won&#39;t be listening to any sockets.</li>
+<li>Nothing will be forwarded to it.</li>
+<li>No need to keep that <code>~/.forward</code> file.</li>
+</ul>
+
+<p>This means that all the mail will be passed directly to <a href="https://en.wikipedia.org/wiki/Mail_delivery_agent">MDA</a>, which
+is <code>procmail</code> in this case.</p>
+
+<p>It turned out to be quite easy to implement after reading <a href="http://www.ioncannon.net/system-administration/97/using-fetchmail-and-procmail-for-maildir-style-storage-from-a-pop3-account/">this nice
+post</a> even though it&#39;s not exactly what the subject.  The most useful
+line is this one:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mda &quot;/usr/bin/procmail -m /path/to/procmail.conf&quot;
+</code></pre></div>
+<p><code>man fetchmail</code> says:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mda                -m           Specify MDA for local delivery
+</code></pre></div>
+<p>It&#39;s strange thing that (I guess) all articles I&#39;ve ever read on this topic do
+not mention this useful option of <a href="https://en.wikipedia.org/wiki/Fetchmail">fetchmail</a>.  And leave it
+with default behaviour of sending mail to <em>localhost</em> <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a> server.</p>
+
+<p>For <a href="https://en.wikipedia.org/wiki/Maildir">Maildir</a> format all one needs to cut <em>sendmail</em> from this
+chain is to set this option, but there is one caveat not described in the
+article linked above.  The option must be set <strong>for each account</strong> in your
+<em>fetchmail</em> configuration file, e.g.:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># ...
+
+poll mail.example.com proto pop3
+       user &#39;me&#39; with pass &#39;123&#39; is &#39;meagain&#39; here ssl keep
+
+mda &quot;/usr/bin/procmail -m ~/.config/procmail/procmail.conf&quot;
+
+poll anothermail.example.com proto pop3
+       user &#39;meagain&#39; with pass &#39;qwerty&#39; is &#39;meagain&#39; here ssl keep
+
+mda &quot;/usr/bin/procmail -m ~/.config/procmail/procmail.conf&quot;
+</code></pre></div>
+<p>If you forget to specify <code>mda</code> option for one of accounts, log of <em>fetchmail</em>
+will contain messages like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">fetchmail: Connection errors for this poll:
+name 0: connection to localhost:smtp [127.0.0.1/25] failed: Connection refused.
+fetchmail: SMTP connect to localhost failed
+fetchmail: SMTP transaction error while fetching from mail.example.com and
+delivering to SMTP host localhost
+fetchmail: Query status=10 (SMTP)
+</code></pre></div>
+<p>For <em>Mailbox</em> format, it wont work out of the box because it requires leading
+<code>From ...</code> line for every contained message and won&#39;t work well: new mail will
+be delivered, but won&#39;t be visible in mail client (<a href="https://en.wikipedia.org/wiki/Mutt_(e-mail_client)">mutt</a>).
+Basically one needs to specify <code>-f -</code> option for <em>procmail</em>, which:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">-f fromwhom
+      Causes  procmail  to  regenerate  the leading `From &#39; line with fromwhom
+      as the sender (instead of -f one could use the alternate and obsolete
+      -r).  If fromwhom consists merely of a single `-&#39;, then procmail will
+      only update the timestamp on the `From &#39; line (if present, if not, it
+      will generate a  new one).
+</code></pre></div>
+<p>Read <a href="http://dev.mutt.org/trac/wiki/MuttFaq/Folder">this page of mutt FAQ</a> for more details.</p>
+
+<p>P.S.  The image at the top was generated with <strong><a href="http://ditaa.sourceforge.net/">ditaa</a></strong>, which is
+a nice tool for small and simple diagrams like that one.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-07-04/removing-sendmail-from-mail-receiving-chain/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-07-04/removing-sendmail-from-mail-receiving-chain/';
+  var disqus_title = 'Removing sendmail from mail receiving chain -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-07-04/removing-sendmail-from-mail-receiving-chain/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

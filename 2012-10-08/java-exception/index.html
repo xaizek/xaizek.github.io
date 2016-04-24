@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Exception specifiers and finally keyword in Java</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Exception specifiers and finally keyword in Java</h1>
+      <h5 class="post_date">October  8, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/java">java</a>]
+        
+        [<a href="/tag/eclipse">eclipse</a>]
+        
+        [<a href="/tag/exceptions">exceptions</a>]
+        
+        [<a href="/tag/finally">finally</a>]
+        
+        [<a href="/tag/issue">issue</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Here is part of code I wrote once:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Execute</span><span class="o">();</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<!-- cut -->
+
+<p>After adding proper exception handling it becomes this:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Execute</span><span class="o">();</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>At this point Eclipse start complaining about the <code>finally</code> block saying that
+<code>finally block does not complete normally</code> and proposing
+<code>Add suppressWarnings `finally` to execute()</code> as the only possible solution.
+While everything was working fine I didn&#39;t care about what Eclipse says until
+one day something went wrong, but code on layers above <code>execute()</code> didn&#39;t get
+any exceptions.  This was something I didn&#39;t expect at all, so I started the
+debugger and saw that exception is throws as it should be, but then it gets
+&quot;swallowed&quot; by the <code>finally</code> block.  But wait, the method doesn&#39;t have
+exception list at all, java compiler silently compiles such code because it
+knows that with <code>finally</code> block containing <code>return</code> statement in it, no
+exception will be thrown.  Unfortunately I didn&#39;t know that before.</p>
+
+<p>Now code looks like this and works as expected:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="n">LogicError</span>
+<span class="o">{</span>
+    <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Execute</span> <span class="n">execute</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Execute</span><span class="o">();</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">execute</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cmiss</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">execute</span><span class="o">).</span><span class="na">getData</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandFault</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">LogicError</span><span class="o">(</span><span class="s">&quot;Cmiss: &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2012-10-08/java-exception/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-08/java-exception/';
+  var disqus_title = 'Exception specifiers and finally keyword in Java -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2012-10-08/java-exception/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

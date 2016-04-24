@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Making ~/.inputrc work in slackware</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Making ~/.inputrc work in slackware</h1>
+      <h5 class="post_date">October 13, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/issue">issue</a>]
+        
+        [<a href="/tag/bash">bash</a>]
+        
+        [<a href="/tag/inputrc">inputrc</a>]
+        
+        [<a href="/tag/gnu/linux">gnu/linux</a>]
+        
+        [<a href="/tag/slackware">slackware</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Today I accidentally trapped on <a href="https://wiki.archlinux.org/index.php/Bash#Faster_completion">this part</a> of Arch Linux wiki page on Bash.
+And decided to try putting <code>set show-all-if-ambiguous On</code> to my ~/.inputrc,
+which was created for this.</p>
+
+<!-- cut -->
+
+<p>So I did it, but didn&#39;t see any change in newly started instances of Bash.
+Then I found a <code>C-X C-R</code> mapping somewhere on StackOverflow and decided to try
+loading my <code>~/.inputrc</code> to running instance of Bash, but still had no luck.</p>
+
+<p>I also found <code>~/.inputrc_</code> file, which was a result of my tries to make
+<code>Arrow Up</code> and <code>Arrow Down</code> keys work like in Vim&#39;s command line: recall only
+commands that start with already typed command beginning:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;\e[A&quot;: history-search-backward
+&quot;\e[B&quot;: history-search-forward
+&quot;\eOA&quot;: history-search-backward
+&quot;\eOB&quot;: history-search-forward
+</code></pre></div>
+<p>This time I was going to make it work, no matter what it takes :-)  So I did
+the thing that should have been done long before: read <code>man readline</code>.  Here&#39;s
+what I&#39;ve found:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Readline is customized by putting commands in an initialization file
+(the  inputrc  file).  The name of this file is taken from the value
+of the INPUTRC environment variable.  If that variable is unset, the
+default  is  ~/.inputrc.   If that file  does not exist or cannot be
+read, the ultimate default is /etc/inputrc.
+</code></pre></div>
+<p>Obviously, the next thing what to see if <code>$INPUTRC</code> is defined:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$INPUTRC</span>
+/etc/inputrc
+</code></pre></div>
+<p>But I didn&#39;t set it!  Lets find out who did this:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>grep -R <span class="nv">INPUTRC</span><span class="o">=</span> /etc 2&gt;/dev/null
+/etc/profile:  <span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span>/etc/inputrc
+/etc/zprofile:  <span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span>/etc/inputrc
+/etc/profile~:  <span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span>/etc/inputrc
+</code></pre></div>
+<p>Finally, the reason was found:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span>~<span class="o">]</span><span class="nv">$ </span>sed -n <span class="s1">&#39;11,14p&#39;</span> /etc/profile
+<span class="c"># If the user doesn&#39;t have a .inputrc, use the one in /etc.</span>
+<span class="k">if</span> <span class="o">[</span> ! -r <span class="s2">&quot;$HOME/.inputrc&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span>/etc/inputrc
+<span class="k">fi</span>
+</code></pre></div>
+<p>Lest make a conclusion.  If you logged in when there is no <code>~/.inputrc</code> file,
+you can try hard to make it work with no result.  It&#39;s hard to say why someone
+wants to have such behaviour.  Anyway, at least we know the reason now and can
+fix it by login out and back in, by setting <code>$INPUTRC</code> to <code>$HOME/.inputrc</code> in
+<code>~/.bashrc</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">INPUTRC</span><span class="o">=</span><span class="s2">&quot;$HOME/.inputrc&quot;</span>
+</code></pre></div>
+<p>or by unsetting it there:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">unset </span>INPUTRC
+</code></pre></div>
+<p>If you want to test in immediately from the shell there are several options you
+may try:</p>
+
+<ul>
+<li>Unsetting <code>$INPUTRC</code> and reloading init-file of readline by pressing
+<code>C-X C-R</code>.</li>
+</ul>
+
+<p>This won&#39;t work.  <code>C-X C-R</code> actually reloads init-file, which was remembered
+during initialization process.  So we need something different.</p>
+
+<ul>
+<li>Unsetting <code>$INPUTRC</code> and running another Bash instance.</li>
+</ul>
+
+<p>This one should work.</p>
+
+<ul>
+<li>Running Bash instance unsetting <code>$INPUTRC</code> variable for that subprocess only.</li>
+</ul>
+
+<p>Not sure if this is useful, but if it works why not give it a try?  This
+requeres running of Bash using <code>env</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">env -u INPUTRC bash
+</code></pre></div>
+<ul>
+<li>Empty <code>$INPUTRC</code> is counted as nonexistend, so running Bash this way will work
+too:</li>
+</ul>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">INPUTRC</span><span class="o">=</span> bash
+</code></pre></div>
+<ul>
+<li>This one is the last.  Almost the same as second and forth options:</li>
+</ul>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">INPUTRC</span><span class="o">=</span>
+bash
+</code></pre></div>
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2012-10-13/making-inputrc-work-in-slackware/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-10-13/making-inputrc-work-in-slackware/';
+  var disqus_title = 'Making ~/.inputrc work in slackware -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2012-10-13/making-inputrc-work-in-slackware/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

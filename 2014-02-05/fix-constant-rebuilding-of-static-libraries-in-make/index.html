@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Fix constant rebuilding of static libraries by GNU make</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Fix constant rebuilding of static libraries by GNU make</h1>
+      <h5 class="post_date">February  5, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/make">make</a>]
+        
+        [<a href="/tag/build">build</a>]
+        
+        [<a href="/tag/static-library">static-library</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h3>The issue explained</h3>
+
+<p>Say directory structure is as follows:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ tree
+.
+|-- Makefile
+`-- lib.cpp
+
+0 directories, 2 files
+</code></pre></div>
+<!-- cut -->
+
+<p>With <code>lib.cpp</code>:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="nf">libfunc</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>and <code>Makefile</code>:</p>
+<div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nf">lib.a</span><span class="o">:</span> <span class="n">lib</span>.<span class="n">o</span> <span class="n">Makefile</span>
+    <span class="k">$(</span>AR<span class="k">)</span> rcuvs <span class="nv">$@</span> <span class="nv">$&lt;</span>
+</code></pre></div>
+<p>The issue:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ make
+g++    -c -o lib.o lib.cpp
+ar rcuvs lib.a lib.o
+a - lib.o
+$ make
+make: `lib.a&#39; is up to date.
+$ touch Makefile
+$ make
+ar rcuvs lib.a lib.o
+$ make
+ar rcuvs lib.a lib.o
+...
+</code></pre></div>
+<p>So there is a flaw in how <code>ar</code> tool operates on replacing archive members
+when used with <code>make</code>: if output file already exists, but none of input
+files is newer than corresponding file in the archive, modification
+date of the archive remains the same.  As a result, make file rule is always
+triggered.</p>
+
+<p>It happens only when <code>ar</code> is told to update object files.  Which is done in
+this case using <code>r</code> switch and <code>u</code> modifier.  From <code>man ar</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">r   Insert the files member... into archive (with replacement).
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">u   Normally, ar r... inserts all files listed into the archive.  If you
+    would like to insert only those of the files you list that are newer than
+    existing members of the same names, use this modifier.  The u modifier is
+    allowed only for the operation r (replace).  In particular, the combination
+    qu is not allowed, since checking the timestamps would lose any speed
+    advantage from the operation q.
+</code></pre></div>
+<h3>The solution (or workaround)</h3>
+
+<p>Add <code>touch library.a</code> after calling <code>ar</code>.  Updated <code>Makefile</code>:</p>
+<div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nf">lib.a</span><span class="o">:</span> <span class="n">lib</span>.<span class="n">o</span> <span class="n">Makefile</span>
+    <span class="k">$(</span>AR<span class="k">)</span> rcuvs <span class="nv">$@</span> <span class="nv">$&lt;</span>
+    touch <span class="nv">$@</span>
+</code></pre></div>
+<p>Now output is as expected:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ make
+ar rcuvs lib.a lib.o
+touch lib.a
+$ make
+make: `lib.a&#39; is up to date.
+</code></pre></div>
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make/';
+  var disqus_title = 'Fix constant rebuilding of static libraries by GNU make -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

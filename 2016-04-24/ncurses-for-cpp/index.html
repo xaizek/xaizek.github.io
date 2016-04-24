@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>ncurses wrappers for C++</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>ncurses wrappers for C++</h1>
+      <h5 class="post_date">April 24, 2016</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/curses">curses</a>]
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/programming">programming</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p><a href="https://en.wikipedia.org/wiki/Curses_(programming_library)">curses</a> is a well known set of libraries (with mostly common API)
+for creating <a href="https://en.wikipedia.org/wiki/Text-based_user_interface">TUIs</a>.  What is significantly less known though is that
+<a href="https://en.wikipedia.org/wiki/Ncurses">ncurses</a> implementation comes with C++ wrappers for its C API.</p>
+
+<!-- cut -->
+
+<p>The wrappers seem to not see an update for many years, but they still work and
+are quite usable.  The obvious benefits over usual C API are more
+object-oriented interface, taking advantage of function grouping via classes,
+more strict type checking, function overloading and default values of arguments.
+The downsides are lack of documentation (although there are comments in headers
+and a demo project <code>demo.cc</code> in sources) and some implementation flaws.</p>
+
+<p>So I <a href="http://stackoverflow.com/a/11368903/1535516">found these wrappers</a> wanting to do some quick prototyping of
+TUI and decided to try using them.  Lack of documentation and above mentioned
+flaws made this harder then it should be, hence this post which tries to give
+a few pointers on how to and how not to use some of these wrappers.  The
+description here is nowhere near complete and touches only on several topics I
+struggled with.</p>
+
+<h3>NCursesApplication</h3>
+
+<h4>Using predefined <code>main()</code></h4>
+
+<p>No need to write <code>main()</code> if you setup creation of an object derived from
+<code>NCursesApplication</code> somewhere in your code.  For example:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;cursesapp.h&gt;</span>
+
+<span class="k">class</span> <span class="nc">App</span> <span class="o">:</span> <span class="k">public</span> <span class="n">NCursesApplication</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="n">App</span> <span class="n">app</span><span class="p">;</span>
+</code></pre></div>
+<h4>Or writing your own <code>main()</code></h4>
+
+<p>In practice however you might prefer to write <code>main()</code> anyway as the one
+provided by ncurses++ catches exceptions by reference (correct thing to do), but
+at least <code>NCursesMenuItem</code> throws <em>pointers</em> (wrong thing to do).  Example:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">setlocale</span><span class="p">(</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
+
+    <span class="n">try</span> <span class="p">{</span>
+        <span class="n">App</span> <span class="n">app</span><span class="p">;</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">handleArgs</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">app</span><span class="p">();</span>
+        <span class="n">endwin</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">NCursesException</span> <span class="o">*</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">endwin</span><span class="p">();</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="o">-&gt;</span><span class="n">message</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">e</span><span class="o">-&gt;</span><span class="n">errorno</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">NCursesException</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">endwin</span><span class="p">();</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">message</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">errorno</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">exception</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">endwin</span><span class="p">();</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exception: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>Handling arguments</h4>
+
+<p>Arguments can be handled by overriding <code>handleArgs()</code> method of
+<code>NCursesApplication</code>:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">virtual</span> <span class="kt">void</span> <span class="nf">handleArgs</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>Setting up title</h4>
+
+<p>Title either appears always or never, so size should be constant and non-zero if
+title is needed, otherwise corresponding window just isn&#39;t created inside
+<code>NCursesApplication</code>.</p>
+
+<h3>Menus</h3>
+
+<h4>Construction and item ownership</h4>
+
+<p>Menus can be constructed either by passing them list of items (which are
+pointers to objects of types derived from <code>NCursesMenuItem</code>) via constructors
+or by invoking different special constructor and using <code>InitMenu()</code> function
+afterward.</p>
+
+<p><code>NCursesMenu</code> class supports two item management schemes:</p>
+
+<ol>
+<li>Lifetimes of the list of items and items are managed by the client.</li>
+<li>The list of items along with items are transfered to <code>NCursesMenu</code> class.</li>
+</ol>
+
+<p>The scheme is picked via <code>autoDelete_Items</code> parameter of
+constructor/<code>InitMenu()</code>.  Beware that <strong>menu items should be detached from menu
+before they can be destroyed</strong>, this means that when not using heap special care
+must be taken to delete <code>NCursesMenu</code> before deleting any of its items.
+If you don&#39;t do that, the program is likely to be terminated because of <strong>nested
+exception thrown from item destructors</strong> (yeah, they do this kind of thing...).</p>
+
+<p>Example below shows how to work around this via <a href="https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Base-from-Member">Base-from-Member</a>
+idiom.</p>
+
+<h4>Constraints on list of menu items</h4>
+
+<p><strong>No duplicates</strong>.  List of items shouldn&#39;t contain duplicates or weird effects
+will arise.  The library will use same low-level item for both items (plus
+leaking <code>N - 1</code> if there are <code>N</code> duplicates), which won&#39;t do any good.</p>
+
+<p><strong>Terminating null-element</strong>.  List should be terminated with a pointer to an
+empty <code>NCursesMenuItem</code> object (the one constructed by calling
+<code>NCursesMenuItem()</code>).  Such empty menu items can be removed freely as they don&#39;t
+own resources.</p>
+
+<p><strong>Not empty</strong>.  There must be at least one non-null item or exception is thrown.</p>
+
+<h4>Customizing controls</h4>
+
+<p>Special menu keys can be customized by overwriting virtual function
+<code>NCursesMenu::virtualize()</code>, which should return codes suitable for passing into
+<code>menu_driver()</code>.  For example, <kbd>j</kbd> and <kbd>k</kbd> keys can be
+configured to move up and down by one item, just like in Vim:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">virtual</span> <span class="kt">int</span> <span class="nf">virtualize</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">&#39;j&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="n">REQ_DOWN_ITEM</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">&#39;k&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="n">REQ_UP_ITEM</span><span class="p">;</span>
+
+        <span class="k">default</span><span class="o">:</span> <span class="k">return</span> <span class="n">NCursesMenu</span><span class="o">::</span><span class="n">virtualize</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>Menu size</h4>
+
+<p>Menu doesn&#39;t fill all available space automatically, use <code>set_format()</code> method.
+E.g.:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">set_format</span><span class="p">(</span><span class="n">lines</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<h4>Broken <code>setItems()</code></h4>
+
+<p><code>setItems()</code> doesn&#39;t seem to work in all cases.  It always tries to free memory,
+even the one it doesn&#39;t own.  So if you thought that you could use it to work
+around issue with destroying items before the menu, the answer is <em>no, you
+can&#39;t</em>.</p>
+
+<h4>Multiple selection</h4>
+
+<p>First, it should be enabled:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">options_off</span><span class="p">(</span><span class="n">O_ONEVALUE</span><span class="p">);</span> <span class="c1">// disable single-selection mode</span>
+<span class="n">set_mark</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">);</span>           <span class="c1">// setup selected item marker (not directory related)</span>
+</code></pre></div>
+<p>Second, whether each item is selected or not can be determined via
+<code>NCursesMenuItem::value()</code> method:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">if</span> <span class="p">(</span><span class="n">item</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3>Panels</h3>
+
+<p>If you want to display something and keep it there, use panels (<code>NCursesPanel</code>)
+and not just windows (<code>NCursesWindow</code>; panels are windows with additional
+layering functionality), which will be automatically updated as needed.</p>
+
+<h3>Accessing <code>stdscr</code></h3>
+
+<p>To access state of the screen use one of these:</p>
+
+<ol>
+<li><code>NCursesPanel screen;</code></li>
+<li><code>NCursesWindow screen(::stdscr)</code></li>
+</ol>
+
+<p>and then do <code>screen.cols()</code>, <code>screen.lines()</code>, etc.</p>
+
+<h3>Linking against the wrappers</h3>
+
+<p>Linking with ncurses++ requires the following libraries (even if you don&#39;t use,
+say, forms out of this list):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">-lncurses++w -lformw -lmenuw -lpanelw -lncursesw
+</code></pre></div>
+<h3>Integrating readline library into the application</h3>
+
+<p>Thanks to flexibility of <a href="https://en.wikipedia.org/wiki/GNU_Readline">readline</a> library, it&#39;s easy to plug it
+into curses application.  Here&#39;s the code (no header/source separation for
+brevity):</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// Compilation: g++ cmdline.cpp -c -std=c++11</span>
+
+<span class="cp">#include &lt;cursesp.h&gt;</span>
+
+<span class="cp">#include &lt;readline/history.h&gt;</span>
+<span class="cp">#include &lt;readline/readline.h&gt;</span>
+
+<span class="cp">#include &lt;cstddef&gt;</span>
+<span class="cp">#include &lt;cstdlib&gt;</span>
+
+<span class="cp">#include &lt;memory&gt;</span>
+<span class="cp">#include &lt;string&gt;</span>
+
+<span class="k">static</span> <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">wstring</span> <span class="n">to_wide</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+
+<span class="k">class</span> <span class="nc">CmdLine</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">CmdLine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">rl_redisplay_function</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">readlineRedisplayThunk</span><span class="p">;</span>
+
+        <span class="n">NCursesWindow</span> <span class="nf">screen</span><span class="p">(</span><span class="o">::</span><span class="n">stdscr</span><span class="p">);</span>
+        <span class="n">cmdline</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span> <span class="n">NCursesPanel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">screen</span><span class="p">.</span><span class="n">cols</span><span class="p">(),</span> <span class="n">screen</span><span class="p">.</span><span class="n">lines</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                                       <span class="mi">0</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="o">~</span><span class="n">CmdLine</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">cmdline</span><span class="o">-&gt;</span><span class="n">hide</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">prompt</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+        <span class="k">const</span> <span class="kt">int</span> <span class="n">visibility</span> <span class="o">=</span> <span class="n">curs_set</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">[]</span><span class="o">&gt;</span> <span class="n">line</span><span class="p">(</span><span class="n">readline</span><span class="p">(</span><span class="n">prompt</span><span class="p">.</span><span class="n">c_str</span><span class="p">()));</span>
+        <span class="n">curs_set</span><span class="p">(</span><span class="n">visibility</span><span class="p">);</span>
+
+        <span class="n">add_history</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+
+        <span class="k">return</span> <span class="n">line</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="k">static</span> <span class="kt">void</span> <span class="n">readlineRedisplayThunk</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">instance</span><span class="o">-&gt;</span><span class="n">readlineRedisplay</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">readlineRedisplay</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">wstring</span> <span class="n">prompt</span> <span class="o">=</span> <span class="n">to_wide</span><span class="p">(</span><span class="n">rl_display_prompt</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">wstring</span> <span class="n">linebuf</span> <span class="o">=</span> <span class="n">to_wide</span><span class="p">(</span><span class="n">rl_line_buffer</span><span class="p">);</span>
+
+        <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">prompt_width</span> <span class="o">=</span> <span class="n">wcswidth</span><span class="p">(</span><span class="n">prompt</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span>
+                                            <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+        <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">cursor_col</span> <span class="o">=</span> <span class="n">prompt_width</span>
+                               <span class="o">+</span> <span class="n">wcswidth</span><span class="p">(</span><span class="n">linebuf</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">rl_point</span><span class="p">);</span>
+
+        <span class="n">cmdline</span><span class="o">-&gt;</span><span class="n">erase</span><span class="p">();</span>
+        <span class="n">cmdline</span><span class="o">-&gt;</span><span class="n">printw</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;%s%s&quot;</span><span class="p">,</span> <span class="n">rl_display_prompt</span><span class="p">,</span> <span class="n">rl_line_buffer</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">cursor_col</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">NCursesWindow</span><span class="p">(</span><span class="o">::</span><span class="n">stdscr</span><span class="p">).</span><span class="n">cols</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// Hide the cursor if it lies outside the window. Otherwise it&#39;ll</span>
+            <span class="c1">// appear on the very right.</span>
+            <span class="n">curs_set</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">cmdline</span><span class="o">-&gt;</span><span class="n">move</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cursor_col</span><span class="p">);</span>
+            <span class="n">curs_set</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">cmdline</span><span class="o">-&gt;</span><span class="n">refresh</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">NCursesPanel</span><span class="o">&gt;</span> <span class="n">cmdline</span><span class="p">;</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="c1">// XXX: NEITHER thread safe NOR re-enterable.</span>
+    <span class="k">static</span> <span class="n">CmdLine</span> <span class="o">*</span><span class="n">instance</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">CmdLine</span> <span class="o">*</span><span class="n">CmdLine</span><span class="o">::</span><span class="n">instance</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">wstring</span> <span class="n">to_wide</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="n">mbstowcs</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">wstring</span> <span class="n">result</span><span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1U</span><span class="p">,</span> <span class="sc">L&#39;\0&#39;</span><span class="p">);</span>
+    <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mbstowcs</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1U</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>And usage example:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">input</span> <span class="o">=</span> <span class="n">CmdLine</span><span class="p">().</span><span class="n">prompt</span><span class="p">(</span><span class="s">&quot;:&quot;</span><span class="p">);</span>
+<span class="n">doSomeProcessing</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+</code></pre></div>
+<p>readline adds this to linker flags:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">-lreadline -ltermcap
+</code></pre></div>
+<h3>Example</h3>
+
+<p>As an exercise let&#39;s write simple filter-like tool that allows picking one
+or more elements from the list.  It will accept list items either via arguments
+or from standard input.</p>
+
+<p>The code above was C++11, this one is C++98.  It&#39;s also bigger in size so posted
+<a href="https://gist.github.com/xaizek/831145edf62f5e6daf2bc490ba44490b">elsewhere</a>.  There are comments which restate some details
+of using ncurses++ from above.</p>
+
+<p>I didn&#39;t bother handling resizing, so it might not work.</p>
+
+<h3>Further information</h3>
+
+<p>There is almost no documentation at all, so read the sources (in source package
+it&#39;s under <code>c++/</code> directory), <code>README-first</code> file there or just headers
+(<code>cursesapp.h</code>, <code>cursesf.h</code>, <code>cursesm.h</code>, <code>cursesp.h</code>, <code>cursesw.h</code>,
+<code>cursslk.h</code>).</p>
+
+<p>Couldn&#39;t find any articles either, but with some patience one can figure out
+details of the code.  It&#39;s small enough and it&#39;s a set of wrappers, so nothing
+sophisticated.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2016-04-24/ncurses-for-cpp/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2016-04-24/ncurses-for-cpp/';
+  var disqus_title = 'ncurses wrappers for C++ -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2016-04-24/ncurses-for-cpp/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

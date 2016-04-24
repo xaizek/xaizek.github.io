@@ -1,0 +1,576 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Clang by example: Detecting postfix operators in for loops</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Clang by example: Detecting postfix operators in for loops</h1>
+      <h5 class="post_date">May  2, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/clang">clang</a>]
+        
+        [<a href="/tag/llvm">llvm</a>]
+        
+        [<a href="/tag/tutorial">tutorial</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<h4>TOC</h4>
+
+<ol>
+<li>
+<a href='/2014-05-02/detecting-postfix-operators-in-for-loops/'> Detecting postfix operators in for loops</a>
+(you are here)
+</li>
+<li>
+<a href='/2014-08-28/detecting-unused-functions/'> Detecting unused functions</a>
+</li>
+<li>
+<a href='/2015-04-23/detecting-wrong-first-include/'> Detecting wrong first include</a>
+</li>
+</ol>
+
+<h3>Introduction</h3>
+
+<h4>Foreword</h4>
+
+<p>The <a href="https://en.wikipedia.org/wiki/Llvm">LLVM</a> project has been started back in 2000, but became widely
+known and used quite recently, about 4 years as of now (2014).  It&#39;s used by
+hardware manufactures to implement programming languages for their products as
+well as by software engineering companies to develop their own programs.  There
+are two main reasons why LLVM gained such popularity:</p>
+
+<!-- cut -->
+
+<ol>
+<li>Extensible compiler infrastructure built from scratch in C++.</li>
+<li>License that allows for proprietary usage.</li>
+</ol>
+
+<p>We&#39;re not here to debate whether second reason is good or bad, but the first
+one is definitely a good one.  It&#39;s the first reason which <a href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GCC</a> is
+missing and which is hard to get after tenth years of development.
+Architecture of LLVM is unique among existing compilers and is its most
+significant advantage.</p>
+
+<p>Probably the most well known component (tool) of LLVM is <a href="https://en.wikipedia.org/wiki/Clang">Clang</a>,
+which provides not only compiles languages of C-family, but also exposes its
+internal data structures for dealing with program being compiled and provides
+various means to deal with them.  Later Clang has been updated with specialized
+facilities to process source files and even to modify them.</p>
+
+<p>As it&#39;s now, Clang can be used to implement tools for processing code written
+in C/C++/Objective-C/Objective-C++ relatively easily.  With it anyone can
+write tools for code processing with quite little amount of
+effort.  The hard part is to start writing such tools as it&#39;s easy to get lost
+in lots of headers and libraries supplied with LLVM and Clang.  Hence the main
+idea behind these series of articles: give one enough knowledge to be able to
+use Clang for writing tools.  To achieve the goal, we&#39;ll look at examples of
+building Clang-tools from scratch.  There will also be referenced materials
+that are recommended to read/watch/consult as using Clang and LLVM is already
+documented in many sources.  Although there are plenty of resources on Clang,
+most of them have two issues:</p>
+
+<ul>
+<li>there are more or less out of date (because of quite high pace of development
+and breaking changes from time to time);</li>
+<li>some of covered examples are too artificial.</li>
+</ul>
+
+<p>That&#39;s why we&#39;re going to build a small set of tools some of which might not be
+self contained, but nevertheless should be usable in real life.  Process of
+building such tools will shed light on different parts of Clang, which will
+help construct a better image of what it is and in what ways it can be used.</p>
+
+<h4>Environment</h4>
+
+<p>Here are some details of my working environment to help solve possible issues
+with initial setup (see below).</p>
+
+<ul>
+<li><p>GNU/Linux operating system.</p></li>
+<li><p>GCC version 4.8.1</p></li>
+<li><p>LLVM from 11.03.2014 built with GCC:</p></li>
+</ul>
+
+<p>llvm/trunk@203604 (git mirror hash: 819af77aa3a9da84f666dc252815aec9f1cf18f5)</p>
+
+<ul>
+<li>Clang from 11.03.2014 built with GCC:</li>
+</ul>
+
+<p>cfe/trunk@203603 (git mirror hash: 640884e00a911d9a599dd8fd5dd26cdd96dfc9ea)</p>
+
+<ul>
+<li><p>cmake version 2.8.8</p></li>
+<li><p>ninja version 1.4.0</p></li>
+<li><p>everything is built with GCC</p></li>
+</ul>
+
+<h3>Your first tool</h3>
+
+<p>To get started one needs to have a working build of LLVM and Clang.  This is
+not a subject of this writing and there is already a good tutorial on this (read
+notes below before following instructions in the tutorial):</p>
+
+<p><a href="http://clang.llvm.org/docs/LibASTMatchersTutorial.html">Tutorial for building tools using LibTooling and LibASTMatchers</a></p>
+
+<p>It seems to be a bit out of date, so here are some additional moments to
+consider:</p>
+
+<ol>
+<li>Modern versions of <a href="https://en.wikipedia.org/wiki/Cmake">cmake</a> are built with <a href="http://martine.github.io/ninja/">ninja</a>
+support, so good chances that there is no need to recompile it, check it by
+running:</li>
+</ol>
+
+<p>cmake | grep Ninja</p>
+
+<ol>
+<li>I suggest enabling generation of documentation with Doxygen.  For this one
+needs to set the following <code>ccmake</code> options to <code>YES</code> before starting the
+build (see a small hint on using <code>ccmake</code> below):</li>
+</ol>
+<div class="highlight"><pre><code class="language-text" data-lang="text">- `CLANG_INCLUDE_DOCS`
+- `LLVM_BUILD_DOCS`
+- `LLVM_INCLUDE_DOCS`
+</code></pre></div>
+<p>This way you&#39;ll be sure that you&#39;re referring to the correct version of
+   documentation while writing your tools.</p>
+
+<p>You might want to set <code>LLVM_BUILD_DOCS</code> to <code>OFF</code> once everything is built, it
+   won&#39;t delete generated documentation, but will reduce time of compilation
+   when build is started by <code>ninja</code> command with no arguments.</p>
+
+<ol>
+<li><p>It&#39;s said that all tests should pass.  Current version of tests display
+messages about <strong>expected</strong> failed tests, that seems to be OK.</p></li>
+<li><p>If you decide to rebuilt Clang with itself don&#39;t forget to setup
+<code>CMAKE_CXX_COMPILER</code> as well as <code>CMAKE_C_COMPILER</code> (use full path to <code>clang</code>
+executable for it).  Actually recompiling with Clang is optional, no need to
+waste time on that.</p></li>
+<li><p>In step 1 there is a command:</p></li>
+</ol>
+
+<p>cat &quot;int main() { return 0; }&quot; &gt; test.cpp</p>
+
+<p>Which should be:</p>
+
+<p>echo &quot;int main() { return 0; }&quot; &gt; test.cpp</p>
+
+<p><code>ccmake</code> hint: use arrow keys to navigate in terminal interface, <code>j</code>/<code>k</code>
+doesn&#39;t work there, but searching with <code>/</code> works.</p>
+
+<p>Once you&#39;re done with that tutorial, you should feel like knowing a lot of new
+stuff about it, still not being 100% sure that you able to write your own tool.
+It&#39;s advised to watch <a href="http://clang.llvm.org/docs/IntroductionToTheClangAST.html">Introduction to the Clang AST</a> now.  Actually
+the order can be reversed (watch the video first), but as Manuel Klimek (the
+guy in the video) describes more advanced topics, it makes sense to do basic
+tutorial first.</p>
+
+<p>Now, having some background, we can start creating our small, but useful tool.</p>
+
+<h3>Detecting postfix operators in for loops</h3>
+
+<p>Our goal is to analyse source files to find postfix increment and decrement
+operators in the last part of for-loop statements.  The drawback of using
+postfix operator is that it can lead to performance penalty in some cases.  As
+you probably know, postfix operator differs from prefix one in creating one
+extra object, which normally is not optimized.  It&#39;s almost free for primitive
+types and can be free when it goes about iterators from library provided along
+with a compiler, but <em>in general</em> it&#39;s a good practice to use postfix
+increment/decrement operators only when you have a reason to do so.</p>
+
+<p>There is already a plenty of tools that can detect misuse of postfix operators,
+but such warnings can get lost in output of mature static analyzers and be just
+skipped by a developer.  This tool we&#39;ll do just that so skipping such warnings
+would be a stupid thing to do.  This is just a good programming style to use
+postfix operators, so let&#39;s write a tool that ensures correctness of for-loops
+and learn more about Clang&#39;s <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">AST</a> at the same time.</p>
+
+<p>By the way, we&#39;ll name the tool &quot;for-postfix&quot; (not to be confused with <a href="https://en.wikipedia.org/wiki/Postfix_(software)">mail
+transfer agent</a>).  See &quot;Additional resources&quot; section below for
+a link to repository containing ready to use tool.  History of commits is quite
+clear, so one can examine commits one by one while reading the article.</p>
+
+<h4>Boilerplate</h4>
+
+<p>Note, I go in detail in this section just to repeat what you have learnt from
+the tutorial, skip this part if you feel like you don&#39;t need to repeat
+anything.</p>
+
+<p>Just as in &quot;Tutorial for building tools using LibTooling and LibASTMatchers&quot;
+referenced above, we&#39;re going to use <a href="http://clang.llvm.org/docs/LibTooling.html">LibTooling</a> and
+<a href="http://clang.llvm.org/doxygen/ASTMatchers_8h_source.html">ASTMatchers</a>.  There is also
+<a href="http://clang.llvm.org/doxygen/classclang_1_1RecursiveASTVisitor.html">RecursiveASTVisitor</a>, but it&#39;s now superseded by
+ASTMatchers.</p>
+
+<p>To get started go to <code>llvm/tools/clang/tools/extra/</code> directory and
+create a subdirectory called <code>for-postfix</code>.  Navigate to new directory and
+create <code>CMakeLists.txt</code> containing:</p>
+<div class="highlight"><pre><code class="language-cmake" data-lang="cmake"><span class="nb">set</span><span class="p">(</span><span class="s">LLVM_LINK_COMPONENTS</span> <span class="s">support</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">LLVM_USED_LIBS</span> <span class="s">clangTooling</span> <span class="s">clangBasic</span> <span class="s">clangAST</span><span class="p">)</span>
+
+<span class="nb">add_clang_executable</span><span class="p">(</span><span class="s">for-postfix</span> <span class="s">for-postfix.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">for-postfix</span> <span class="s">clangTooling</span> <span class="s">clangBasic</span> <span class="s">clangASTMatchers</span><span class="p">)</span>
+</code></pre></div>
+<p>Another file that needs to be created is <code>for-postfix.cpp</code>.  For now let&#39;s put a
+dummy code there:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;cstdlib&gt;</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Add <code>add_subdirectory(for-postfix)</code> line at the end of the
+<code>llvm/tools/clang/tools/extra/CMakeLists.txt</code>, so that our tool is built with
+LLVM/Clang.</p>
+
+<p>Now I suggest you to go into your <code>build/</code> directory and run <code>ninja
+for-postfix</code> just to make sure the configuration is correct.  If it is, you&#39;ll
+find an executable <code>build/bin/for-postfix</code> that does nothing when it&#39;s run.</p>
+
+<p>Now let&#39;s write a skeleton of the tool (I give this as it is because you should
+already know basics of this kind of stuff):</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;llvm/Support/CommandLine.h&gt;</span>
+
+<span class="cp">#include &lt;clang/ASTMatchers/ASTMatchFinder.h&gt;</span>
+
+<span class="cp">#include &lt;clang/Tooling/CommonOptionsParser.h&gt;</span>
+<span class="cp">#include &lt;clang/Tooling/Tooling.h&gt;</span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">clang</span><span class="o">::</span><span class="n">ast_matchers</span><span class="p">;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">clang</span><span class="o">::</span><span class="n">tooling</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="n">llvm</span><span class="o">::</span><span class="n">cl</span><span class="o">::</span><span class="n">OptionCategory</span> <span class="n">toolCategory</span><span class="p">(</span><span class="s">&quot;for-postfix options&quot;</span><span class="p">);</span>
+
+<span class="k">static</span> <span class="n">llvm</span><span class="o">::</span><span class="n">cl</span><span class="o">::</span><span class="n">extrahelp</span> <span class="n">commonHelp</span><span class="p">(</span><span class="n">CommonOptionsParser</span><span class="o">::</span><span class="n">HelpMessage</span><span class="p">);</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">CommonOptionsParser</span> <span class="n">optionsParser</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">toolCategory</span><span class="p">);</span>
+    <span class="n">ClangTool</span> <span class="n">tool</span><span class="p">(</span><span class="n">optionsParser</span><span class="p">.</span><span class="n">getCompilations</span><span class="p">(),</span>
+                    <span class="n">optionsParser</span><span class="p">.</span><span class="n">getSourcePathList</span><span class="p">());</span>
+
+    <span class="n">MatchFinder</span> <span class="n">finder</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="n">tool</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">newFrontendActionFactory</span><span class="p">(</span><span class="o">&amp;</span><span class="n">finder</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This should compile and link fine.  By the way, notice unusual <code>const</code> in front
+of <code>argv</code> parameter declaration, this is needed to satisfy prototype of
+<a href="http://clang.llvm.org/doxygen/classclang_1_1tooling_1_1CommonOptionsParser.html#afb426d699eb71d90163bd2f61e29f78b">CommonOptionsParser constructor</a>.</p>
+
+<h4>Matching builtin types</h4>
+
+<p>Finally we&#39;re ready to start matching things we&#39;re interested in.  Our first
+matcher will match increment operators, both prefix and postfix:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">static</span> <span class="n">StatementMatcher</span> <span class="n">incMatcher</span> <span class="o">=</span>
+    <span class="n">forStmt</span><span class="p">(</span>                          <span class="c1">// for ([init]; [condition]; [increment])</span>
+        <span class="n">hasIncrement</span><span class="p">(</span>                 <span class="c1">// &quot;increment&quot; part of for-loop</span>
+            <span class="n">unaryOperator</span><span class="p">(</span>            <span class="c1">// any unary op, e.g. *, &amp;, --</span>
+                <span class="n">hasOperatorName</span><span class="p">(</span><span class="s">&quot;++&quot;</span><span class="p">)</span> <span class="c1">// exact unary op: ++</span>
+            <span class="p">).</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;op&quot;</span><span class="p">)</span>              <span class="c1">// bind matched unary op to &quot;op&quot; name</span>
+        <span class="p">)</span>
+    <span class="p">);</span>
+</code></pre></div>
+<p>Above piece of code should be self-explaining, but notice where <code>bind</code> method
+is called.  It can be called on objects that correspond to real AST nodes, like
+for-statements (result of <code>forStmt</code>) and
+operators (result of calling <code>unaryOperator</code>), but can&#39;t be called on something
+that just examines properties of AST nodes (like <code>hasIncrement</code> or
+<code>hasOperatorName</code>).</p>
+
+<p>To proceed further we need one more entity, <code>MatchFinder</code>&#39;s callback handler:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">MatchHelper</span> <span class="o">:</span> <span class="k">public</span> <span class="n">MatchFinder</span><span class="o">::</span><span class="n">MatchCallback</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">run</span><span class="p">(</span><span class="k">const</span> <span class="n">MatchFinder</span><span class="o">::</span><span class="n">MatchResult</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">using</span> <span class="k">namespace</span> <span class="n">clang</span><span class="p">;</span>
+
+        <span class="k">typedef</span> <span class="n">UnaryOperator</span> <span class="n">UnOp</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="k">const</span> <span class="n">UnOp</span> <span class="o">*</span><span class="n">op</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">Nodes</span><span class="p">.</span><span class="n">getNodeAs</span><span class="o">&lt;</span><span class="n">UnOp</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;op&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">op</span><span class="o">-&gt;</span><span class="n">dump</span><span class="p">();</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Also don&#39;t forget to include <code>&lt;iostream&gt;</code> before compiling.</p>
+
+<p>You should be familiar with the idea behind this code: it tries to extract
+unary operator node named <code>op</code> and dumps it on the screen when succeed.</p>
+
+<p>Let&#39;s create our helper and use it to add our matcher in the <code>main</code> function:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">MatchHelper</span> <span class="n">helper</span><span class="p">;</span>
+
+<span class="n">finder</span><span class="p">.</span><span class="n">addMatcher</span><span class="p">(</span><span class="n">incMatcher</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">helper</span><span class="p">);</span>
+</code></pre></div>
+<p>At this point running our tool over this example file:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;cstdlib&gt;</span>
+
+<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">doNothing</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// do nothing on purpose</span>
+<span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">doNothing</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">doNothing</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Should output both <code>i++</code> and <code>++i</code> like this (ignore addresses):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">UnaryOperator 0x2727ed0 &#39;int&#39; postfix &#39;++&#39;
+`-DeclRefExpr 0x2727ea8 &#39;int&#39; lvalue Var 0x2727d90 &#39;i&#39; &#39;int&#39;
+
+UnaryOperator 0x2728160 &#39;int&#39; lvalue prefix &#39;++&#39;
+`-DeclRefExpr 0x2728138 &#39;int&#39; lvalue Var 0x2728020 &#39;i&#39; &#39;int&#39;
+</code></pre></div>
+<p>Lets filter out the second match in our helper.  Just surround dumping code
+with:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">if</span> <span class="p">(</span><span class="n">op</span><span class="o">-&gt;</span><span class="n">isPostfix</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// print nodes here</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>What we have now is not capable of handling decrement operator.  To fix that,
+simplify the matcher to remove operator name check (note name change):</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">static</span> <span class="n">StatementMatcher</span> <span class="n">builtinMatcher</span> <span class="o">=</span>
+    <span class="n">forStmt</span><span class="p">(</span>                          <span class="c1">// for ([init]; [condition]; [increment])</span>
+        <span class="n">hasIncrement</span><span class="p">(</span>                 <span class="c1">// &quot;increment&quot; part of for-loop</span>
+            <span class="n">unaryOperator</span><span class="p">(</span>            <span class="c1">// any unary op, e.g. *, &amp;, --</span>
+
+            <span class="p">).</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;op&quot;</span><span class="p">)</span>              <span class="c1">// bind matched unary op to &quot;op&quot; name</span>
+        <span class="p">)</span>
+    <span class="p">);</span>
+</code></pre></div>
+<p>Note that there was one condition, which is now removed, while actually one
+can use many conditions separated by commas.  We&#39;re not removing the check
+completely, just moving it to the <code>MatchHelper</code>, where <code>op-&gt;isPostfix()</code>
+condition needs to be replaced with:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">if</span> <span class="p">(</span><span class="n">op</span><span class="o">-&gt;</span><span class="n">isIncrementDecrementOp</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">isPostfix</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// print nodes here</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>That&#39;s it for builtin operators.</p>
+
+<h4>Matching overloaded operators</h4>
+
+<p>This example uses postfix increment operator, but our <code>for-postfix</code> is not able
+to find it yet:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;cstdlib&gt;</span>
+
+<span class="cp">#include &lt;vector&gt;</span>
+
+<span class="kr">inline</span> <span class="kt">void</span>
+<span class="nf">doNothing</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// do nothing on purpose</span>
+<span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">IntVector</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">IntVector</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">cit</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">cit</span> <span class="o">!=</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">cit</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">doNothing</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Our matcher could look like this:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">static</span> <span class="n">StatementMatcher</span> <span class="n">incMatcher</span> <span class="o">=</span>
+    <span class="n">forStmt</span><span class="p">(</span>                       <span class="c1">// for ([init]; [condition]; [increment])</span>
+        <span class="n">hasIncrement</span><span class="p">(</span>              <span class="c1">// &quot;increment&quot; part of for-loop</span>
+            <span class="n">operatorCallExpr</span><span class="p">(</span>      <span class="c1">// call of overloaded operator</span>
+                <span class="n">hasOverloadedOperatorName</span><span class="p">(</span><span class="s">&quot;++&quot;</span><span class="p">),</span> <span class="c1">// named &quot;++&quot;</span>
+                <span class="n">argumentCountIs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// that requires two arguments</span>
+            <span class="p">).</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;op&quot;</span><span class="p">)</span>           <span class="c1">// bind matched unary op to &quot;op&quot; name</span>
+        <span class="p">)</span>
+    <span class="p">);</span>
+</code></pre></div>
+<p>This one is too specific and requires its clone to match decrement operator
+(couldn&#39;t find a way to implement match chooser, something like OR operator).
+It also has two interesting properties:</p>
+
+<ul>
+<li><code>operatorCallExpr</code> got two conditions that are <code>AND</code>ed with each other;</li>
+<li><code>argumentCountIs</code> is used to match postfix operator, here first argument is
+<code>this</code> and the second one is useless <code>int</code> to make overloading of postfix
+operators possible.</li>
+</ul>
+
+<p>Let&#39;s throw away matching of operator name and do this in <code>MatchHelper</code> later:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">static</span> <span class="n">StatementMatcher</span> <span class="n">opMatcher</span> <span class="o">=</span>
+    <span class="n">forStmt</span><span class="p">(</span>                       <span class="c1">// for ([init]; [condition]; [increment])</span>
+        <span class="n">hasIncrement</span><span class="p">(</span>              <span class="c1">// &quot;increment&quot; part of for-loop</span>
+            <span class="n">operatorCallExpr</span><span class="p">(</span>      <span class="c1">// call of overloaded operator</span>
+                <span class="n">argumentCountIs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// that requires two arguments</span>
+            <span class="p">).</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;op&quot;</span><span class="p">)</span>           <span class="c1">// bind matched unary op to &quot;op&quot; name</span>
+        <span class="p">)</span>
+    <span class="p">);</span>
+</code></pre></div>
+<p>Now we need to update <code>MatchHelper</code> a bit to handle overloaded operators, which
+it won&#39;t match now as <code>CallExpr</code> doesn&#39;t subclass <code>UnaryOperator</code>:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">typedef</span> <span class="n">CXXOperatorCallExpr</span> <span class="n">Call</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">const</span> <span class="n">Call</span> <span class="o">*</span><span class="n">op</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">Nodes</span><span class="p">.</span><span class="n">getNodeAs</span><span class="o">&lt;</span><span class="n">Call</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;op&quot;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">OverloadedOperatorKind</span> <span class="n">opKind</span> <span class="o">=</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">getOperator</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">opKind</span> <span class="o">==</span> <span class="n">OO_PlusPlus</span> <span class="o">||</span> <span class="n">opKind</span> <span class="o">==</span> <span class="n">OO_MinusMinus</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printOut</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">op</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Where <code>printOut</code> contains two lines from above that dump operator nodes.  As
+you can see matching specific operators is quite easy.  The crucial part in
+this case is to use right type of node.  Regular <code>CallExpr</code> won&#39;t let us to
+check for operator type, <code>CXXOperatorCallExpr</code> is needed instead.</p>
+
+<p>Now let&#39;s register new matcher in <code>MatchFinder</code>:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">finder</span><span class="p">.</span><span class="n">addMatcher</span><span class="p">(</span><span class="n">opMatcher</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">helper</span><span class="p">);</span>
+</code></pre></div>
+<p>Note that by adding multiple matchers to match finder one can match different
+things in one traverse through AST.</p>
+
+<h4>Formatting output</h4>
+
+<p>We&#39;re almost done.  Current way of printing out nodes is not readable, it would
+be better to print path to source file with match and number of line.  First of
+all we need to include more headers and add one more using directive:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;clang/Basic/SourceLocation.h&gt;</span>
+<span class="cp">#include &lt;clang/Basic/SourceManager.h&gt;</span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">clang</span><span class="p">;</span>
+</code></pre></div>
+<p>Then update <code>printOut</code> method:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">FullSourceLoc</span> <span class="nf">fullLoc</span><span class="p">(</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">getLocStart</span><span class="p">(),</span> <span class="o">*</span><span class="n">result</span><span class="p">.</span><span class="n">SourceManager</span><span class="p">);</span>
+
+<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">fileName</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">SourceManager</span><span class="o">-&gt;</span><span class="n">getFilename</span><span class="p">(</span><span class="n">fullLoc</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">lineNum</span> <span class="o">=</span> <span class="n">fullLoc</span><span class="p">.</span><span class="n">getSpellingLineNumber</span><span class="p">();</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">fileName</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot;:&quot;</span>
+          <span class="o">&lt;&lt;</span> <span class="n">lineNum</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot;:&quot;</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot;dangerous use of postfix operator&quot;</span>
+          <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>This snippet outputs match in the following format:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">source</span> <span class="n">file</span><span class="o">&gt;:&lt;</span><span class="n">line</span> <span class="n">number</span><span class="o">&gt;:&lt;</span><span class="n">description</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">xaizek</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">clang</span><span class="o">-</span><span class="n">llvm</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">tst4</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">16</span><span class="o">:</span><span class="n">dangerous</span> <span class="n">use</span> <span class="n">of</span> <span class="n">postfix</span> <span class="k">operator</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">xaizek</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">clang</span><span class="o">-</span><span class="n">llvm</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">tst4</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">24</span><span class="o">:</span><span class="n">dangerous</span> <span class="n">use</span> <span class="n">of</span> <span class="n">postfix</span> <span class="k">operator</span>
+</code></pre></div>
+<p>It&#39;s alike output of Unix grep command (with -F and -n switches) and can be accepted by many other tools
+accepted by many other tools out there, e.g. one can store output of the tool to
+a file and open it in Vim to navigate through errors and edit them like this:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">bin</span><span class="o">/</span><span class="k">for</span><span class="o">-</span><span class="n">postfix</span> <span class="n">test</span><span class="p">.</span><span class="n">cpp</span> <span class="o">--</span> <span class="o">&gt;</span> <span class="n">errors</span><span class="o">-</span><span class="n">list</span>
+<span class="n">vim</span> <span class="o">-</span><span class="n">q</span> <span class="n">errors</span><span class="o">-</span><span class="n">list</span>
+</code></pre></div>
+<p>This tool can already be used in real projects to find misuse of postfix
+operators.</p>
+
+<h3>Additional resources (not referenced above)</h3>
+
+<ul>
+<li><p><a href="http://www.drdobbs.com/architecture-and-design/the-design-of-llvm/240001128">The Design of LLVM</a> by Chris Lattner, the primary author of
+the LLVM and related projects, such as the Clang compiler.</p></li>
+<li><p><a href="https://github.com/loarabia/Clang-tutorial">Collection of Clang tutorials</a>.</p></li>
+<li><p><a href="https://github.com/xaizek/for-postfix">GitHub repository of for-postfix tool</a>.</p></li>
+<li><p><a href="http://habrahabr.ru/post/148508/">Clang API. Basics (in Russian)</a></p></li>
+</ul>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-05-02/detecting-postfix-operators-in-for-loops/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-05-02/detecting-postfix-operators-in-for-loops/';
+  var disqus_title = 'Clang by example: Detecting postfix operators in for loops -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to share code among several Web-service applications written in Java</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>How to share code among several Web-service applications written in Java</h1>
+      <h5 class="post_date">November  9, 2012</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/java">java</a>]
+        
+        [<a href="/tag/eclipse">eclipse</a>]
+        
+        [<a href="/tag/jar">jar</a>]
+        
+        [<a href="/tag/web-service">web-service</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Some time ago I&#39;ve spent a lot of time trying to figure out how one can share
+common parts of code in two Web-services running in <a href="http://tomcat.apache.org/">Apache Tomcat</a>.  What I
+wanted is to move several packages to a separate Eclipse project and refer to it
+from several other projects.  Somewhere on the Web a nice list of options to
+achieve this was found.  All (or almost all) of them were connected with the
+<code>Classpath</code> settings pane in the project options.  But unfortunately no matter
+what <code>Classpath</code> options I set, it didn&#39;t work.  I&#39;ve also tried exporting
+project with the common functionallity to a jar file and linking to it from
+other project.  That didn&#39;t work either, that jar file wasn&#39;t deployed to Tomcat
+server.</p>
+
+<!-- cut -->
+
+<p>So after spending a lot time on this, I finally made it work and forget about
+the issue.  I just investigated what I did to make it work and decided to
+document it.  The answer is simple as &quot;just put jar file to the <code>lib</code> directory
+of Tomcat&quot;.  And that&#39;s it, don&#39;t forget to regenerate it after making changes
+in shared code.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2012-11-09/code-sharing-among-java-web-services/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2012-11-09/code-sharing-among-java-web-services/';
+  var disqus_title = 'How to share code among several Web-service applications written in Java -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2012-11-09/code-sharing-among-java-web-services/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

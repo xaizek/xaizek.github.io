@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>rexima: couldn't open mixer device</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>rexima: couldn't open mixer device</h1>
+      <h5 class="post_date">July  6, 2014</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/issue">issue</a>]
+        
+        [<a href="/tag/linux">linux</a>]
+        
+        [<a href="/tag/slackware">slackware</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>After installing <em>Slackware 14.1</em> on a new machine, I got unexpected output
+when tried to run <a href="http://www.svgalib.org/rus/rexima.html">rexima</a> interactive mixer (by the way, it&#39;s in
+<code>extra</code> section of <em>Slackware</em> packages, so search might silently skip it, just
+do <code>slackpkg install rexima</code> to install it).  The output was:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ rexima
+rexima: couldn&#39;t open mixer device.
+</code></pre></div>
+<!-- cut -->
+
+<p>Examining with <a href="http://linux.die.net/man/1/strace">strace</a> gave such results:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ strace -e trace=open rexima
+open(&quot;/etc/ld.so.cache&quot;, O_RDONLY|O_CLOEXEC) = 3
+open(&quot;/lib64/libncurses.so.5&quot;, O_RDONLY|O_CLOEXEC) = 3
+open(&quot;/lib64/libc.so.6&quot;, O_RDONLY|O_CLOEXEC) = 3
+open(&quot;/lib64/libdl.so.2&quot;, O_RDONLY|O_CLOEXEC) = 3
+open(&quot;/dev/mixer&quot;, O_RDWR)              = -1 ENOENT (No such file or directory)
+rexima: couldn&#39;t open mixer device.
++++ exited with 1 +++
+</code></pre></div>
+<p>And:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ ls /dev/mixer
+/bin/ls: cannot access /dev/mixer: No such file or directory
+</code></pre></div>
+<p>No wonder it couldn&#39;t open mixer device...</p>
+
+<p>Searching for possible solution revealed <a href="https://www.linuxquestions.org/questions/slackware-14/where-is-dev-mixer-214720/#post1120996">this forum post</a>
+(excerpt):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">/dev/mixer and /dev/dsp are legacies from the OSS days, as I understand it..
+You&#39;ll only be able to use them if you&#39;ve got those emulation modules
+loaded and working.
+</code></pre></div>
+<p>Don&#39;t know enough about sound subsystem, but those modules were definitely
+absent on my machine:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># lsmod | grep oss
+</code></pre></div>
+<p>So I installed <code>snd_mixer_oss</code> (got its name from that forum post):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># modprobe snd_mixer_oss
+# ls /dev/mixer
+/dev/mixer
+</code></pre></div>
+<p>Running <code>rexima</code> works well now.  Well, until reboot.  For persistance I created
+<code>/etc/modprobe.d/sound-oss.conf</code> file:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ cat /etc/modprobe.d/sound-oss.conf
+# enable /dev/mixer device to be able to use rexima
+install snd_mixer_oss
+</code></pre></div>
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2014-07-06/rexima-could-not-open-mixer-device/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2014-07-06/rexima-could-not-open-mixer-device/';
+  var disqus_title = 'rexima: couldn&quot;t open mixer device -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2014-07-06/rexima-could-not-open-mixer-device/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
