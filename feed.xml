@@ -7,6 +7,18 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>ncurses wrappers for C++</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Curses_(programming_library)&quot;&gt;curses&lt;/a&gt; is a well known set of libraries (with mostly common API)
+for creating &lt;a href=&quot;https://en.wikipedia.org/wiki/Text-based_user_interface&quot;&gt;TUIs&lt;/a&gt;.  What is significantly less known though is that
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Ncurses&quot;&gt;ncurses&lt;/a&gt; implementation comes with C++ wrappers for its C API.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 24 Apr 2016 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2016-04-24/ncurses-for-cpp</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2016-04-24/ncurses-for-cpp</guid>
+			</item>
+		
+			<item>
 				<title>Converting Vim documentation file to HTML</title>
 				<description>&lt;p&gt;Vim has a great documentation for sure.  Part of its greatness is documentation
 format itself.  The only difficulty is that it can&amp;#39;t be easily converted to and
