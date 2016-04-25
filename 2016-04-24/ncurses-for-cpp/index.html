@@ -269,6 +269,8 @@ brevity):</p>
     <span class="n">CmdLine</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="n">rl_redisplay_function</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">readlineRedisplayThunk</span><span class="p">;</span>
+        <span class="c1">// Prevent displaying completion menu, which could mess up output.</span>
+        <span class="n">rl_completion_display_matches_hook</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">char</span> <span class="o">*</span><span class="p">[],</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{};</span>
 
         <span class="n">NCursesWindow</span> <span class="nf">screen</span><span class="p">(</span><span class="o">::</span><span class="n">stdscr</span><span class="p">);</span>
         <span class="n">cmdline</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span> <span class="n">NCursesPanel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">screen</span><span class="p">.</span><span class="n">cols</span><span class="p">(),</span> <span class="n">screen</span><span class="p">.</span><span class="n">lines</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
