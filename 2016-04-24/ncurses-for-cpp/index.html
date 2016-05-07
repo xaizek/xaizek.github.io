@@ -289,7 +289,9 @@ brevity):</p>
         <span class="n">instance</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
         <span class="k">const</span> <span class="kt">int</span> <span class="n">visibility</span> <span class="o">=</span> <span class="n">curs_set</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">[]</span><span class="o">&gt;</span> <span class="n">line</span><span class="p">(</span><span class="n">readline</span><span class="p">(</span><span class="n">prompt</span><span class="p">.</span><span class="n">c_str</span><span class="p">()));</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">free</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">line</span> <span class="p">{</span>
+            <span class="n">readline</span><span class="p">(</span><span class="n">prompt</span><span class="p">.</span><span class="n">c_str</span><span class="p">()),</span> <span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">free</span>
+        <span class="p">};</span>
         <span class="n">curs_set</span><span class="p">(</span><span class="n">visibility</span><span class="p">);</span>
 
         <span class="n">add_history</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
