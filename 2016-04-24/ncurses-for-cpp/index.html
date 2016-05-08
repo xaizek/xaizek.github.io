@@ -220,6 +220,13 @@ can&#39;t</em>.</p>
     <span class="c1">// ...</span>
 <span class="p">}</span>
 </code></pre></div>
+<h4>Menu item strings ownership</h4>
+
+<p>Just as <code>new_item()</code> function, <code>NCursesMenuItem</code> doesn&#39;t copy its arguments!
+This means that one shouldn&#39;t pass in temporary strings or strings that won&#39;t
+outlive the menu item.  Better way of ensuring this is to keep a copy in
+<code>std::string</code> and bound its lifetime to <code>NCursesMenuItem</code> object.</p>
+
 <h3>Panels</h3>
 
 <p>If you want to display something and keep it there, use panels (<code>NCursesPanel</code>)
