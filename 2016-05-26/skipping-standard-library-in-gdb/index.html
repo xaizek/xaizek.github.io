@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Skipping standard C++ library during debug session in gdb</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Posts of SNOX" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Skipping standard C++ library during debug session in gdb</h1>
+      <h5 class="post_date">May 26, 2016</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/gdb">gdb</a>]
+        
+        [<a href="/tag/programming">programming</a>]
+        
+        [<a href="/tag/howto">howto</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Ability to inline functions and methods in C++ is one of the reasons programs in
+C++ are so fast.  As such code provided by libraries effectively becomes part of
+its client application and the great and mighty <a href="https://en.wikipedia.org/wiki/GNU_Debugger">gdb</a> knows what
+inline functions are, this might cause inconveniences during debugging.  The
+problem is that while stepping into a method one can get into one of many
+inlined functions that aren&#39;t interesting.</p>
+
+<!-- cut -->
+
+<p>This issue is quite evident in case of template-based libraries like standard
+C++ library itself.  Consider an example in <a href="https://en.wikipedia.org/wiki/C%2B%2B11">C++11</a>:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Config</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="kt">void</span> <span class="n">setRolesChain</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">roles</span><span class="p">);</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="c1">// ...</span>
+<span class="n">cfg</span><span class="p">.</span><span class="n">setRolesChain</span><span class="p">({</span> <span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span> <span class="p">});</span> <span class="c1">// &lt;-- current line</span>
+<span class="c1">// ...</span>
+</code></pre></div>
+<p><code>step</code> command will take you to allocator constructor and then to one of
+<code>std::vector&lt;std::string&gt;</code> constructors (<code>std::string</code> constructors are skipped,
+not sure why).  The way out is to repeat <code>finish</code> and then <code>step</code> commands until
+you reach <code>Config::setRolesChain()</code>, which can be boring and error prone (one
+off breakpoints is a solution, but not very convenient one).</p>
+
+<p>gdb doesn&#39;t treat standard headers as anything special, so stepping into methods
+can be quite annoying.</p>
+
+<h4>The <code>skip file</code> command</h4>
+
+<p>The good news is that there is <code>skip file [&lt;path&gt;]</code> command
+<a href="http://stackoverflow.com/questions/5676241/tell-gdb-to-skip-standard-files">since gdb 7.4</a>.  It can also ignore functions
+(<code>skip function &lt;function&gt;</code> or <code>skip &lt;function&gt;</code>).  It&#39;s easy to use <code>skip</code> in
+debug session, but what we want is to permanently ignore whole directory tree
+(e.g. by pre-configuring it via <code>~/.gdbinit</code>), this unfortunately isn&#39;t that
+straightforward.</p>
+
+<h4>Limitations of the command</h4>
+
+<p><code>skip</code> doesn&#39;t accept patterns.  This means that one can&#39;t easily ignore
+everything system related.  Moreover, files being ignored should be mentioned in
+debug information of the inferior process, which doesn&#39;t even exist when
+<code>~/.gdbinit</code> is executed.  We&#39;ll need a combination of several gdb features to
+overcome such limitations.</p>
+
+<h4>Solution components</h4>
+
+<p>First, we need <a href="https://sourceware.org/gdb/current/onlinedocs/gdb.html#Hooks">command post hooks</a> for <code>run</code>, <code>start</code> and <code>attach</code>
+commands.  The hooks are executed after gdb command and can do anything you
+want.</p>
+
+<p>Second, we need list of files to skip.  At first, I generated them via
+<code>find /usr/include/c++/5.3.0 -type f</code>, but it&#39;s not extensible.  So the list
+will be present, but it&#39;s better to generate it dynamically.</p>
+
+<p>Third, as gdb can be extended via python, we&#39;ll use it to make the list and
+instruct gdb to skip those files.  Here, using python bindings allows us to
+easily ignore error output of <code>skip file</code> command (<code>to_string</code> parameter), which
+prevents hundreds of useless output cluttering our screen (two lines for each
+header unused by process being debugged).  Mind that because python is
+indentation based (bad idea) you can&#39;t indent its code relative to other
+commands properly.  By the way, gdb can also be extended via
+<a href="https://en.wikipedia.org/wiki/GNU_Guile">Guile</a>, which would be more native, but I&#39;m barely familiar with
+<a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">Lisp</a> dialects.</p>
+
+<h4>Solution</h4>
+
+<p>Putting it all together we get this simple solution ready to be inserted into
+<code>~/.gdbinit</code> (path to headers might need correction in some cases):</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">define</span> <span class="n">skipstdcxxheaders</span>
+<span class="n">python</span>
+<span class="k">def</span> <span class="nf">skipAllIn</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">topdown</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">gdb</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;skip file </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">,</span> <span class="n">to_string</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c"># do this for C++ only</span>
+<span class="k">if</span> <span class="s">&#39;c++&#39;</span> <span class="ow">in</span> <span class="n">gdb</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;show language&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="n">skipAllIn</span><span class="p">(</span><span class="s">&#39;/usr/include/c++&#39;</span><span class="p">)</span>
+<span class="n">end</span>
+<span class="n">end</span>
+
+<span class="n">define</span> <span class="n">hookpost</span><span class="o">-</span><span class="n">run</span>
+    <span class="n">skipstdcxxheaders</span>
+<span class="n">end</span>
+<span class="n">define</span> <span class="n">hookpost</span><span class="o">-</span><span class="n">start</span>
+    <span class="n">skipstdcxxheaders</span>
+<span class="n">end</span>
+<span class="n">define</span> <span class="n">hookpost</span><span class="o">-</span><span class="n">attach</span>
+    <span class="n">skipstdcxxheaders</span>
+<span class="n">end</span>
+</code></pre></div>
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="/2016-05-26/skipping-standard-library-in-gdb/">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '/2016-05-26/skipping-standard-library-in-gdb/';
+  var disqus_title = 'Skipping standard C++ library during debug session in gdb -- SNOX';
+  var disqus_url = 'http://xaizek.github.io/2016-05-26/skipping-standard-library-in-gdb/';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

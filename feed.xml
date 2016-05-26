@@ -7,6 +7,21 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Skipping standard C++ library during debug session in gdb</title>
+				<description>&lt;p&gt;Ability to inline functions and methods in C++ is one of the reasons programs in
+C++ are so fast.  As such code provided by libraries effectively becomes part of
+its client application and the great and mighty &lt;a href=&quot;https://en.wikipedia.org/wiki/GNU_Debugger&quot;&gt;gdb&lt;/a&gt; knows what
+inline functions are, this might cause inconveniences during debugging.  The
+problem is that while stepping into a method one can get into one of many
+inlined functions that aren&amp;#39;t interesting.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 26 May 2016 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2016-05-26/skipping-standard-library-in-gdb/</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2016-05-26/skipping-standard-library-in-gdb/</guid>
+			</item>
+		
+			<item>
 				<title>ncurses wrappers for C++</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Curses_(programming_library)&quot;&gt;curses&lt;/a&gt; is a well known set of libraries (with mostly common API)
 for creating &lt;a href=&quot;https://en.wikipedia.org/wiki/Text-based_user_interface&quot;&gt;TUIs&lt;/a&gt;.  What is significantly less known though is that
