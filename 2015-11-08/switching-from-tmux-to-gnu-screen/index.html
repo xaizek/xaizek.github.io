@@ -178,6 +178,13 @@ and it&#39;s not as confusing as in tmux (although highlight is a bit strange at
 least with my setup).  Another good thing about it is that completion matches
 are displayed similar to Vim with &#39;wildmenu&#39; option turned on.</p>
 
+<p><strong>(UPD 2016-06-29)</strong>  Found out that version 4.3.0 added <code>firstline</code> value to
+<code>hardstatus</code> command.  So having status line at the top is possible!  (Not sure
+which version I had installed before.)  Command-line editing in this case still
+happens at the bottom, but unfortunately completion doesn&#39;t show up then (not
+a tragedy actually as it turned out, one doesn&#39;t configure terminal multiplexer
+in live mode usually)..</p>
+
 <p>Not sure how to display list of layouts on status line, don&#39;t see escape codes
 for this.</p>
 
@@ -324,6 +331,10 @@ hardstatus alwayslastline <span class="s1">&#39;%{Rk}%?%{dd}%E ESC %{Rk}%:     %
 <li>light green -- background of inactive window</li>
 <li>black background -- active window</li>
 </ul>
+
+<p><strong>(UPD 2016-06-29)</strong>  Version 4.3.0 added <code>x</code> and <code>X</code> specifiers that provide
+name of current command (with/without arguments), which can simplify the setup
+above if you&#39;re ready to drop displaying of current directory in a shell.</p>
 
 <h4>Bindings</h4>
 
