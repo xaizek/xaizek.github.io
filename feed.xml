@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>SNOX Posts</title>
-		<description>Short notes on computer stuff</description>
+		<title>Some notes on computer stuff Posts</title>
+		<description>Some notes on computer stuff</description>
 		<link>http://xaizek.github.io/</link>
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
