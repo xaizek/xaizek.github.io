@@ -7,6 +7,23 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>The big list of Vi[m]-like software</title>
+				<description>&lt;p&gt;There are a number of similar lists already, but they usually lack
+grouping and miss pointing out things that are of interest for the author of
+this one.  So based on those lists and other sources here&amp;#39;s another one, which
+actually might be the biggest so far.&lt;/p&gt;
+
+&lt;p&gt;The listing is followed by some critique, which obviously comes from
+personal views and experience, so don&amp;#39;t expect to agree with everything in that
+section.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 13 Aug 2016 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2016-08-13/big-list-of-vim-like-software/</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2016-08-13/big-list-of-vim-like-software/</guid>
+			</item>
+		
+			<item>
 				<title>Skipping standard C++ library during debug session in gdb</title>
 				<description>&lt;p&gt;Ability to inline functions and methods in C++ is one of the reasons programs in
 C++ are so fast.  As such code provided by libraries effectively becomes part of

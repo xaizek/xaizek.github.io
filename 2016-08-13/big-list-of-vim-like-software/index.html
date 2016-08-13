@@ -1,0 +1,1046 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>The big list of Vi[m]-like software</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS of posts" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>The big list of Vi[m]-like software</h1>
+      <h5 class="post_date">August 13, 2016</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/vim">vim</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+
+
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>There are a number of similar lists already, but they usually lack
+grouping and miss pointing out things that are of interest for the author of
+this one.  So based on those lists and other sources here&#39;s another one, which
+actually might be the biggest so far.</p>
+
+<p>The listing is followed by some critique, which obviously comes from
+personal views and experience, so don&#39;t expect to agree with everything in that
+section.</p>
+
+<!-- cut -->
+
+<style>
+#post ul li { margin-bottom: 0.5em; }
+#post ul li ul li { margin: 0; }
+#post ol li ul li { margin: 0; }
+</style>
+
+<p>The description below is organized in nested lists with occasional notes,
+which might not be extremely accurate and neutral.
+The order at each level is alphabetical.  The descriptions are often
+taken from corresponding websites and thus might be biased.</p>
+
+<p>The categorization is: really Vi[m]-like applications in groups, similar
+applications that don&#39;t form big groups (&quot;Other&quot; category), applications that
+remind or can be configured to be somewhat Vi[m]-like.</p>
+
+<p>When licenses are listed below, &quot;GPL&quot; means GPL of any version and &quot;MIT&quot; also
+means any kind of BSD/X Consortium license.</p>
+
+<ol>
+<li><a href="#browsers">Browsers</a> (<a href="#browsers-notes">notes</a>)</li>
+<li><a href="#e-mail">E-mail related</a></li>
+<li><a href="#editors">Editors</a> (<a href="#editors-notes">notes</a>)</li>
+<li><a href="#file-managers">File managers</a></li>
+<li><a href="#music-players">Music players and MPD-clients</a> (<a href="#music-players-notes">notes</a>)</li>
+<li><a href="#pdf-viewers">PDF-viewers</a></li>
+<li><a href="#plugins">Plugins</a></li>
+<li><a href="#other">Other</a></li>
+<li><a href="#similar">With similar/configurable bindings</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#sources">Some of the sources</a></li>
+</ol>
+
+<p><a name="browsers"></a></p>
+
+<h3>Browsers</h3>
+
+<h4>Graphical browsers</h4>
+
+<ul>
+<li><a href="https://sourceforge.net/projects/cream-browser/">Cream-Browser</a><br/>
+A Vim-like lightweight Web browser with Vimperator interface.
+
+<ul>
+<li>WebKit and GTK+ · GPL · C</li>
+<li>looks abandoned</li>
+</ul></li>
+<li><a href="https://bitbucket.org/portix/dwb/">dwb</a><br/>
+Quite nicely done Vim-like browser, modulo some issues with memory.
+
+<ul>
+<li>WebKit and GTK+ · GPL · C</li>
+<li>author claimed to abandon it, but there is some activity</li>
+</ul></li>
+<li><a href="http://pwmt.org/projects/jumanji">jumanji</a><br/>
+The idea behind jumanji is a Web browser that provides a minimalistic and space saving interface as well as an easy usage that mainly focuses on keyboard interaction like Vimperator does.
+
+<ul>
+<li>WebKit and GTK+ · MIT · C</li>
+</ul></li>
+<li><a href="https://luakit.github.io/luakit/">luakit</a><br/>
+Fast, small, WebKit based browser framework extensible by Lua.
+
+<ul>
+<li>WebKit and GTK+ · GPL · C + Lua</li>
+</ul></li>
+<li><a href="https://www.qutebrowser.org/">qutebrowser</a><br/>
+Qutebrowser is a keyboard-focused browser with a minimal GUI.
+
+<ul>
+<li>WebKit and Qt5 · GPL · Python</li>
+<li>see bizarre claims about software development in their <a href="https://www.qutebrowser.org/FAQ.html">FAQ</a></li>
+</ul></li>
+<li><a href="http://surf.suckless.org">surf</a><br/>
+Ultra-minimalistic Web browser.
+
+<ul>
+<li>WebKit and GTK+ · MIT · C</li>
+<li>supports XEmbed protocol (instead of tabs)</li>
+<li>process per tab</li>
+</ul></li>
+<li><a href="http://uzbl.org">Uzbl</a><br/>
+Web interface tools which adhere to the unix philosophy.
+
+<ul>
+<li>WebKit and GTK+ · GPL · C and Python</li>
+<li>requires configuration (syntax wasn&#39;t really obvious)</li>
+<li>process per tab</li>
+</ul></li>
+<li><a href="https://sourceforge.net/projects/vimprobable/">Vimprobable</a><br/>
+A lean stand-alone web browser optimised for full keyboard control (inspired by Vimperator).
+
+<ul>
+<li>WebKit and GTK+ · MIT · C</li>
+<li>didn&#39;t have history and cookies (claimed that this is for security)</li>
+</ul></li>
+<li><a href="http://fanglingsu.github.io/vimb/">vimb</a><br/>
+Vim-like browser based on the WebKit engine and the GTK toolkit.
+
+<ul>
+<li>WebKit and GTK+ · GPL · C</li>
+</ul></li>
+<li><a href="https://sourceforge.net/projects/xxxterm/">xombrero/xxterm</a><br/>
+A minimalist&#39;s Web browser, which strives to be Vi-like for heavy keyboard users while maintaining traditional Web browser behavior.
+
+<ul>
+<li>ISC · C</li>
+<li>looks abandoned</li>
+</ul></li>
+</ul>
+
+<h4>Text browsers</h4>
+
+<p>They aren&#39;t all that Vim-like, but seem to be popular among Vim users, so
+deserve to be listed.</p>
+
+<ul>
+<li><a href="http://lynx.invisible-island.net/">lynx</a><br/>
+Text Web browser.
+
+<ul>
+<li>GPL · C</li>
+<li>has Vi-like mode (<code>-vikeys</code> command-line option)</li>
+</ul></li>
+<li><a href="http://netrik.sourceforge.net/">Netrik</a><br/>
+A simplistic text mode (character cell display) Web browser, similar to w3m or Lynx.
+
+<ul>
+<li>GPL · C</li>
+<li>stale development</li>
+</ul></li>
+<li><a href="http://w3m.sourceforge.net/">w3m</a><br/>
+w3m is a text-based Web browser as well as a pager like <code>more&#39; or</code>less&#39;.
+
+<ul>
+<li>MIT · C</li>
+</ul></li>
+</ul>
+
+<p><a name="e-mail"></a></p>
+
+<h3>E-mail related</h3>
+
+<ul>
+<li><a href="http://www.mutt.org/">mutt</a><br/>
+Mutt is a small but very powerful text-based mail client for Unix operating systems.
+
+<ul>
+<li>curses or S-lang · GPL · C</li>
+</ul></li>
+<li><a href="https://notmuchmail.org/">notmuch</a><br/>
+E-mail indexer/framework, which provides plugin for Vim.
+
+<ul>
+<li>CLI · GPL · C</li>
+</ul></li>
+<li><a href="http://sup-heliotrope.github.io/">sup</a><br/>
+A console-based e-mail client for people with a lot of e-mail.
+
+<ul>
+<li>curses · GPL · Ruby</li>
+</ul></li>
+<li><a href="https://launchpad.net/wyrd">wyrd</a><br/>
+A text-based front-end to remind, a sophisticated calendar and alarm program.
+
+<ul>
+<li>curses · GPL · OCaml</li>
+</ul></li>
+</ul>
+
+<p><a name="editors"></a></p>
+
+<h3>Editors</h3>
+
+<ul>
+<li><a href="http://bvi.sourceforge.net/">bvi</a><br/>
+A display-oriented editor for binary files (hex editor).
+
+<ul>
+<li>curses · GPL · C</li>
+</ul></li>
+<li><a href="http://bviplus.sourceforge.net/">bvi plus</a><br/>
+Fork of bvi with more features.
+
+<ul>
+<li>curses · GPL · C</li>
+</ul></li>
+<li><a href="http://elvis.the-little-red-haired-girl.org/">elvis</a><br/>
+A free Vi clone for Unix and other operating systems.
+
+<ul>
+<li>terminal · Clarified Artistic License · C</li>
+</ul></li>
+<li><a href="https://github.com/mawww/kakoune">Kakoune</a><br/>
+Interactive only editor inspired by Vim.
+
+<ul>
+<li>ncurses · public domain · C++</li>
+<li>not really Vim-like judging by examples in the Readme</li>
+</ul></li>
+<li><a href="https://neovim.io/">neovim</a><br/>
+Fork of Vim.
+
+<ul>
+<li>terminal · Vim&#39;s + Apache · C</li>
+<li>has multiple incompatibilities with Vim</li>
+<li>doesn&#39;t have graphical version</li>
+</ul></li>
+<li><a href="https://en.wikipedia.org/wiki/Nvi">nvi</a><br/>
+Vi reimplementation.
+
+<ul>
+<li>terminal · MIT · C</li>
+</ul></li>
+<li><a href="https://github.com/mikesmullin/nvi">nvi</a><br/>
+Node.js Vi clone.
+
+<ul>
+<li>terminal · CoffeeScript</li>
+<li>looks abandoned</li>
+</ul></li>
+<li><a href="https://github.com/jonathanslenders/pyvim">pyvim</a><br/>
+Pure Python Vim clone.
+
+<ul>
+<li>terminal · MIT · Python</li>
+<li>not sure how Vim-like it is</li>
+</ul></li>
+<li><a href="http://invisible-island.net/vile/vile.html">vile</a><br/>
+Vi clone with multiple buffers and similar features from Emacs added.
+
+<ul>
+<li>terminal + X Window System + Windows · GPL · C</li>
+</ul></li>
+<li><a href="http://www.vim.org/">Vim</a><br/>
+The ubiquitous text editor.
+
+<ul>
+<li>lots of environments · Vim&#39;s · C</li>
+</ul></li>
+<li><a href="https://github.com/martanne/vis">vis</a><br/>
+A Vim-like text editor.
+
+<ul>
+<li>terminal · ISC · C + Lua</li>
+<li>if I get it right, it&#39;s not really that Vim-like (e.g. lots of Lua is used) and is deliberately handicapped compared to Vim</li>
+</ul></li>
+<li><a href="http://winvi.de">WinVi</a><br/>
+Vi-like text and hex editor, which also tries to be Notepad compatible.
+
+<ul>
+<li>Windows · GPL · C</li>
+<li>stale development</li>
+</ul></li>
+<li><a href="http://martinwguy.github.io/xvi/">xvi</a><br/>
+The smallest full-function Vi text editor clone.
+
+<ul>
+<li>terminal · Emacs license · C</li>
+</ul></li>
+<li><a href="https://github.com/chrizel/Yzis">Yzis</a><br/>
+A Vi/Vim engine that can be integrated in graphical applications.
+
+<ul>
+<li>Qt (for editor) · GPL and LGPL library · C++</li>
+<li>stale development</li>
+</ul></li>
+</ul>
+
+<p><a name="file-managers"></a></p>
+
+<h3>File managers</h3>
+
+<ul>
+<li><a href="https://sourceforge.net/projects/jvifm/">jvifm</a><br/>
+A try of implementing graphical Vi-like file manager in Java.
+
+<ul>
+<li>SWT · GPL · Java</li>
+<li>two-pane kind of interface</li>
+<li>abandoned</li>
+</ul></li>
+<li><a href="http://git.2f30.org">noice</a><br/>
+Small file browser.
+
+<ul>
+<li>curses · MIT · C</li>
+<li>very minimalistic</li>
+</ul></li>
+<li><a href="http://nongnu.org/ranger/">ranger</a><br/>
+A console file manager with Vi key bindings, includes application association guessing tool.
+
+<ul>
+<li>ncurses · GPL · Python</li>
+<li>Miller columns kind of interface</li>
+</ul></li>
+<li><a href="https://github.com/xaizek/vide">Vide</a><br/>
+A graphical predecessor of vifm.
+
+<ul>
+<li>GTK+ · GPL · C</li>
+<li>see <code>buildable-version</code> branch and supply <code>CFLAGS=-std=gnu90</code> on modern GCC (C99 semantics of inline conflicts with GTK+1) if you want to try it out</li>
+<li>abandoned many years ago</li>
+</ul></li>
+<li><a href="https://vifm.info">vifm</a><br/>
+File manager with Vi like keybindings/modes/options/commands/configuration, which also borrows some useful ideas from mutt.
+
+<ul>
+<li>curses · GPL · C</li>
+<li>single/two-pane kind of interface</li>
+</ul></li>
+</ul>
+
+<p><a name="music-players"></a></p>
+
+<h3>Music players and MPD-clients</h3>
+
+<ul>
+<li><a href="https://cmus.github.io/">cmus</a><br/>
+Not so minimalistic terminal player.
+
+<ul>
+<li>curses · GPL · C</li>
+</ul></li>
+<li><a href="http://herrie.info">herrie</a><br/>
+Minimalistic player with curses interface.
+
+<ul>
+<li>curses · MIT or GPL (it depends) · C</li>
+<li>uses mplayer to play the music</li>
+<li>main controls aren&#39;t very Vi-like</li>
+</ul></li>
+<li><a href="https://ambientsound.github.io/pms/">pms</a><br/>
+Probably the most Vi-like music player (MPD client).
+
+<ul>
+<li>curses · GPL · C++</li>
+<li>is in constant rewrite process sometimes with very long pauses</li>
+<li>the database is presented as one long list</li>
+</ul></li>
+<li><a href="https://github.com/boysetsfrog/vimpc">vimpc</a><br/>
+Client for mpd with Vi-like key bindings.
+
+<ul>
+<li>curses · GPL · C++</li>
+<li>using it wasn&#39;t very intuitive</li>
+</ul></li>
+<li><a href="https://github.com/vimus/vimus">vimus</a><br/>
+Terminal MPD client with Vim-like key bindings.
+
+<ul>
+<li>curses · MIT · Haskell</li>
+</ul></li>
+<li><a href="http://danielchoi.com/software/vitunes.html">vitunes</a><br/>
+Console playlist/music database manager with Vi-like bindings.
+
+<ul>
+<li>curses · MIT · C</li>
+<li>uses mplayer to play the music</li>
+</ul></li>
+</ul>
+
+<p><a name="pdf-viewers"></a></p>
+
+<h3>PDF-viewers</h3>
+
+<ul>
+<li><a href="http://naihe2010.github.io/apvlv/">apvlv</a><br/>
+A PDF/DJVU/UMD/TXT viewer under Linux/WIN32, which tries to behave like Vim.
+
+<ul>
+<li>GTK+ · GPL · C++</li>
+<li>remember it being kinda raw, but usable</li>
+</ul></li>
+<li><a href="https://pwmt.org/projects/zathura/">zathura</a><br/>
+A document viewer with plugin system.
+
+<ul>
+<li>GTK+ · MIT · C</li>
+<li>had troubles installing newer version, so using the old one</li>
+<li>search used to be one match at a time, later was changed to whole-document search, which is very slow on huge documents</li>
+</ul></li>
+</ul>
+
+<p><a name="plugins"></a></p>
+
+<h3>Plugins</h3>
+
+<h4>For Browsers</h4>
+
+<ul>
+<li><a href="https://addons.mozilla.org/en-US/firefox/addon/jv/">jV</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/vimperator/">Vimperator</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/pentadactyl/">Pentadactyl</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/vimfx/">VimFx</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/vimium/">Vimium</a><br/>
+Plugins for Firefox.
+
+<ul>
+<li>Vimperator, Pentadactyl, Vimium is MIT; jV, VimFx is GPL · JavaScript (probably)</li>
+</ul></li>
+<li><a href="https://github.com/philc/vimium">Vimium</a>, <a href="https://code.google.com/archive/p/vimlike-smooziee/">vimlike-smooziee</a>, <a href="https://github.com/jinzhu/vrome">Vrome</a>, <a href="https://github.com/k2nr/ViChrome">ViChrome</a>, <a href="https://github.com/1995eaton/chromium-vim/">cVim</a><br/>
+Plugins for Chrome and Chromium.
+
+<ul>
+<li>MIT; Vrome is GPL · JavaScript/CoffeeScript</li>
+<li>if I get it right, they are nowhere near Vimperator/Pentodactyl, except maybe cVim</li>
+</ul></li>
+<li><a href="https://addons.opera.com/en/extensions/details/vimoperate/?display=en">VimOperate</a><br/>
+Plugin for Opera.</li>
+</ul>
+
+<h4>For Eclipse IDE</h4>
+
+<ul>
+<li><a href="http://eclim.org/">Eclim</a><br/>
+Two-way integration between Eclipse IDE and Vim.
+
+<ul>
+<li>GPL · Java + VimL</li>
+</ul></li>
+<li><a href="http://marketplace.eclipse.org/content/exedit">ExEdit</a><br/>
+Pluging for running Ex command in Eclipse IDE.
+
+<ul>
+<li>GPL · Java</li>
+</ul></li>
+<li><a href="http://marketplace.eclipse.org/content/viable-vim-eclipse">Viable</a>, <a href="http://marketplace.eclipse.org/content/viplugin">viPlugin</a><br/>
+Plugins for Eclipse IDE.
+
+<ul>
+<li>Proprietary · Java</li>
+</ul></li>
+<li><a href="http://sourceforge.net/projects/vimplugin/">vimplugin</a><br/>
+An attempt to use the Vim editor inside the Eclipse IDE.
+
+<ul>
+<li>SWT · GPL · Java</li>
+<li>might be outdated</li>
+</ul></li>
+<li><a href="http://marketplace.eclipse.org/content/vrapper-vim">vrapper</a><br/>
+Plugin for Eclipse IDE that supposedly preserves original keybindings.
+
+<ul>
+<li>GPL · Java</li>
+</ul></li>
+</ul>
+
+<h4>Miscellaneous</h4>
+
+<ul>
+<li><a href="https://sourceforge.net/projects/cubiclevim/">CubicleVim</a><br/>
+A COM Add-In to allow editing Microsoft Outlook messages.
+
+<ul>
+<li>MIT · Visual Basic</li>
+</ul></li>
+<li><a href="https://github.com/hluk/FakeVim">FakeVim</a><br/>
+Standard QtCreator plugin (the link is to the widget).
+
+<ul>
+<li>Qt · GPL · C++</li>
+<li>was quite good implementation compared to many others</li>
+</ul></li>
+<li><a href="https://plugins.jetbrains.com/plugin/?id=164">IDEAVim</a><br/>
+IntelliJ IDEA Vim-like plugin.
+
+<ul>
+<li>GPL · Java</li>
+</ul></li>
+<li><a href="http://plugins.netbeans.org/plugin/38914">jVi</a><br/>
+NetBeans IDE Vim-like plugin.
+
+<ul>
+<li>MPL · Java</li>
+<li>one of the closest Vim-like emulation plugins, among those I&#39;ve ever tried</li>
+</ul></li>
+<li><a href="https://github.com/5digits/dactyl/tree/master/melodactyl">Melodactyl</a><br/>
+Vim-like plugin for Sunbird.
+
+<ul>
+<li>MIT · JavaScript</li>
+</ul></li>
+<li><a href="https://addons.mozilla.org/en-US/thunderbird/addon/muttator/">Muttator</a>, <a href="https://github.com/5digits/dactyl/tree/master/teledactyl">Teledactyl</a><br/>
+Vim-like plugins for Thunderbird.
+
+<ul>
+<li>MIT · JavaScript</li>
+</ul></li>
+<li><a href="https://github.com/seanyeh/vibreoffice">vibreoffice</a><br/>
+LibreOffice plugin that adds Vim-like shortcuts and modality.
+
+<ul>
+<li>MIT · Visual Basic</li>
+</ul></li>
+<li><a href="http://www.viemu.com/">viemu</a><br/>
+Plugins for Visual Studio, Xcode, Outlook, Word, SQL Server.
+
+<ul>
+<li>Proprietary</li>
+<li>tried it for Visual Studio, it wasn&#39;t bad, but it left me unimpressed (quite long time ago)</li>
+</ul></li>
+<li><a href="http://plugins.netbeans.org/plugin/601/">viex</a><br/>
+NetBeans IDE Vim-like plugin.
+
+<ul>
+<li>GPL · Java</li>
+</ul></li>
+<li><a href="http://www.sublimetext.com/docs/3/vintage.html">Vintage</a><br/>
+Vim-like plugin for Sublime Text.
+
+<ul>
+<li>MIT · Python</li>
+</ul></li>
+<li><a href="https://atom.io/packages/vim-mode">Vim Mode</a><br/>
+Plugin for Atom.
+
+<ul>
+<li>MIT · CoffeeScript</li>
+</ul></li>
+<li><a href="https://www.emacswiki.org/emacs/Vimpulse">Vimpulse</a>, <a href="https://www.emacswiki.org/emacs/Evil">eVil</a>, <a href="https://www.emacswiki.org/emacs/ViperMode">Viper</a>, <a href="https://www.emacswiki.org/emacs/VimMode">Vim Mode</a><br/>
+Emacs plugins.</li>
+<li><a href="http://danielchoi.com/software/vitunes.html">ViTunes</a><br/>
+A Vim plugin that allows you to control iTunes.
+
+<ul>
+<li>MIT · VimL, Ruby, Objective-C</li>
+</ul></li>
+<li><a href="https://visualstudiogallery.msdn.microsoft.com/59ca71b3-a4a3-46ca-8fe1-0e90e3f79329">VsVim</a><br/>
+Vim emulation layer for Visual Studio.
+
+<ul>
+<li>Apache · F#</li>
+</ul></li>
+<li><a href="https://github.com/XVimProject/XVim">XVim</a><br/>
+Xcode plugin for Vim keybindings.
+
+<ul>
+<li>MIT · Objective-C</li>
+</ul></li>
+</ul>
+
+<!--
+### Window managers ###
+
+* xmonad
+* dwm
+* awesome
+* ion3
+* scrotwm
+* evilwm (http://www.6809.org.uk/evilwm/usage.shtml)
+* evilfvwm (http://www.linux.org.ru/forum/desktop/8416117)
+* Musca
+* Ratpoison
+* fluxbox?
+* howm (https://github.com/HarveyHunt/howm)
+  A lightweight, X11 tiling window manager that behaves like vim
+ - X Window System · GPL · C
+
+-->
+
+<p><a name="other"></a></p>
+
+<h3>Other</h3>
+
+<ul>
+<li><a href="https://cgdb.github.io/">cgdb</a><br/>
+Console front-end to the GNU debugger.
+
+<ul>
+<li>ncurses · GPL · C</li>
+</ul></li>
+<li><a href="https://en.wikipedia.org/wiki/Less_(Unix)">less</a><br/>
+Its controls are Vi-like.
+
+<ul>
+<li>terminal · GPL · C</li>
+</ul></li>
+<li><a href="https://autohotkey.com/board/topic/42706-kommand-a-cross-application-vim-like-hot-key-solution/">Kommand</a><br/>
+AutoHotKey script, which provides cross-application Vim-like hot key solution.</li>
+<li><a href="https://dev.yorhel.nl/ncdu">ncdu</a><br/>
+Disk usage browser.
+
+<ul>
+<li>ncurses · MIT · C</li>
+</ul></li>
+<li><a href="https://newsbeuter.org/">newsbeuter</a><br/>
+The Mutt of RSS feed readers.
+
+<ul>
+<li>curses · MIT · C++</li>
+</ul></li>
+<li><a href="https://launchpad.net/pida">PIDA</a><br/>
+An IDE that allows integration of Vim/Emacs as editor.
+
+<ul>
+<li>GTK+ · MIT · Python</li>
+<li>looks abandoned</li>
+</ul></li>
+<li><a href="http://www.linuxjournal.com/article/10699">sc</a><br/>
+Terminal spreadsheet editor.
+
+<ul>
+<li>curses · MIT · C</li>
+</ul></li>
+<li><a href="https://github.com/andmarti1424/sc-im">sc-im</a><br/>
+Improved version of sc.
+
+<ul>
+<li>curses · MIT · C</li>
+</ul></li>
+<li><a href="https://github.com/thestinger/termite">Termite</a><br/>
+A keyboard-centric terminal.
+
+<ul>
+<li>GTK+ and VTE · GPL · C++</li>
+</ul></li>
+<li><a href="http://jonas.nitro.dk/tig/">tig</a><br/>
+Text-mode interface for git.
+
+<ul>
+<li>curses · GPL · C</li>
+</ul></li>
+<li><a href="http://code.meskio.net/tudu/">TuDu</a><br/>
+Vi-like TODO manager.
+
+<ul>
+<li>curses · GPL · C++</li>
+</ul></li>
+<li><a href="http://vchatter.sourceforge.net/">vchatter</a><br/>
+Vi-like jabber client.
+
+<ul>
+<li>C++</li>
+<li>stale development</li>
+</ul></li>
+<li><a href="https://www.gnu.org/software/screen/">GNU Screen</a> and <a href="https://tmux.github.io/">tmux</a><br/>
+These terminal multiplexers can be configured to use some Vi-like keys, they
+also have command-line mode.
+
+<ul>
+<li>terminal · Screen is GPL, tmux is MIT · C</li>
+<li>Screen has command classes, which allows implementing modes (e.g. <a href="https://github.com/xaizek/dotfiles/blob/496c12983935288b4308fa1bb078db3c7a75c663/screenrc#L175-L192">resize mode</a>)</li>
+</ul></li>
+<li>MonoDevelop, GNOME Builder and KomodoEdit<br/>
+These seem to have (hard to find details) Vi-like editing mode.</li>
+<li>SlickEdit, Kate and <a href="http://editra.org/vi_emulation">Editra</a><br/>
+These have Vi-like editing mode.</li>
+<li><code>set -o vi</code><br/>
+Enables Vi-mode in bash (you can see current mode after adding <code>set show-mode-in-prompt On</code> to <code>~/.inputrc</code>).</li>
+<li><code>bindkey -v</code><br/>
+Enables Vi-mode in zsh</li>
+<li><code>set editing-mode vi</code> in <code>~/.inputrc</code></br>
+Enables Vi-like mode in all applications that use readline.</li>
+</ul>
+
+<p><a name="similar"></a></p>
+
+<h3>With similar/configurable bindings</h3>
+
+<h4>Image viewers</h4>
+
+<ul>
+<li><a href="http://feh.finalrewind.org/">feh</a><br/>
+An X11 image viewer aimed mostly at console users.
+
+<ul>
+<li>X Window System · MIT · C</li>
+<li>bindings can be configured to be like in Vi</li>
+</ul></li>
+<li><a href="https://github.com/Narrat/Pim">pim</a><br/>
+Python image viewer with Vim-like keybindings.
+
+<ul>
+<li>GTK+ · MIT · Python</li>
+</ul></li>
+<li><a href="https://github.com/muennich/sxiv">sxiv</a><br/>
+Simple X Image Viewer.
+
+<ul>
+<li>X Window System · GPL · C++</li>
+<li>some bindings are like in Vi</li>
+</ul></li>
+<li><a href="https://sourceforge.net/projects/xzgv/">xzgv</a><br/>
+Image viewer with at least j/k mapped.
+
+<ul>
+<li>GTK+ · GPL · C++</li>
+</ul></li>
+</ul>
+
+<h4>Document viewers</h4>
+
+<ul>
+<li><a href="https://wiki.gnome.org/Apps/Evince">Evince</a><br/>
+A document viewer for multiple document formats.
+
+<ul>
+<li>GTK+ · GPL · C and a bit of C++</li>
+<li>has h/j/k/l mappings</li>
+</ul></li>
+<li><a href="https://okular.kde.org/">Okular</a><br/>
+A universal document viewer developed by KDE.
+
+<ul>
+<li>KDE · GPL · C++</li>
+<li>supports h/j/k/l</li>
+</ul></li>
+</ul>
+
+<h4>Window managers</h4>
+
+<ul>
+<li><a href="https://github.com/wmdiem/euclid-wm">euclid-wm</a><br/>
+Window manager with kind of Vim-like default mappings.
+
+<ul>
+<li>X Window System · MIT · C</li>
+</ul></li>
+<li><a href="http://i3wm.org/">i3</a><br/>
+Tiling WM.
+
+<ul>
+<li>X Window System · MIT · C + Perl</li>
+<li>it seems to be possible to define Vim-like modes and there are some predefined ones</li>
+</ul></li>
+<li><a href="https://code.google.com/archive/p/wmii/">wmii</a><br/>
+A small, scriptable window manager, with a 9P filesystem interface and an acme-like layout.
+
+<ul>
+<li>X Window System · MIT · C
+has basic Vi bindings by default</li>
+</ul></li>
+</ul>
+
+<h4>Miscellaneous</h4>
+
+<ul>
+<li>Abiword <a href="http://recycledelectron.blogspot.com/2009/01/vi-and-emacs-key-bindings-in-abiword.html">has Vi-like bindings</a>.</li>
+<li><a href="http://calcurse.org/">calcurse</a><br/>
+Terminal calendar and scheduling application with some Vim-like keys by default.
+
+<ul>
+<li>curses · MIT · C</li>
+</ul></li>
+<li><a href="https://musicpd.org/clients/ncmpc/">ncmpc</a>, <a href="http://rybczak.net/ncmpcpp/">ncmpcpp</a><br/>
+
+<ul>
+<li>curses · GPL · ncmpc in C and ncmpcpp in C++</li>
+</ul></li>
+<li><a href="http://www.nethack.org/">NetHack</a><br/>
+Rougue-like game with h/j/k/l.
+
+<ul>
+<li>C</li>
+</ul></li>
+<li><a href="https://rekonq.kde.org/">rekonq</a><br/>
+A Web browser for KDE based on WebKit.  Has basic Vi-like keys.
+
+<ul>
+<li>KDE + WebKit · GPL · C++</li>
+<li>looks abandoned</li>
+</ul></li>
+<li><a href="http://www.svgalib.org/rus/rexima.html">rexima</a><br/>
+Vi-like audio-mixer alternative to alsamixer.
+
+<ul>
+<li>curses · GPL · C</li>
+</ul></li>
+<li><a href="https://github.com/michael-lazar/rtv">rtv</a><br/>
+Reddit terminal viewer.
+
+<ul>
+<li>curses · MIT · Python</li>
+</ul></li>
+<li><a href="http://software.schmorp.de/pkg/rxvt-unicode.html">urxvt</a><br/>
+
+<ul>
+<li>X Window System · GPL · C++ + Perl</li>
+<li>looks like it&#39;s possble to make it somewhat Vim-like (<a href="https://github.com/ervandew/urxvt-vim-scrollback">scrollback</a>)</li>
+</ul></li>
+<li><a href="https://weechat.org/">WeeChat</a><br/>
+IRC client.
+
+<ul>
+<li>curses · GPL · C</li>
+<li>bindings can be configured to be like in Vi</li>
+</ul></li>
+<li><a href="http://foolabs.com/xpdf/">xpdf</a><br/>
+Can be configured to be somewhat Vi-like (<a href="http://stackoverflow.com/a/11241095">see</a>).
+
+<ul>
+<li>X Window System and Motif · GPL · C++</li>
+</ul></li>
+<li>There are patches for making some applications Vim-like:
+
+<ul>
+<li><a href="https://github.com/spcmd/rtorrent-ps/blob/master/vi_keybindings-spcmd.patch">rtorrent</a></li>
+<li>alsamixer (was on some mailing list)</li>
+<li><a href="https://bbs.archlinux.org/viewtopic.php?pid=726353#p726353">htop</a></li>
+</ul></li>
+<li><a href="https://duckduckgo.com/">DuckDuckGo</a>, <a href="https://github.com/">GitHub</a>, <a href="https://mail.google.com/">gmail</a>, and <a href="https://habrahabr.ru/">HabraHabr</a> Web interfaces<br/>
+Somewhat Vi-like, but they do conflict with Vim-like browsers/plugins, which makes them significantly less useful.</li>
+</ul>
+
+<!--
+http://culot.org/calcurse/manual_en.html#options_keys
+
+Probably not:
+mplayer?
+pine
+pdftools
+TileMill (http://mapbox.com/tilemill/)
+hexer for editing binary files
+-->
+
+<p><a name="notes"></a></p>
+
+<h3>Notes</h3>
+
+<h4>Common notes</h4>
+
+<p>A lot of the listed software share the same set of issues with regard to
+emulation of Vi[m]-like features.  The most important ones that cause
+inconvenience for seasoned Vim users are below.</p>
+
+<p>These are the things, which ideally should be addressed in any Vi[m]-like
+software.  Languages and licenses (there is only a fraction of
+proprietary software) are listed above so that people with relevant skills
+or no skills and desire to acquire them could help the projects they like.
+The contributions shouldn&#39;t be limited to these things, but they can be a
+start.</p>
+
+<h5>Combinations with control key</h5>
+
+<p>Authors usually forget about these in GUI applications, but some should be
+handled explicitly in terminal ones too.  Here are the most commonly
+unimplemented shortcuts:</p>
+
+<ul>
+<li><kbd>Control+[</kbd> – should be treated like <kbd>Escape</kbd></li>
+<li><kbd>Control+H</kbd> – should behave as <kbd>Backspace</kbd></li>
+<li><kbd>Control+C</kbd> – usually makes sense to treat it as <kbd>Escape</kbd></li>
+<li><kbd>Control+M</kbd> / <kbd>Control+J</kbd> – should behave as <kbd>Enter</kbd></li>
+<li><kbd>Control+P</kbd> / <kbd>Control+N</kbd> – should go up/down or forward/backward</li>
+<li><kbd>Control+I</kbd> / <kbd>Control+O</kbd> – can go forward/backward in history</li>
+</ul>
+
+<h5>Processing of key sequences</h5>
+
+<p>Some applications/plugins treat key sequences in command (that is Normal) mode
+differently compared to Vim.  Prefixes of unmatched key sequences should be
+discarded automatically without requiring the user to press <kbd>Escape</kbd>
+(in some cases it only <kbd>Backspace</kbd> worked).</p>
+
+<h5>Search origin</h5>
+
+<p>The search (including when user presses <kbd>n</kbd> or <kbd>N</kbd>) should
+account for current position in the document/webpage, not the position of the
+last match found.</p>
+
+<p><a name="browsers-notes"></a></p>
+
+<h4>Notes on browsers</h4>
+
+<p>Unfortunately almost all of the enumerated browsers suffer from the same huge
+problem: WebKit.
+Even though browser interfaces are lightweight, this hog-like web-engine ruins
+everything by consuming tremendous volumes of the memory.
+Jokes about Firefox using too much memory couldn&#39;t be more wrong today.
+This gets even worse if you realize that this behaviour is by design and there is
+effectively no means to control memory consumption whatsoever (last time I
+checked, the only API method for this could free several hundred Kibibytes), compared to flexible
+configuration of Gecko (and hopefully Servo in
+the future if it will work properly at some point).
+So be very skeptical when authors of those browsers say that they are &quot;fast&quot;,
+&quot;small&quot; and &quot;lightweight&quot;, they just can&#39;t be such as long as they are running
+on WebKit.
+Of course it&#39;s not entirely fault of WebKit developers, the content of the
+modern Web is the reason number one, but WebKit developers don&#39;t really seem to
+care too much either (otherwise there would be means of controlling consumption of
+resources).</p>
+
+<p>Browsers that run different tabs in different processes are creating even more issues.
+This inevitably leads to somewhat slower performance (due to address space switches,
+page faults and unshared objects of previously visited pages) and bigger memory
+consumption (heap isn&#39;t shared and this is where lots of small objects related to
+pages reside, which can&#39;t even be deduplicated between processes).  This can be partially
+addressed by limiting number of processes or using smarter architecture (Firefox
+developers seem to be going this way).</p>
+
+<p>Another issue you could have noticed is that most of the browsers are basically the same...
+Authors don&#39;t even bother providing different description and I&#39;m not sure whether they can,
+this is how similar the browsers (actually browser interfaces) are.
+There isn&#39;t much point in having that many equally undermaintained and so much similar browsers.
+One can get an impression that authors of new such browsers have no idea about existing ones.
+It&#39;s sad to see quite a lot of efforts being spread among too many separate projects.</p>
+
+<p>Most of the browsers have the same issues with blocking ads and keyboard navigation.
+It&#39;s hard to do this right in general, so feel free to blame those who put tons
+of JavaScript on pages that are
+meant to be simple (if you&#39;re a Web-developer and want to do a good job for Internet
+users, take my advise and use <a href="http://www.motherfuckingwebsite.com/">this site</a> as your ideal, not that
+scroll-based thing with huge background animations and alike stuff that make Web harder
+to use).</p>
+
+<p><a name="editors-notes"></a></p>
+
+<h4>Notes on editors</h4>
+
+<p>Some of the projects were created just to rewrite
+the code in some particular language which their author knows, the
+others are here to make stuff &quot;modern&quot;, &quot;define the future&quot;, &quot;bring something
+into 21 century&quot; (we&#39;re only 16% in it, but they already know what to do...),
+&lt;put your favourite senseless phrase here&gt; (and if you don&#39;t have any, go visit some
+corporate sites and pick one there, the first page you see will be full of them more
+often than not).</p>
+
+<p>Some alternative editors do have interesting capabilities, but the drawbacks
+(in form of missing features or completely incompatible ones) usually outweigh
+those advantages for long term Vim users (that is if they took time to learn
+what Vim has to offer, otherwise the difference won&#39;t be that pronounced).</p>
+
+<p><a name="music-players-notes"></a></p>
+
+<h4>Notes on music players</h4>
+
+<p>As you can see, authors of this kind of software like to do very similar
+applications too.  Unfortunately those that are more original and useful
+get abandoned faster...</p>
+
+<p>It seems like all of them are missing integration with external tools.
+One might want to open a file manager or terminal at current location or
+process selected files with another application, haven&#39;t seen means for this
+in players I tried.</p>
+
+<p><a name="sources"></a></p>
+
+<h3>Some of the sources</h3>
+
+<ul>
+<li><p><a href="https://bbs.archlinux.org/viewtopic.php?pid=695268">Setup a Vim-like desktop environment</a> on ArchLinux forum.</p></li>
+<li><p><a href="https://www.reddit.com/r/vim/comments/3tluqr/my_list_of_applications_with_vi_keybindings/">My list of applications with Vi keybindings</a> on Reddit.</p></li>
+<li><p><a href="http://stackoverflow.com/q/779348/1535516">Vim movement on other programs</a> on StackOverflow.</p></li>
+<li><p><a href="https://web.archive.org/web/20140203050534/http://habrahabr.ru/post/156773/">Vim-like applications</a> on HabraHabr (in Russian).</p></li>
+<li><p>There were several other lists, links to which weren&#39;t saved.</p></li>
+</ul>
+
+<!-- vim: set colorcolumn= : -->
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="2016-08-13/big-list-of-vim-like-software">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '2016-08-13/big-list-of-vim-like-software';
+  var disqus_title = 'The big list of Vi[m]-like software -- Some notes on computer stuff';
+  var disqus_url = 'http://xaizek.github.io/2016-08-13/big-list-of-vim-like-software';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
