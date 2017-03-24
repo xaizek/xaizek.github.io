@@ -65,6 +65,8 @@ function loadComments()
 }
 </script>
 
+<p><strong>UPDATE</strong>: if you have new gdb (7.12.1, scroll to the bottom.</p>
+
 <p>Ability to inline functions and methods in C++ is one of the reasons programs in
 C++ are so fast.  As such code provided by libraries effectively becomes part of
 its client application and the great and mighty <a href="https://en.wikipedia.org/wiki/GNU_Debugger">gdb</a> knows what
@@ -160,6 +162,28 @@ commands properly.  By the way, gdb can also be extended via
 <span class="n">define</span> <span class="n">hookpost</span><span class="o">-</span><span class="n">attach</span>
     <span class="n">skipstdcxxheaders</span>
 <span class="n">end</span>
+</code></pre></div>
+<h4>Troubleshooting</h4>
+
+<p>(Derived from discussion with Dhiraj Reddy in comments.)</p>
+
+<p><code>info skip</code> can be used too see what&#39;s being ignored.</p>
+
+<p>Language check might not work in IDEs, so one might need to replace</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">if</span> <span class="s">&#39;c++&#39;</span> <span class="ow">in</span> <span class="n">gdb</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;show language&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="n">skipAllIn</span><span class="p">(</span><span class="s">&#39;/usr/include/c++&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>with</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">skipAllIn</span><span class="p">(</span><span class="s">&#39;/usr/include/c++&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h4>Solution for new GDB (7.12.1)</h4>
+
+<p>(See comments.)</p>
+
+<p>Something like this (didn&#39;t try it myself) in <code>~/.gdbinit</code> should do:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">skip -gfi /usr/include/c++/*/*/*
+skip -gfi /usr/include/c++/*/*
+skip -gfi /usr/include/c++/*
 </code></pre></div>
 <div id="disqus_thread">
   <span style="float: right; margin-bottom: 1em">
