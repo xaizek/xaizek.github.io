@@ -25,7 +25,7 @@ section.&lt;/p&gt;
 		
 			<item>
 				<title>Skipping standard C++ library during debug session in gdb</title>
-				<description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: if you have new gdb (7.12.1, scroll to the bottom.&lt;/p&gt;
+				<description>&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: if you have new gdb (7.12.1), scroll to the bottom.&lt;/p&gt;
 
 &lt;p&gt;Ability to inline functions and methods in C++ is one of the reasons programs in
 C++ are so fast.  As such code provided by libraries effectively becomes part of
