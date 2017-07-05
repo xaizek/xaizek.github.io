@@ -7,6 +7,19 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Conditional ignorance in C++</title>
+				<description>&lt;p&gt;It just so happened that I watched several C++ talks that mention upcoming
+feature of C++17 called &amp;quot;If statement with initializer&amp;quot; all in a relatively
+short time frame.  Unfortunately, there was another common trait among all of
+these presentations, which is the topic of this post.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 05 Jul 2017 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2017-07-05/conditional-ignorance-in-c++/</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2017-07-05/conditional-ignorance-in-c++/</guid>
+			</item>
+		
+			<item>
 				<title>The big list of Vi[m]-like software</title>
 				<description>&lt;p&gt;&lt;strong&gt;Last updated: May 27, 2017&lt;/strong&gt;&lt;/p&gt;
 

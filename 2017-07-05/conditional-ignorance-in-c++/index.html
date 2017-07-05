@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Conditional ignorance in C++</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS of posts" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/contact.html">
+            <img src="/contact.jpg" title="Contact information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Conditional ignorance in C++</h1>
+      <h5 class="post_date">July  5, 2017</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/rant">rant</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+
+
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>It just so happened that I watched several C++ talks that mention upcoming
+feature of C++17 called &quot;If statement with initializer&quot; all in a relatively
+short time frame.  Unfortunately, there was another common trait among all of
+these presentations, which is the topic of this post.</p>
+
+<!-- cut -->
+
+<h4>The feature</h4>
+
+<p>The feature itself is described in this <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0305r0.html">paper</a> and looks something like
+this:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">function</span><span class="p">();</span> <span class="n">variable</span><span class="p">.</span><span class="n">check</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The code is almost equivalent to the following snippet with the exception of
+name scoping:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="p">{</span>
+    <span class="n">type</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">function</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">variable</span><span class="p">.</span><span class="n">check</span><span class="p">())</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Nothing special, it&#39;s just syntactic sugar.</p>
+
+<h4>The feature continued</h4>
+
+<p>After showing example of the new syntax, all presenters then went to demonstrate
+the following way of testing value of an optional (a type that either holds a
+value or is empty):</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">getOptional</span><span class="p">();</span> <span class="n">opt</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Looks almost ideal, right?  It would be even better, if one could write the same
+code like this instead:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">getOptional</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>But this won&#39;t be added in C++17.  It won&#39;t be added in C++20.  Or in any
+other future standard of C++, ever...</p>
+
+<p>It won&#39;t make it not because it&#39;s bad, but because it&#39;s already there!  And it
+wasn&#39;t introduced in C++14, C++11 or even C++03, it&#39;s literally there since the
+very first C++98 standard.</p>
+
+<h4>The surprise</h4>
+
+<p>It&#39;s not a big deal that speakers themselves didn&#39;t know about this old syntax,
+it&#39;s that they weren&#39;t corrected by anyone in the audience that surprises me.
+Especially since this happened on various conferences some of which praise
+themselves for being &quot;the best&quot; and &quot;full of experts&quot; (even though the same has
+probably been said at least once about every other conference).</p>
+
+<p>It&#39;s just weird that they weren&#39;t aware of this useful syntax for so many years
+(I assume they would correct the speaker otherwise, like with other issues on
+slides).  I was under impression that it&#39;s something that&#39;s relatively popular,
+but looks like I was wrong.</p>
+
+<p>Also, since they were experimenting with the new feature, they could just try
+dropping the check part to see what happens.</p>
+
+<h4>Extra: the inconsistency</h4>
+
+<p>This proposal basically extends previously available syntax for <code>for</code>, <code>while</code>,
+<code>if</code> and <code>switch</code>.  The inconsistency is that only <code>if</code> and <code>switch</code> were
+extended.  It&#39;s probably less useful and somewhat problematic to extend <code>for</code>,
+but I don&#39;t see why <code>while</code> was left out.</p>
+
+<p>Some more examples, just to make sure everybody understands what was available
+before (I remember being misunderstood at least about <code>for</code>):</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0U</span><span class="p">;</span> <span class="k">auto</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">getOptionalElement</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// use `opt` here</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">while</span> <span class="p">(</span><span class="k">auto</span> <span class="n">data</span> <span class="o">=</span> <span class="n">getData</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// process `data`</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">switch</span> <span class="p">(</span><span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">readChar</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// use `c` here</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>Instead of conclusion</h4>
+
+<p>If you didn&#39;t know this about C++98 before, don&#39;t think that you know all
+of C++98 now.</p>
+
+<!-- For example, there is a way to declare functions and methods,
+which is visually indistinguishable from variable declaration. -->
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="2017-07-05/conditional-ignorance-in-c++">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '2017-07-05/conditional-ignorance-in-c++';
+  var disqus_title = 'Conditional ignorance in C++ -- Some notes on computer stuff';
+  var disqus_url = 'http://xaizek.github.io/2017-07-05/conditional-ignorance-in-c++';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
