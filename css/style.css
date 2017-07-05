@@ -3,9 +3,25 @@ body {
     margin: 2em auto;
 }
 
-ul.simple {
+ul.simple, ul.bar {
     list-style-type: none;
     padding: 0
+}
+
+.posttitle {
+    font-weight: bold;
+}
+
+.postinfo {
+    padding-left: 10px;
+}
+
+.postnumber {
+    vertical-align: bottom;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 10px;
+    border-right: 2px solid black;
 }
 
 h5.post_date {
