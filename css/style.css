@@ -62,7 +62,7 @@ pre code, p code {
 
 p code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code, li code {
     font: "Monaco", "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Monospace";
-    color: #52595D;
+    color: #32393D;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -71,7 +71,7 @@ p code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code, li code {
     background-clip: padding-box;
     border: 1px solid #CCC;
     background-color: #F9F9F9;
-    padding: 0 0.5em;
+    padding: 0 0.25em;
     display: inline-block;
 }
 
