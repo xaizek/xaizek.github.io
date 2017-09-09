@@ -105,3 +105,10 @@ h2, h3, h4, h5, h6 {
     font-family: Sans-Serif;
     margin-bottom: -0.25em;
 }
+
+blockquote {
+    border: dashed 1px #BFB793;
+    background: #FFFEFB;
+    padding: 0em 1em;
+    margin: 1em;
+}

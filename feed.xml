@@ -7,6 +7,23 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Updating mail receiving stack</title>
+				<description>&lt;p&gt;Calling it a &amp;quot;stack&amp;quot; is probably too much, but &lt;a href=&quot;https://en.wikipedia.org/wiki/Fetchmail&quot;&gt;fetchmail&lt;/a&gt; and
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Procmail&quot;&gt;procmail&lt;/a&gt; seem to go together and they are both subject for
+replacement for good reasons.&lt;/p&gt;
+
+&lt;p&gt;After finally deciding to replace fetchmail and procmail with something newer,
+came realization that there aren&amp;#39;t that many choices out there and still quite
+a lot of people continue recommending fetchmail+procmail.  This post is here to
+contribute to transferring to potentially more secure software.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 09 Sep 2017 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2017-09-09/updating-mail-receiving-stack/</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2017-09-09/updating-mail-receiving-stack/</guid>
+			</item>
+		
+			<item>
 				<title>Conditional ignorance in C++</title>
 				<description>&lt;p&gt;It just so happened that I watched several C++ talks that mention upcoming
 feature of C++17 called &amp;quot;If statement with initializer&amp;quot; all in a relatively

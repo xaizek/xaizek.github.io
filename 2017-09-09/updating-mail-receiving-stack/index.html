@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Updating mail receiving stack</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS of posts" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/info.html">
+            <img src="/info.png" title="Web-site information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>Updating mail receiving stack</h1>
+      <h5 class="post_date">September  9, 2017</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/mail">mail</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+
+
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>Calling it a &quot;stack&quot; is probably too much, but <a href="https://en.wikipedia.org/wiki/Fetchmail">fetchmail</a> and
+<a href="https://en.wikipedia.org/wiki/Procmail">procmail</a> seem to go together and they are both subject for
+replacement for good reasons.</p>
+
+<p>After finally deciding to replace fetchmail and procmail with something newer,
+came realization that there aren&#39;t that many choices out there and still quite
+a lot of people continue recommending fetchmail+procmail.  This post is here to
+contribute to transferring to potentially more secure software.</p>
+
+<!-- cut -->
+
+<h4>What&#39;s wrong with procmail</h4>
+
+<p>Search for replacement was prompted by finding out that last maintainer of
+procmail recommends against using it (<a href="https://marc.info/?l=openbsd-ports&amp;m=141634350915839&amp;w=2">source</a>):</p>
+
+<blockquote>
+<p>Executive summary: delete the procmail port; the code is not safe and
+should not be used as a basis for any further work.</p>
+</blockquote>
+
+<p>On top of that procmail&#39;s syntax has some limitations which make it hard to use.</p>
+
+<h4>What&#39;s wrong with fetchmail</h4>
+
+<p>Fetchmail is primarily criticised for actions its developer took or didn&#39;t take,
+which makes me wonder why didn&#39;t those critics just make a fork and be done with
+that...  Anyway, current issues with fetchmail seem to be:</p>
+
+<ul>
+<li>passwords in configuration file have to be in plain text</li>
+<li>only MD5 fingerprints of SSL certificates are supported</li>
+<li>syntax of configuration file isn&#39;t obvious (relatively minor issue, since you
+don&#39;t edit it everyday)</li>
+</ul>
+
+<h4>Replacing procmail</h4>
+
+<p>The closest alternative to procmail seems to be <a href="https://en.wikipedia.org/wiki/Maildrop">maildrop</a>.
+And it&#39;s pretty much the only one around, it seems (although there is at least
+fdm, which is both mail retrieval and mail delivery agent at the same time, it
+also stores passwords in plain text).</p>
+
+<p>Syntax of maildrop resembles that of procmail, supports most of it functionality
+and doesn&#39;t have limitations that syntax of procmail has.  Compare for yourself:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># this is procmail
+
+MAILDIR=$HOME/mail
+LOGFILE=$HOME/.procmail-log
+
+:0:
+* ^To.*[vV]ifm.*
+vifm
+
+:0:
+* ^Subject.*vifm.*
+vifm
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text"># this is maildrop
+
+MAILDIR=&quot;$HOME/mail&quot;
+logfile &quot;$HOME/.maildrop-log&quot;
+
+if ( /^To.*[vV]ifm.*/:h || /^Subject.*vifm.*/:h )
+    to $MAILDIR/vifm
+</code></pre></div>
+<p>The syntax does differ, but fortunately there is helpful tutorial by Warren
+Block <a href="http://www.wonkity.com/%7Ewblock/docs/html/maildrop.html">here</a>.</p>
+
+<h4>Replacing fetchmail</h4>
+
+<p>More options here (<a href="https://en.wikipedia.org/wiki/Mail_retrieval_agent#Examples">wiki</a>) and one of them is <a href="http://mpop.sourceforge.net/">mpop</a>.
+It&#39;s from the author of <a href="http://msmtp.sourceforge.net/">msmtp</a>, which is quite popular project.  So, if
+you&#39;re already using msmtp, this is a good choice since configuration format is
+pretty much the same.</p>
+
+<p>mpop has good <a href="http://mpop.sourceforge.net/doc/mpop.html">documentation</a>, which explains how to use passwords
+encrypted with your gpg-key.</p>
+
+<p>Compared to fetchmail mpop:</p>
+
+<ul>
+<li>allows to use passwords from encrypted storage</li>
+<li>verify SSL certificates against SHA1 (now deprecated) and SHA256 fingerprints</li>
+<li>can be run in parallel to check multiple accounts at the same time</li>
+<li>doesn&#39;t have daemon mode</li>
+<li>doesn&#39;t write logs</li>
+</ul>
+
+<p>Example of configuration conversion:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># this is fetchmail
+
+set logfile &quot;/home/user/.fetchmail-log&quot;
+set postmaster &quot;user&quot;
+set bouncemail
+set no spambounce
+set softbounce
+set properties &quot;&quot;
+set daemon 300
+
+poll server.net proto pop3
+       user &#39;user@server.net&#39; with pass &#39;password&#39; is &#39;user&#39; here ssl sslfingerprint &#39;55:F5:81:51:91:CD:88:64:14:D5:AA:E2:D5:2E:2C:AB&#39;
+#      mda &quot;/usr/bin/env procmail -f -&quot;
+       mda &quot;/usr/bin/env maildrop&quot;
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text"># this is mpop
+
+defaults
+
+keep off
+tls on
+uidls_file ~/mail/.mpop/uidls/%U@%H.uids
+delivery mda /usr/bin/env maildrop -f &#39;%F&#39;
+
+account server
+host server.net
+user user@server.net
+passwordeval gpg2 --no-tty -q -d ~/.mail-password.gpg
+tls_fingerprint 30:2A:06:B8:CF:A8:5B:93:66:5A:44:66:E2:BB:84:05:FE:80:95:3F:5A:FE:D1:08:DB:3B:B0:0D:7C:42:B4:39
+</code></pre></div>
+<h4>Daemon mode vs. manual retrieval</h4>
+
+<p>Being used to automatic retrieval of mail, absence of daemon mode in mpop
+matters.  mpop site and documentation suggests using crond, but I decided to try
+manual mail retrieval and wrote this script:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="nv">DECODE</span><span class="o">=</span><span class="s1">&#39;use Encode qw(decode); binmode STDOUT, &quot;:utf8&quot;; print decode(&quot;MIME-HEADER&quot;, $_)&#39;</span>
+
+<span class="nb">export </span><span class="nv">GPG_TTY</span><span class="o">=</span><span class="s2">&quot;$(tty)&quot;</span>
+
+<span class="c"># make sure that necessary private key is cached or there will be many prompts</span>
+<span class="k">if</span> ! gpg2 -q -d ~/.mail-password.gpg<span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s1">&#39;FATAL ERROR: failed to retrieve key!&#39;</span> <span class="p">|</span> less --clear-screen
+    <span class="nb">exit </span>1
+<span class="k">fi</span>
+
+<span class="c"># append last log to full log and truncate it</span>
+touch ~/.maildrop-log
+cat ~/.maildrop-log &gt;&gt; ~/.maildrop-fulllog
+truncate --size<span class="o">=</span><span class="m">0</span> ~/.maildrop-log
+
+<span class="c"># collect mailboxes in parallel</span>
+<span class="o">(</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;======== Retrieving ========&#39;</span>
+<span class="nb">echo</span>
+
+cat <span class="se">\</span>
+    &lt;<span class="o">(</span> mpop server 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">)</span> <span class="se">\</span>
+    &lt;<span class="o">(</span> <span class="nb">echo</span> <span class="o">)</span> <span class="se">\</span>
+    &lt;<span class="o">(</span> mpop server2 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">)</span> <span class="se">\</span>
+    &lt;<span class="o">(</span> <span class="nb">echo</span> <span class="o">)</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;======== New mail ========&#39;</span>
+<span class="nb">echo</span>
+
+perl -ne <span class="s2">&quot;$DECODE&quot;</span> &lt; ~/.maildrop-log 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">)</span> <span class="p">|&amp;</span>
+less --clear-screen
+</code></pre></div>
+<p>The script does the following:</p>
+
+<ol>
+<li>Sets up <code>$GPG_TTY</code> for gpg and decrypts one of passwords (or really anything
+that&#39;s encrypted with key(s) that protect e-mail passwords) to ensure relevant
+gpg-key is cached and you won&#39;t need to enter passphrase more than once.</li>
+<li>Clears file with last log after saving its contents elsewhere.</li>
+<li>Collects e-mails from all mailboxes in parallel.</li>
+<li>Displays list of new e-mails with their subjects and where they were put.</li>
+</ol>
+
+<p>For some reason (probably related to terminal initialization) gpg can fail if
+you run this script like <code>xterm -e script</code>, but everything is fine for
+<code>xterm -e &#39;usleep 100000 &amp;&amp; script&#39;</code> or when it&#39;s run from already running
+terminal (thus it works fine from mutt).</p>
+
+<p>This approach enforces a different workflow: instead of sometimes seeing
+new mail right after answering previously received message you now can process
+e-mail in batches and do not get distracted by newly arrived e-mails while
+dealing with the previous ones.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="2017-09-09/updating-mail-receiving-stack">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '2017-09-09/updating-mail-receiving-stack';
+  var disqus_title = 'Updating mail receiving stack -- Some notes on computer stuff';
+  var disqus_url = 'http://xaizek.github.io/2017-09-09/updating-mail-receiving-stack';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
