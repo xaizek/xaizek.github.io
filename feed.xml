@@ -7,6 +7,20 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>How to make perf TUI work</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Perf_(Linux)&quot;&gt;perf&lt;/a&gt; is a quite handy tool to quickly measure performance of your
+application on GNU/Linux without recompiling it.  The only issue seemed to be
+inconvenience of viewing report in a pager.  It turned into concern after
+realising that it should start &lt;a href=&quot;https://en.wikipedia.org/wiki/Text-based_user_interface&quot;&gt;TUI&lt;/a&gt; on &lt;code&gt;perf report&lt;/code&gt; by default, but
+for some reason it didn&amp;#39;t.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 14 Nov 2017 00:00:00 +0200</pubDate>
+				<link>http://xaizek.github.io/2017-11-14/make-perf-tui-work/</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2017-11-14/make-perf-tui-work/</guid>
+			</item>
+		
+			<item>
 				<title>Updating mail receiving stack</title>
 				<description>&lt;p&gt;Calling it a &amp;quot;stack&amp;quot; is probably too much, but &lt;a href=&quot;https://en.wikipedia.org/wiki/Fetchmail&quot;&gt;fetchmail&lt;/a&gt; and
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Procmail&quot;&gt;procmail&lt;/a&gt; seem to go together and they are both subject for

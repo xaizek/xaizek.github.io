@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>How to make perf TUI work</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS of posts" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        
+        <span style="float: right">
+          <a style="margin-left: 1em;" href="/info.html">
+            <img src="/info.png" title="Web-site information"/>
+          </a>
+          <a style="margin-left: 1em;" href="/tag/index.html">
+            <img src="/tags.jpg" title="List of all tags"/>
+          </a>
+          <a style="margin-left: 1em;" href="/feed.xml">
+            <img src="/rss.jpg" title="RSS Feed"/>
+          </a>
+        </span>
+      </h4>
+      <h1>How to make perf TUI work</h1>
+      <h5 class="post_date">November 14, 2017</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/terminal">terminal</a>]
+        
+        [<a href="/tag/issue">issue</a>]
+        
+        [<a href="/tag/howto">howto</a>]
+        
+        [<a href="/tag/profiling">profiling</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+
+
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p><a href="https://en.wikipedia.org/wiki/Perf_(Linux)">perf</a> is a quite handy tool to quickly measure performance of your
+application on GNU/Linux without recompiling it.  The only issue seemed to be
+inconvenience of viewing report in a pager.  It turned into concern after
+realising that it should start <a href="https://en.wikipedia.org/wiki/Text-based_user_interface">TUI</a> on <code>perf report</code> by default, but
+for some reason it didn&#39;t.</p>
+
+<!-- cut -->
+
+<h4>Basic usage</h4>
+
+<p>Everything is quite simple:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">perf record -g command arg1 arg2
+perf report
+</code></pre></div>
+<h4>Front-ends</h4>
+
+<p>There are three ways of viewing report which can be selected via options:</p>
+
+<ol>
+<li><code>--stdio</code> runs a pager.</li>
+<li><code>--tui</code> should start TUI (default when output is a tty).</li>
+<li><code>--gtk</code> starts simple GTK application, which seems to only be able to display
+table of results without any actions which are available in the TUI.</li>
+</ol>
+
+<h4>The issue</h4>
+
+<p>Even explicitly specifying <code>--tui</code> didn&#39;t make TUI start.
+The situation got even more confusing after seeing via <a href="https://en.wikipedia.org/wiki/Strace">strace</a>
+that <code>libncurses</code> is loaded by the process.</p>
+
+<p>Since the issue doesn&#39;t seem to happen to many people according to an Internet
+search, the next step was to look at the sources, with the first result giving
+the clue of what&#39;s actually going on (from
+<code>/usr/src/linux/tools/perf/config/Makefile</code>):</p>
+<div class="highlight"><pre><code class="language-make" data-lang="make"><span class="c">  # ...</span>
+<span class="cp">  ifneq ($(feature-libslang), 1)</span>
+    msg :<span class="o">=</span> <span class="k">$(</span>warning slang not found, disables TUI support. Please install slang-devel or libslang-dev<span class="k">)</span><span class="p">;</span>
+    NO_SLANG :<span class="o">=</span> 1
+<span class="cp">  else</span>
+<span class="c">  # ...</span>
+</code></pre></div>
+<h4>The solution</h4>
+
+<p>Since TUI just gets silently disabled during build if <code>libslang</code> isn&#39;t
+available, the obvious solution is to install <a href="https://en.wikipedia.org/wiki/S-Lang">S-Lang</a> and rebuild
+<code>perf</code>.</p>
+
+<p>The TUI itself unfortunately doesn&#39;t have Vim-like key bindings and since all
+keys are hard-coded it can&#39;t be configured.  Anyway, it&#39;s more convenient than a
+pager where one needs to rerun <code>perf</code> multiple times with different options.</p>
+
+<h4>Advice to software developers</h4>
+
+<p>Either drop options on disabling a feature or print a warning when user tries
+to use them.  Another useful thing to do is to mention how things are build in
+<code>--version</code> information or even actually stopping build instead of just printing
+a warning, which is easy to miss.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="2017-11-14/make-perf-tui-work">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '2017-11-14/make-perf-tui-work';
+  var disqus_title = 'How to make perf TUI work -- Some notes on computer stuff';
+  var disqus_url = 'http://xaizek.github.io/2017-11-14/make-perf-tui-work';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>
