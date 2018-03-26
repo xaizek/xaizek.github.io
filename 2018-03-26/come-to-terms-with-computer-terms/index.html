@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="xaizek" />
+    <title>Come to terms with computer terms</title>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS of posts" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+    
+  </head>
+  <body>
+    <header>
+      <h4>
+        
+        <a style="color: #ccc; text-decoration: none;" href="/">
+          Some notes on computer stuff
+        </a>
+        
+        <span style="float: right">
+          <a style="margin-left: 0em; font-family: monospace;" href="/code.html">
+            code
+          </a>
+          <a style="margin-left: 0em; font-family: monospace;" href="/tag/index.html">
+            tags
+          </a>
+          <a style="margin-left: 0em; font-family: monospace;" href="/feed.xml">
+            rss
+          </a>
+          <a style="margin-left: 0em; font-family: monospace;" href="/info.html">
+            about
+          </a>
+        </span>
+      </h4>
+      <h1>Come to terms with computer terms</h1>
+      <h5 class="post_date">March 26, 2018</h5>
+      <div class="tag_list">
+        
+        [<a href="/tag/autoconf">autoconf</a>]
+        
+        [<a href="/tag/c">c</a>]
+        
+        [<a href="/tag/c++">c++</a>]
+        
+        [<a href="/tag/rant">rant</a>]
+        
+      </div>
+    </header>
+    <section>
+      <div class="content">
+  <div id="post">
+    <script type="text/javascript">
+
+
+function loadComments()
+{
+  (function()
+   {
+     var dsq = document.createElement('script');
+     dsq.type = 'text/javascript';
+     dsq.async = true;
+     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     window.scrollTo(0, document.body.scrollHeight + 100);
+   })();
+}
+</script>
+
+<p>There are many things which people get wrong over and over again.  People seem
+to care enough to repeat these mistakes out loud regularly, but apparently not
+enough to actually check correctness of the information or at least question it.
+Let&#39;s deal with some claims of this sort from IT field which bug me personally.</p>
+
+<!-- cut -->
+
+<p><a name="autotools-not-cross"></a></p>
+
+<h4>&quot;Autotools aren&#39;t cross-platform&quot;</h4>
+
+<p>This one usually comes from Windows-developers and seems to be based on
+inadequate assumption that if something doesn&#39;t support their platform well,
+then it&#39;s not cross-platform.</p>
+
+<p>First of all, <a href="https://en.wikipedia.org/wiki/GNU_Build_System">autotools</a> does work on Windows, even if it&#39;s
+inconvenient to use it there.  The port was done late, so Windows-support isn&#39;t
+great, yet enough for it to work there.  This alone disproves the claim from
+Windows-developers, but let&#39;s give more generic proof of why the claim is
+utterly wrong:</p>
+
+<ol>
+<li>Let&#39;s assume that autotools isn&#39;t cross-platform because it doesn&#39;t support
+some particular platform.  Then same logic can be applied to any other
+program.</li>
+<li>There are myriads of platforms and no program supports all of them.</li>
+<li>Therefore, no program is cross-platform.</li>
+<li>Since we know that there are cross-platform programs, our assumption about
+nature of cross-platform software is wrong.</li>
+</ol>
+
+<p>The true meaning of cross-platform is ability to run on more than one platform
+which are more than superficially different.  If some software doesn&#39;t run on
+your favourite platform, it doesn&#39;t stop it from being cross-platform as long as
+it runs on at least two others.</p>
+
+<p><a name="c-low-level"></a></p>
+
+<h4>&quot;C is a low-level language&quot;</h4>
+
+<p>This one seems to be based on absence of knowledge of what low-level actually
+means.  Low-level things are those which lack abstractions beyond what&#39;s
+necessary.  In programming these are represented as assembly languages (even
+though they might provide macro capabilities which emulate high-level
+constructs).  C is obviously not an assembly and people calling it &quot;portable
+assembly&quot; don&#39;t mean it literally (or at least they shouldn&#39;t or they would be
+wrong).</p>
+
+<p>Somebody might try to object that compared to languages like Java, C is
+low-level and thus calling it such is justified.  This has at least two flaws:</p>
+
+<ol>
+<li>Lisp has already existed for 4 years when C was created.  So introduction of
+Java and others don&#39;t change anything.</li>
+<li>Creating more and more high-level languages doesn&#39;t push other languages down
+the stack.  If anything, it&#39;s Java which should get a new label like
+ultra-high-level if somebody needs it, C shouldn&#39;t suddenly be classified
+differently.</li>
+</ol>
+
+<p>Criteria for being low-level didn&#39;t change, C was high-level and stays
+high-level.</p>
+
+<p><a name="functor-is-bad"></a></p>
+
+<h4>&quot;Functor is a bad word for functional objects in C++&quot;</h4>
+
+<p>The argument that was put forth is that in functional programming functor means
+something different (an entity from category theory).  It probably wasn&#39;t meant
+to be logical, yet let&#39;s look at it from this side at first, it&#39;s easy to prove
+wrong.</p>
+
+<p>If the word functor shouldn&#39;t be used because it&#39;s used somewhere else, what
+about other words that have different meaning in different contexts?  I doubt
+anybody would argue that words should have one and only one meaning (could be
+nice, but it&#39;s too late to push this idea).  So clearly there is no strong
+support for this argument from this point of view, because meaning of words are
+determined also by context in which they are used, not just merely by a pattern
+of characters.</p>
+
+<p>The actual argument seems to be about avoiding confusion when doing functional
+programming in C++.  However, there is usually no such confusion in the first
+place.  Those who introduce concepts into C++ from other fields should work
+around pre-existing terminology of C++, not the other way around.  And &quot;functor&quot;
+is a bad and rather confusing name even for the thing it&#39;s used in functional
+programming for, because it&#39;s pretty much just a visitor which performs map
+operation on an element of some structure that&#39;s being visited.  In C++ the term
+is way less confusing, which makes its use in C++ as is quite well motivated.</p>
+
+<p><a name="c-slash-cxx"></a></p>
+
+<h4>&quot;C/C++&quot;</h4>
+
+<p>This thing is just confusing.  The slash means &quot;AND or OR&quot;, but I doubt there
+are many situations where phrase &quot;C and/or C++&quot; makes sense.</p>
+
+<p>If slash is supposed to mean &quot;AND&quot;, then why not write it that way?  In reality,
+though, it rarely means conjunction and is usually more about C++.</p>
+
+<p>If slash is supposed to mean &quot;OR&quot;, this sounds very weird because these are two
+distinct languages, which aren&#39;t interchangeable in general (both universal and
+Turing-complete, but that doesn&#39;t really count as it covers more than these two
+languages).</p>
+
+<p>Another interpretation of &quot;C/C++&quot; I was presented with is: knowledge of C++ with
+read-only understanding of C.  So there might be some people out there thinking
+that it means &quot;knowledge of C with read-only understanding of C++&quot;.</p>
+
+<p>Too many conflicting interpretations for the same term.  Ambiguous terms aren&#39;t
+terribly useful (&quot;functor&quot; from above isn&#39;t ambiguous unless two separate
+context are mixed), just use a word instead of the slash.</p>
+
+<p><a name="the-rest"></a></p>
+
+<h4>The rest</h4>
+
+<p>Other terms might be added in the future to keep this ranting contained in one
+post.</p>
+
+<div id="disqus_thread">
+  <span style="float: right; margin-bottom: 1em">
+    <a href="javascript:loadComments()//#disqus_thread" data-disqus-identifier="2018-03-26/come-to-terms-with-computer-terms">
+      // load comments
+    </a>
+  </span>
+</div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'snox';
+  var disqus_identifier = '2018-03-26/come-to-terms-with-computer-terms';
+  var disqus_title = 'Come to terms with computer terms -- Some notes on computer stuff';
+  var disqus_url = 'http://xaizek.github.io/2018-03-26/come-to-terms-with-computer-terms';
+
+  (function () {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+  }());
+</script>
+
+  </div>
+</div>
+
+    </section>
+  </body>
+</html>

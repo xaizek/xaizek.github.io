@@ -7,6 +7,19 @@
 		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Come to terms with computer terms</title>
+				<description>&lt;p&gt;There are many things which people get wrong over and over again.  People seem
+to care enough to repeat these mistakes out loud regularly, but apparently not
+enough to actually check correctness of the information or at least question it.
+Let&amp;#39;s deal with some claims of this sort from IT field which bug me personally.&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 26 Mar 2018 00:00:00 +0300</pubDate>
+				<link>http://xaizek.github.io/2018-03-26/come-to-terms-with-computer-terms/</link>
+				<guid isPermaLink="true">http://xaizek.github.io/2018-03-26/come-to-terms-with-computer-terms/</guid>
+			</item>
+		
+			<item>
 				<title>How to make perf TUI work</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Perf_(Linux)&quot;&gt;perf&lt;/a&gt; is a quite handy tool to quickly measure performance of your
 application on GNU/Linux without recompiling it.  The only issue seemed to be
