@@ -109,6 +109,10 @@ h2, h3, h4, h5, h6 {
 blockquote {
     border: dashed 1px #BFB793;
     background: #FFFEFB;
-    padding: 0em 1em;
-    margin: 1em;
+    padding: 0.5em 0.5em;
+    margin: 1em 0em;
+}
+
+blockquote p {
+    margin: 0;
 }
