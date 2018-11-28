@@ -3,8 +3,8 @@
 	<channel>
 		<title>Some notes on computer stuff Posts</title>
 		<description>Some notes on computer stuff</description>
-		<link>http://xaizek.github.io/</link>
-		<atom:link href="http://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+		<link>https://xaizek.github.io/</link>
+		<atom:link href="https://xaizek.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
 				<title>Propaganda in IT: Microsoft Buys GitHub: The Linux Foundation’s Reaction</title>
@@ -17,8 +17,8 @@ omitted and how the rest is framed.&lt;/p&gt;
 
 </description>
 				<pubDate>Tue, 12 Jun 2018 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2018-06-12/propaganda-microsoft-github/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2018-06-12/propaganda-microsoft-github/</guid>
+				<link>https://xaizek.github.io/2018-06-12/propaganda-microsoft-github/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2018-06-12/propaganda-microsoft-github/</guid>
 			</item>
 		
 			<item>
@@ -30,8 +30,8 @@ Let&amp;#39;s deal with some claims of this sort from IT field which bug me pers
 
 </description>
 				<pubDate>Mon, 26 Mar 2018 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2018-03-26/come-to-terms-with-computer-terms/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2018-03-26/come-to-terms-with-computer-terms/</guid>
+				<link>https://xaizek.github.io/2018-03-26/come-to-terms-with-computer-terms/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2018-03-26/come-to-terms-with-computer-terms/</guid>
 			</item>
 		
 			<item>
@@ -44,8 +44,8 @@ for some reason it didn&amp;#39;t.&lt;/p&gt;
 
 </description>
 				<pubDate>Tue, 14 Nov 2017 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2017-11-14/make-perf-tui-work/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2017-11-14/make-perf-tui-work/</guid>
+				<link>https://xaizek.github.io/2017-11-14/make-perf-tui-work/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2017-11-14/make-perf-tui-work/</guid>
 			</item>
 		
 			<item>
@@ -61,8 +61,8 @@ contribute to transferring to potentially more secure software.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 09 Sep 2017 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2017-09-09/updating-mail-receiving-stack/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2017-09-09/updating-mail-receiving-stack/</guid>
+				<link>https://xaizek.github.io/2017-09-09/updating-mail-receiving-stack/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2017-09-09/updating-mail-receiving-stack/</guid>
 			</item>
 		
 			<item>
@@ -74,8 +74,8 @@ these presentations, which is the topic of this post.&lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 05 Jul 2017 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2017-07-05/conditional-ignorance-in-c++/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2017-07-05/conditional-ignorance-in-c++/</guid>
+				<link>https://xaizek.github.io/2017-07-05/conditional-ignorance-in-c++/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2017-07-05/conditional-ignorance-in-c++/</guid>
 			</item>
 		
 			<item>
@@ -93,8 +93,8 @@ section.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 13 Aug 2016 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2016-08-13/big-list-of-vim-like-software/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2016-08-13/big-list-of-vim-like-software/</guid>
+				<link>https://xaizek.github.io/2016-08-13/big-list-of-vim-like-software/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2016-08-13/big-list-of-vim-like-software/</guid>
 			</item>
 		
 			<item>
@@ -110,8 +110,8 @@ inlined functions that aren&amp;#39;t interesting.&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 26 May 2016 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2016-05-26/skipping-standard-library-in-gdb/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2016-05-26/skipping-standard-library-in-gdb/</guid>
+				<link>https://xaizek.github.io/2016-05-26/skipping-standard-library-in-gdb/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2016-05-26/skipping-standard-library-in-gdb/</guid>
 			</item>
 		
 			<item>
@@ -122,8 +122,8 @@ for creating &lt;a href=&quot;https://en.wikipedia.org/wiki/Text-based_user_inte
 
 </description>
 				<pubDate>Sun, 24 Apr 2016 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2016-04-24/ncurses-for-cpp/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2016-04-24/ncurses-for-cpp/</guid>
+				<link>https://xaizek.github.io/2016-04-24/ncurses-for-cpp/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2016-04-24/ncurses-for-cpp/</guid>
 			</item>
 		
 			<item>
@@ -139,8 +139,8 @@ scratch.&lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 13 Jan 2016 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2016-01-13/converting-vim-doc-to-html/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2016-01-13/converting-vim-doc-to-html/</guid>
+				<link>https://xaizek.github.io/2016-01-13/converting-vim-doc-to-html/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2016-01-13/converting-vim-doc-to-html/</guid>
 			</item>
 		
 			<item>
@@ -154,8 +154,8 @@ for C++, but (say) &lt;code&gt;man std::adjacent_difference&lt;/code&gt; will us
 
 </description>
 				<pubDate>Tue, 05 Jan 2016 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2016-01-05/cpp-man-pages/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2016-01-05/cpp-man-pages/</guid>
+				<link>https://xaizek.github.io/2016-01-05/cpp-man-pages/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2016-01-05/cpp-man-pages/</guid>
 			</item>
 		
 			<item>
@@ -171,8 +171,8 @@ Screen.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 08 Nov 2015 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen/</guid>
+				<link>https://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2015-11-08/switching-from-tmux-to-gnu-screen/</guid>
 			</item>
 		
 			<item>
@@ -185,8 +185,8 @@ any related posts on the Internet right away here&amp;#39;s a short note.&lt;/p&
 
 </description>
 				<pubDate>Sun, 25 Oct 2015 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2015-10-25/enable-colorization-of-gcc-output/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2015-10-25/enable-colorization-of-gcc-output/</guid>
+				<link>https://xaizek.github.io/2015-10-25/enable-colorization-of-gcc-output/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2015-10-25/enable-colorization-of-gcc-output/</guid>
 			</item>
 		
 			<item>
@@ -201,8 +201,8 @@ exceptions should be viewed as another way of doing things, not as something
 
 </description>
 				<pubDate>Sat, 24 Oct 2015 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2015-10-24/aggregate-initializer-surprise/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2015-10-24/aggregate-initializer-surprise/</guid>
+				<link>https://xaizek.github.io/2015-10-24/aggregate-initializer-surprise/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2015-10-24/aggregate-initializer-surprise/</guid>
 			</item>
 		
 			<item>
@@ -216,8 +216,8 @@ So I ended up writing one.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 15 Aug 2015 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves/</guid>
+				<link>https://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2015-08-15/enumerating-boost-property-leaves/</guid>
 			</item>
 		
 			<item>
@@ -253,8 +253,8 @@ that demonstrates such situation.&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 23 Apr 2015 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2015-04-23/detecting-wrong-first-include/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2015-04-23/detecting-wrong-first-include/</guid>
+				<link>https://xaizek.github.io/2015-04-23/detecting-wrong-first-include/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2015-04-23/detecting-wrong-first-include/</guid>
 			</item>
 		
 			<item>
@@ -267,8 +267,8 @@ day it took single line to solve the issue...&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 05 Oct 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-10-05/why-restoring-signal-handlers-is-important/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-10-05/why-restoring-signal-handlers-is-important/</guid>
+				<link>https://xaizek.github.io/2014-10-05/why-restoring-signal-handlers-is-important/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-10-05/why-restoring-signal-handlers-is-important/</guid>
 			</item>
 		
 			<item>
@@ -280,8 +280,8 @@ Slackware, but also on Debian, though not sure what was causing issues there.&lt
 
 </description>
 				<pubDate>Mon, 29 Sep 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-09-29/fixing-cifs-mount-in-slackware/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-09-29/fixing-cifs-mount-in-slackware/</guid>
+				<link>https://xaizek.github.io/2014-09-29/fixing-cifs-mount-in-slackware/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-09-29/fixing-cifs-mount-in-slackware/</guid>
 			</item>
 		
 			<item>
@@ -292,8 +292,8 @@ file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave thi
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Sun, 28 Sep 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-09-28/how-to-install-data-directory-with-automake/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-09-28/how-to-install-data-directory-with-automake/</guid>
+				<link>https://xaizek.github.io/2014-09-28/how-to-install-data-directory-with-automake/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-09-28/how-to-install-data-directory-with-automake/</guid>
 			</item>
 		
 			<item>
@@ -312,8 +312,8 @@ to go another road.&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 18 Sep 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-09-18/how-to-make-bootable-win7-usb-stick-in-linux/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-09-18/how-to-make-bootable-win7-usb-stick-in-linux/</guid>
+				<link>https://xaizek.github.io/2014-09-18/how-to-make-bootable-win7-usb-stick-in-linux/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-09-18/how-to-make-bootable-win7-usb-stick-in-linux/</guid>
 			</item>
 		
 			<item>
@@ -325,8 +325,8 @@ are open source and known for their good work in GNU/Linux.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 07 Sep 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-09-07/fix-intel-graphics-after-nvidia/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-09-07/fix-intel-graphics-after-nvidia/</guid>
+				<link>https://xaizek.github.io/2014-09-07/fix-intel-graphics-after-nvidia/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-09-07/fix-intel-graphics-after-nvidia/</guid>
 			</item>
 		
 			<item>
@@ -337,8 +337,8 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Tue, 02 Sep 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-09-02/boot-with-lilo-faster/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-09-02/boot-with-lilo-faster/</guid>
+				<link>https://xaizek.github.io/2014-09-02/boot-with-lilo-faster/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-09-02/boot-with-lilo-faster/</guid>
 			</item>
 		
 			<item>
@@ -370,8 +370,8 @@ looking for two types of functions declared with external linkage:&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 28 Aug 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-08-28/detecting-unused-functions/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-08-28/detecting-unused-functions/</guid>
+				<link>https://xaizek.github.io/2014-08-28/detecting-unused-functions/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-08-28/detecting-unused-functions/</guid>
 			</item>
 		
 			<item>
@@ -383,8 +383,8 @@ size that are delimited by a separator?  Search revealed
 
 </description>
 				<pubDate>Wed, 23 Jul 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-07-23/splitting-text-files-by-pattern/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-07-23/splitting-text-files-by-pattern/</guid>
+				<link>https://xaizek.github.io/2014-07-23/splitting-text-files-by-pattern/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-07-23/splitting-text-files-by-pattern/</guid>
 			</item>
 		
 			<item>
@@ -395,8 +395,8 @@ once again here and provide links to more verbose explanations.&lt;/p&gt;
 
 </description>
 				<pubDate>Tue, 22 Jul 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-07-22/prefer-plain-text-format-over-html-in-mutt/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-07-22/prefer-plain-text-format-over-html-in-mutt/</guid>
+				<link>https://xaizek.github.io/2014-07-22/prefer-plain-text-format-over-html-in-mutt/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-07-22/prefer-plain-text-format-over-html-in-mutt/</guid>
 			</item>
 		
 			<item>
@@ -406,8 +406,8 @@ through &lt;a href=&quot;https://en.wikipedia.org/wiki/PPTP&quot;&gt;PPTP&lt;/a&
 
 </description>
 				<pubDate>Mon, 07 Jul 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-07-07/pptp-add-route-automatically/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-07-07/pptp-add-route-automatically/</guid>
+				<link>https://xaizek.github.io/2014-07-07/pptp-add-route-automatically/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-07-07/pptp-add-route-automatically/</guid>
 			</item>
 		
 			<item>
@@ -421,8 +421,8 @@ rexima: couldn&amp;#39;t open mixer device.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Sun, 06 Jul 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-07-06/rexima-could-not-open-mixer-device/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-07-06/rexima-could-not-open-mixer-device/</guid>
+				<link>https://xaizek.github.io/2014-07-06/rexima-could-not-open-mixer-device/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-07-06/rexima-could-not-open-mixer-device/</guid>
 			</item>
 		
 			<item>
@@ -437,8 +437,8 @@ live without it?&lt;/p&gt;
 
 </description>
 				<pubDate>Fri, 04 Jul 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-07-04/removing-sendmail-from-mail-receiving-chain/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-07-04/removing-sendmail-from-mail-receiving-chain/</guid>
+				<link>https://xaizek.github.io/2014-07-04/removing-sendmail-from-mail-receiving-chain/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-07-04/removing-sendmail-from-mail-receiving-chain/</guid>
 			</item>
 		
 			<item>
@@ -454,8 +454,8 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 
 </description>
 				<pubDate>Sun, 22 Jun 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-06-22/make-tabs-visible-in-git-diff/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-06-22/make-tabs-visible-in-git-diff/</guid>
+				<link>https://xaizek.github.io/2014-06-22/make-tabs-visible-in-git-diff/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-06-22/make-tabs-visible-in-git-diff/</guid>
 			</item>
 		
 			<item>
@@ -487,8 +487,8 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 
 </description>
 				<pubDate>Fri, 02 May 2014 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops/</guid>
+				<link>https://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-05-02/detecting-postfix-operators-in-for-loops/</guid>
 			</item>
 		
 			<item>
@@ -505,8 +505,8 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Wed, 05 Feb 2014 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make/</guid>
+				<link>https://xaizek.github.io/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make/</guid>
 			</item>
 		
 			<item>
@@ -518,8 +518,8 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Tue, 04 Feb 2014 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app/</guid>
+				<link>https://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-02-04/how-to-profile-packaged-python-app/</guid>
 			</item>
 		
 			<item>
@@ -532,8 +532,8 @@ displayed on user&amp;#39;s request.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 18 Jan 2014 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make/</guid>
+				<link>https://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2014-01-18/recompile-file-with-any-other-using-make/</guid>
 			</item>
 		
 			<item>
@@ -554,8 +554,8 @@ are enabled by default.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 16 Nov 2013 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2013-11-16/mplayer-with-disabled-subtitles-by-default/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-11-16/mplayer-with-disabled-subtitles-by-default/</guid>
+				<link>https://xaizek.github.io/2013-11-16/mplayer-with-disabled-subtitles-by-default/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-11-16/mplayer-with-disabled-subtitles-by-default/</guid>
 			</item>
 		
 			<item>
@@ -568,8 +568,8 @@ AC_USE_SYSTEM_EXTENSIONS
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Wed, 16 Oct 2013 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2013-10-16/autoconf-how-to-define-gnu-source-correctly/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-10-16/autoconf-how-to-define-gnu-source-correctly/</guid>
+				<link>https://xaizek.github.io/2013-10-16/autoconf-how-to-define-gnu-source-correctly/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-10-16/autoconf-how-to-define-gnu-source-correctly/</guid>
 			</item>
 		
 			<item>
@@ -581,8 +581,8 @@ that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 25 Sep 2013 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2013-09-25/fix-misterious-tmux-hang-in-x/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-09-25/fix-misterious-tmux-hang-in-x/</guid>
+				<link>https://xaizek.github.io/2013-09-25/fix-misterious-tmux-hang-in-x/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-09-25/fix-misterious-tmux-hang-in-x/</guid>
 			</item>
 		
 			<item>
@@ -591,8 +591,8 @@ that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
 
 </description>
 				<pubDate>Mon, 29 Jul 2013 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2013-07-29/autoconf-how-to-define-gnu-source/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-07-29/autoconf-how-to-define-gnu-source/</guid>
+				<link>https://xaizek.github.io/2013-07-29/autoconf-how-to-define-gnu-source/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-07-29/autoconf-how-to-define-gnu-source/</guid>
 			</item>
 		
 			<item>
@@ -605,8 +605,8 @@ example with overloading of postfix increment operator:&lt;/p&gt;
 
 </description>
 				<pubDate>Mon, 29 Apr 2013 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2013-04-29/cpp-out-of-class-unary-op-overload/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-04-29/cpp-out-of-class-unary-op-overload/</guid>
+				<link>https://xaizek.github.io/2013-04-29/cpp-out-of-class-unary-op-overload/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-04-29/cpp-out-of-class-unary-op-overload/</guid>
 			</item>
 		
 			<item>
@@ -616,8 +616,8 @@ initializers of inner aggregates can be flattened.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 28 Apr 2013 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2013-04-28/cpp-aggregate-initializers/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-04-28/cpp-aggregate-initializers/</guid>
+				<link>https://xaizek.github.io/2013-04-28/cpp-aggregate-initializers/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-04-28/cpp-aggregate-initializers/</guid>
 			</item>
 		
 			<item>
@@ -632,8 +632,8 @@ began.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 14 Apr 2013 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware/</guid>
+				<link>https://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-04-14/howto-set-xterm-256color-term-in-slackware/</guid>
 			</item>
 		
 			<item>
@@ -643,8 +643,8 @@ is how it&amp;#39;s done:&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 30 Mar 2013 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2013-03-30/operate-on-selection-in-mutt/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-03-30/operate-on-selection-in-mutt/</guid>
+				<link>https://xaizek.github.io/2013-03-30/operate-on-selection-in-mutt/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-03-30/operate-on-selection-in-mutt/</guid>
 			</item>
 		
 			<item>
@@ -657,8 +657,8 @@ found.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 30 Mar 2013 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2013-03-30/merge-mbox-mailboxes/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2013-03-30/merge-mbox-mailboxes/</guid>
+				<link>https://xaizek.github.io/2013-03-30/merge-mbox-mailboxes/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2013-03-30/merge-mbox-mailboxes/</guid>
 			</item>
 		
 			<item>
@@ -676,8 +676,8 @@ server.&lt;/p&gt;
 
 </description>
 				<pubDate>Fri, 09 Nov 2012 00:00:00 +0200</pubDate>
-				<link>http://xaizek.github.io/2012-11-09/code-sharing-among-java-web-services/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-11-09/code-sharing-among-java-web-services/</guid>
+				<link>https://xaizek.github.io/2012-11-09/code-sharing-among-java-web-services/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-11-09/code-sharing-among-java-web-services/</guid>
 			</item>
 		
 			<item>
@@ -690,8 +690,8 @@ C#.&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 18 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-18/java-double-brace-initializers/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-18/java-double-brace-initializers/</guid>
+				<link>https://xaizek.github.io/2012-10-18/java-double-brace-initializers/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-18/java-double-brace-initializers/</guid>
 			</item>
 		
 			<item>
@@ -703,8 +703,8 @@ values.&lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 17 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-17/strchr-finds-zero-char/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-17/strchr-finds-zero-char/</guid>
+				<link>https://xaizek.github.io/2012-10-17/strchr-finds-zero-char/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-17/strchr-finds-zero-char/</guid>
 			</item>
 		
 			<item>
@@ -715,8 +715,8 @@ which was created for this.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 13 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-13/making-inputrc-work-in-slackware/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-13/making-inputrc-work-in-slackware/</guid>
+				<link>https://xaizek.github.io/2012-10-13/making-inputrc-work-in-slackware/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-13/making-inputrc-work-in-slackware/</guid>
 			</item>
 		
 			<item>
@@ -727,8 +727,8 @@ backwards) and &lt;code&gt;Control-N&lt;/code&gt; (&lt;code&gt;&amp;lt;c-n&amp;g
 
 </description>
 				<pubDate>Thu, 11 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-11/configuring-keys-in-less/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-11/configuring-keys-in-less/</guid>
+				<link>https://xaizek.github.io/2012-10-11/configuring-keys-in-less/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-11/configuring-keys-in-less/</guid>
 			</item>
 		
 			<item>
@@ -740,8 +740,8 @@ server to which I have access through ssh can be used for this.&lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 10 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-10/bypass-two-nats-using-ssh/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-10/bypass-two-nats-using-ssh/</guid>
+				<link>https://xaizek.github.io/2012-10-10/bypass-two-nats-using-ssh/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-10/bypass-two-nats-using-ssh/</guid>
 			</item>
 		
 			<item>
@@ -757,8 +757,8 @@ to my &lt;code&gt;~/.bashrc&lt;/code&gt; file:&lt;/p&gt;
 
 </description>
 				<pubDate>Tue, 09 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-09/bash-colour-prompt-issue/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-09/bash-colour-prompt-issue/</guid>
+				<link>https://xaizek.github.io/2012-10-09/bash-colour-prompt-issue/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-09/bash-colour-prompt-issue/</guid>
 			</item>
 		
 			<item>
@@ -770,8 +770,8 @@ to me:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-08/vim-wild-menu/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-08/vim-wild-menu/</guid>
+				<link>https://xaizek.github.io/2012-10-08/vim-wild-menu/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-08/vim-wild-menu/</guid>
 			</item>
 		
 			<item>
@@ -781,8 +781,8 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-08/jekyll-highlight/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-08/jekyll-highlight/</guid>
+				<link>https://xaizek.github.io/2012-10-08/jekyll-highlight/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-08/jekyll-highlight/</guid>
 			</item>
 		
 			<item>
@@ -807,8 +807,8 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-08/java-exception/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-08/java-exception/</guid>
+				<link>https://xaizek.github.io/2012-10-08/java-exception/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-08/java-exception/</guid>
 			</item>
 		
 			<item>
@@ -823,8 +823,8 @@ following steps described there.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 07 Oct 2012 00:00:00 +0300</pubDate>
-				<link>http://xaizek.github.io/2012-10-07/gem-install-issue/</link>
-				<guid isPermaLink="true">http://xaizek.github.io/2012-10-07/gem-install-issue/</guid>
+				<link>https://xaizek.github.io/2012-10-07/gem-install-issue/</link>
+				<guid isPermaLink="true">https://xaizek.github.io/2012-10-07/gem-install-issue/</guid>
 			</item>
 		
 	</channel>

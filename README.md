@@ -1,1 +1,1 @@
-Sources of my [blog](http://xaizek.github.io/).
+Sources of my [blog](https://xaizek.github.io/).
