@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Some notes on computer stuff Posts</title>
+		<title>reversed(top()) Posts</title>
 		<description>Some notes on computer stuff</description>
 		<link>https://reversed.top/</link>
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
+		
+			<item>
+				<title>Take off GitHub with RocketGit</title>
+				<description>&lt;p&gt;Announcement of GitHub being acquired by Microsoft prompted many people to
+consider migrating away from it.  Yet this isn&amp;#39;t really something new as one
+could hear similar thoughts expressed even before that (&lt;a href=&quot;https://sanctum.geek.nz/why-not-github.html&quot;&gt;see&lt;/a&gt;)
+and I personally chose not to publish a fork of one popular project on GitHub
+months before the announcement.&lt;/p&gt;
+
+&lt;p&gt;The sad truth is that there aren&amp;#39;t that many real alternatives there and
+even if one reaches for self-hosting solutions instead of a third-party service,
+they tend to be disappointing in some way.&lt;/p&gt;
+
+&lt;p&gt;Recently I have discovered a project which looks like it might be a
+solution I was looking for.&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 10 Dec 2018 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2018-12-10/take-off-github-with-rocketgit/</link>
+				<guid isPermaLink="true">https://reversed.top/2018-12-10/take-off-github-with-rocketgit/</guid>
+			</item>
 		
 			<item>
 				<title>New location of the blog</title>
