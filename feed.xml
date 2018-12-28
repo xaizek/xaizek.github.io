@@ -7,6 +7,18 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Weboob as an alternative way of browsing WWW</title>
+				<description>&lt;p&gt;Turns out there is a nice project that provides another way of accessing some
+parts of the Web that doesn&amp;#39;t require using a browser.  It&amp;#39;s called
+&lt;a href=&quot;http://weboob.org/&quot;&gt;Weboob&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+				<pubDate>Fri, 28 Dec 2018 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2018-12-28/weboob/</link>
+				<guid isPermaLink="true">https://reversed.top/2018-12-28/weboob/</guid>
+			</item>
+		
+			<item>
 				<title>Take off GitHub with RocketGit</title>
 				<description>&lt;p&gt;Announcement of GitHub being acquired by Microsoft prompted many people to
 consider migrating away from it.  Yet this isn&amp;#39;t really something new as one
