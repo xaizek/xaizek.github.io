@@ -7,6 +7,19 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>New tool: pipedial (terminal element picker)</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://code.reversed.top/user/xaizek/pipedial&quot;&gt;&lt;em&gt;pipedial&lt;/em&gt;&lt;/a&gt; is one more tool for selecting something in console.
+Existence of many such tools might be a valid criticism against creating more,
+but not for those who think in terms of
+&lt;kbd&gt;h&lt;/kbd&gt;/&lt;kbd&gt;j&lt;/kbd&gt;/&lt;kbd&gt;k&lt;/kbd&gt;/&lt;kbd&gt;l&lt;/kbd&gt;.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 24 Jan 2019 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2019-01-24/pipedial/</link>
+				<guid isPermaLink="true">https://reversed.top/2019-01-24/pipedial/</guid>
+			</item>
+		
+			<item>
 				<title>Weboob as an alternative way of browsing WWW</title>
 				<description>&lt;p&gt;Turns out there is a nice project that provides another way of accessing some
 parts of the Web that doesn&amp;#39;t require using a browser.  It&amp;#39;s called
@@ -127,7 +140,7 @@ these presentations, which is the topic of this post.&lt;/p&gt;
 		
 			<item>
 				<title>The big list of Vi[m]-like software</title>
-				<description>&lt;p&gt;&lt;strong&gt;Last updated: November 28, 2018&lt;/strong&gt;&lt;/p&gt;
+				<description>&lt;p&gt;&lt;strong&gt;Last updated: January 24, 2019&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;There are a number of similar lists already, but they usually lack
 grouping and miss pointing out things that are of interest for the author of
