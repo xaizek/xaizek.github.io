@@ -7,6 +7,20 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>More than 256 color pairs in curses</title>
+				<description>&lt;p&gt;Those who used &lt;a href=&quot;https://en.wikipedia.org/wiki/Curses_(programming_library)&quot;&gt;&lt;em&gt;curses&lt;/em&gt;&lt;/a&gt; at least once to draw something in color
+had to notice that setting colors happens in pairs (foreground and background)
+and number of such pairs is limited.
+These limitations and some basics about upgrading code to lift one of the limits
+will be described in this short post.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 05 Feb 2019 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2019-02-05/more-than-256-curses-color-pairs/</link>
+				<guid isPermaLink="true">https://reversed.top/2019-02-05/more-than-256-curses-color-pairs/</guid>
+			</item>
+		
+			<item>
 				<title>New tool: pipedial (terminal element picker)</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://code.reversed.top/user/xaizek/pipedial&quot;&gt;&lt;em&gt;pipedial&lt;/em&gt;&lt;/a&gt; is one more tool for selecting something in console.
 Existence of many such tools might be a valid criticism against creating more,
