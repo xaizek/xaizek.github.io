@@ -7,6 +7,21 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Inventing grammar for GNU Make</title>
+				<description>&lt;p&gt;For the purpose of making &lt;a href=&quot;https://github.com/xaizek/zograscope&quot;&gt;&lt;em&gt;zograscope&lt;/em&gt;&lt;/a&gt; support parsing of more than just
+one language, there was a need to pick a language that is substantially
+different from C (the first one supported).  &lt;a href=&quot;https://github.com/xaizek/zograscope&quot;&gt;&lt;em&gt;GNU Make&lt;/em&gt;&lt;/a&gt; language
+certainly looked like an interesting option right from the start and it&amp;#39;s a tool
+that I use regularly.  However, finding a grammar to implement it turned out to
+be a problem.  Since grammar wasn&amp;#39;t found, it was created.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 28 Feb 2019 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2019-02-28/inventing-grammar-for-gnu-make/</link>
+				<guid isPermaLink="true">https://reversed.top/2019-02-28/inventing-grammar-for-gnu-make/</guid>
+			</item>
+		
+			<item>
 				<title>More than 256 color pairs in curses</title>
 				<description>&lt;p&gt;Those who used &lt;a href=&quot;https://en.wikipedia.org/wiki/Curses_(programming_library)&quot;&gt;&lt;em&gt;curses&lt;/em&gt;&lt;/a&gt; at least once to draw something in color
 had to notice that setting colors happens in pairs (foreground and background)
@@ -154,7 +169,7 @@ these presentations, which is the topic of this post.&lt;/p&gt;
 		
 			<item>
 				<title>The big list of Vi[m]-like software</title>
-				<description>&lt;p&gt;&lt;strong&gt;Last updated: January 24, 2019&lt;/strong&gt;&lt;/p&gt;
+				<description>&lt;p&gt;&lt;strong&gt;Last updated: February 21, 2019&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;There are a number of similar lists already, but they usually lack
 grouping and miss pointing out things that are of interest for the author of
