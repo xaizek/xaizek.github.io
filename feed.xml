@@ -7,6 +7,21 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Why do new software tools look shiny?</title>
+				<description>&lt;p&gt;It puzzles me when people get excited about some new tool which is just a
+rewrite of an old one.  Usually it is written in a different language by its
+proponents and is more a testament to lack of fantasy rather than an indication
+of a need for one more copy of an old program.  What&amp;#39;s more interesting though
+is an appeal these new implementations have for users which&amp;mdash;I
+claim&amp;mdash;are mostly superficial.  Below is my take on some pros and cons.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 31 Aug 2019 00:00:00 +0300</pubDate>
+				<link>https://reversed.top/2019-08-31/why-new-software-tools-look-shiny/</link>
+				<guid isPermaLink="true">https://reversed.top/2019-08-31/why-new-software-tools-look-shiny/</guid>
+			</item>
+		
+			<item>
 				<title>Inventing grammar for GNU Make</title>
 				<description>&lt;p&gt;For the purpose of making &lt;a href=&quot;https://github.com/xaizek/zograscope&quot;&gt;&lt;em&gt;zograscope&lt;/em&gt;&lt;/a&gt; support parsing of more than just
 one language, there was a need to pick a language that is substantially
