@@ -7,6 +7,21 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>How -f[un]signed-char can break your code</title>
+				<description>&lt;p&gt;Most programmers are used to targeting x86 systems where &lt;code&gt;char&lt;/code&gt; is &lt;code&gt;signed char&lt;/code&gt;
+by default.  It can lead to this assumption being baked into the code.  Later,
+the code might break on a system where defaults differ, causing trouble.  The
+first solution you might try to reach out for is &lt;code&gt;-fsigned-char&lt;/code&gt; compiler&amp;#39;s
+switch, but there is a catch there which might or might not matter for a
+specific code base.&lt;/p&gt;
+
+</description>
+				<pubDate>Fri, 25 Oct 2019 00:00:00 +0300</pubDate>
+				<link>https://reversed.top/2019-10-25/how-funsigned-char-can-break-your-code/</link>
+				<guid isPermaLink="true">https://reversed.top/2019-10-25/how-funsigned-char-can-break-your-code/</guid>
+			</item>
+		
+			<item>
 				<title>Why do new software tools look shiny?</title>
 				<description>&lt;p&gt;It puzzles me when people get excited about some new tool which is just a
 rewrite of an old one.  Usually it is written in a different language by its
