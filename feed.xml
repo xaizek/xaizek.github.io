@@ -7,6 +7,21 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Prevent MPlayer from disabling display's powersave</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/MPlayer&quot;&gt;MPlayer&lt;/a&gt; disables powersave for your screen when it has a video to
+play, which is what you want usually, but not always.  In particular, the fact
+that powersave is disabled regardless of whether the video is running or being
+paused can be somewhat irritating if you&amp;#39;re watching something in multiple takes
+and just keep it paused in background for a long time to avoid writing down
+position at which you stopped watching.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 24 Dec 2019 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2019-12-24/prevent-mplayer-from-disabling-powersave/</link>
+				<guid isPermaLink="true">https://reversed.top/2019-12-24/prevent-mplayer-from-disabling-powersave/</guid>
+			</item>
+		
+			<item>
 				<title>How -f[un]signed-char can break your code</title>
 				<description>&lt;p&gt;Most programmers are used to targeting x86 systems where &lt;code&gt;char&lt;/code&gt; is &lt;code&gt;signed char&lt;/code&gt;
 by default.  It can lead to this assumption being baked into the code.  Later,
