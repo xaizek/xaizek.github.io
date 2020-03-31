@@ -7,6 +7,21 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Don't trip over string optimizations</title>
+				<description>&lt;p&gt;Optimizations are nice, but sometimes their effects can take you by surprise,
+especially if you&amp;#39;re not thinking about them while trying to debug an issue.
+If that&amp;#39;s the case, they can make your head hurt for a while.  This post is
+about &lt;code&gt;std::string&lt;/code&gt; class, but it&amp;#39;s far from being the only string class out
+there, so keep the outlined issues in mind while working with other
+implementations as well.&lt;/p&gt;
+
+</description>
+				<pubDate>Tue, 31 Mar 2020 00:00:00 +0300</pubDate>
+				<link>https://reversed.top/2020-03-31/do-not-trip-over-string-optimizations/</link>
+				<guid isPermaLink="true">https://reversed.top/2020-03-31/do-not-trip-over-string-optimizations/</guid>
+			</item>
+		
+			<item>
 				<title>Prevent MPlayer from disabling display's powersave</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/MPlayer&quot;&gt;MPlayer&lt;/a&gt; disables powersave for your screen when it has a video to
 play, which is what you want usually, but not always.  In particular, the fact
@@ -216,7 +231,7 @@ these presentations, which is the topic of this post.&lt;/p&gt;
 				<title>The big list of Vi[m]-like software</title>
 				<description>&lt;p&gt;&lt;strong&gt;A more interactive version of this post is available at &lt;a href=&quot;https://vim.reversed.top/&quot;&gt;https://vim.reversed.top/&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Last updated: March 19, 2020&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Last updated: March 30, 2020&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;There are a number of similar lists already, but they usually lack
 grouping and miss pointing out things that are of interest for the author of
