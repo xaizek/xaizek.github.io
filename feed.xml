@@ -7,6 +7,24 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Repository-specific commands</title>
+				<description>&lt;p&gt;Automating typical tasks in your repositories makes life easier by relieving you
+from running same commands over and over again.
+However, eventually using the automation itself can start taking more effort
+than you feel it deserves.  At the same time some things are so simple you don&amp;#39;t
+even try to automate them properly or maybe you&amp;#39;re not sure they are useful
+enough to warrant generalization, so they live and evolve in your shell&amp;#39;s
+history.
+These and some other cases can be handled better with commands/scripts that are
+local to a specific repository.&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 29 Jun 2020 00:00:00 +0300</pubDate>
+				<link>https://reversed.top/2020-06-29/repository-specific-commands/</link>
+				<guid isPermaLink="true">https://reversed.top/2020-06-29/repository-specific-commands/</guid>
+			</item>
+		
+			<item>
 				<title>Don't trip over string optimizations</title>
 				<description>&lt;p&gt;Optimizations are nice, but sometimes their effects can take you by surprise,
 especially if you&amp;#39;re not thinking about them while trying to debug an issue.
