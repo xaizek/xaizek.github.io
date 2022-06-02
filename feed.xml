@@ -7,13 +7,27 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Front panel headphone jack and PipeWire</title>
+				<description>&lt;p&gt;After upgrading to Slackware 15.0 I kept using Bluetooth for headphones and only
+later found out that sound through wires didn’t work if plugged into front
+panel. While advices on the Web immediately jump to module settings I realized
+that on 14.2 everything worked with Alsa and PulseAudio, so usage of
+&lt;a href=&quot;https://pipewire.org/&quot;&gt;PipeWire&lt;/a&gt; might have contributed to the issue.&lt;/p&gt;
+
+</description>
+				<pubDate>Thu, 02 Jun 2022 00:00:00 +0300</pubDate>
+				<link>https://reversed.top/2022-06-02/pipewire-no-front-panel-sound/</link>
+				<guid isPermaLink="true">https://reversed.top/2022-06-02/pipewire-no-front-panel-sound/</guid>
+			</item>
+		
+			<item>
 				<title>Repository-specific commands</title>
 				<description>&lt;p&gt;Automating typical tasks in your repositories makes life easier by relieving you
 from running same commands over and over again.
 However, eventually using the automation itself can start taking more effort
-than you feel it deserves.  At the same time some things are so simple you don&amp;#39;t
-even try to automate them properly or maybe you&amp;#39;re not sure they are useful
-enough to warrant generalization, so they live and evolve in your shell&amp;#39;s
+than you feel it deserves.  At the same time some things are so simple you don’t
+even try to automate them properly or maybe you’re not sure they are useful
+enough to warrant generalization, so they live and evolve in your shell’s
 history.
 These and some other cases can be handled better with commands/scripts that are
 local to a specific repository.&lt;/p&gt;
@@ -27,9 +41,9 @@ local to a specific repository.&lt;/p&gt;
 			<item>
 				<title>Don't trip over string optimizations</title>
 				<description>&lt;p&gt;Optimizations are nice, but sometimes their effects can take you by surprise,
-especially if you&amp;#39;re not thinking about them while trying to debug an issue.
-If that&amp;#39;s the case, they can make your head hurt for a while.  This post is
-about &lt;code&gt;std::string&lt;/code&gt; class, but it&amp;#39;s far from being the only string class out
+especially if you’re not thinking about them while trying to debug an issue.
+If that’s the case, they can make your head hurt for a while.  This post is
+about &lt;code&gt;std::string&lt;/code&gt; class, but it’s far from being the only string class out
 there, so keep the outlined issues in mind while working with other
 implementations as well.&lt;/p&gt;
 
@@ -44,7 +58,7 @@ implementations as well.&lt;/p&gt;
 				<description>&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/MPlayer&quot;&gt;MPlayer&lt;/a&gt; disables powersave for your screen when it has a video to
 play, which is what you want usually, but not always.  In particular, the fact
 that powersave is disabled regardless of whether the video is running or being
-paused can be somewhat irritating if you&amp;#39;re watching something in multiple takes
+paused can be somewhat irritating if you’re watching something in multiple takes
 and just keep it paused in background for a long time to avoid writing down
 position at which you stopped watching.&lt;/p&gt;
 
@@ -59,7 +73,7 @@ position at which you stopped watching.&lt;/p&gt;
 				<description>&lt;p&gt;Most programmers are used to targeting x86 systems where &lt;code&gt;char&lt;/code&gt; is &lt;code&gt;signed char&lt;/code&gt;
 by default.  It can lead to this assumption being baked into the code.  Later,
 the code might break on a system where defaults differ, causing trouble.  The
-first solution you might try to reach out for is &lt;code&gt;-fsigned-char&lt;/code&gt; compiler&amp;#39;s
+first solution you might try to reach out for is &lt;code&gt;-fsigned-char&lt;/code&gt; compiler’s
 switch, but there is a catch there which might or might not matter for a
 specific code base.&lt;/p&gt;
 
@@ -74,9 +88,9 @@ specific code base.&lt;/p&gt;
 				<description>&lt;p&gt;It puzzles me when people get excited about some new tool which is just a
 rewrite of an old one.  Usually it is written in a different language by its
 proponents and is more a testament to lack of fantasy rather than an indication
-of a need for one more copy of an old program.  What&amp;#39;s more interesting though
-is an appeal these new implementations have for users which&amp;mdash;I
-claim&amp;mdash;are mostly superficial.  Below is my take on some pros and cons.&lt;/p&gt;
+of a need for one more copy of an old program.  What’s more interesting though
+is an appeal these new implementations have for users which—I
+claim—are mostly superficial.  Below is my take on some pros and cons.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 31 Aug 2019 00:00:00 +0300</pubDate>
@@ -89,9 +103,9 @@ claim&amp;mdash;are mostly superficial.  Below is my take on some pros and cons.
 				<description>&lt;p&gt;For the purpose of making &lt;a href=&quot;https://github.com/xaizek/zograscope&quot;&gt;&lt;em&gt;zograscope&lt;/em&gt;&lt;/a&gt; support parsing of more than just
 one language, there was a need to pick a language that is substantially
 different from C (the first one supported).  &lt;a href=&quot;https://github.com/xaizek/zograscope&quot;&gt;&lt;em&gt;GNU Make&lt;/em&gt;&lt;/a&gt; language
-certainly looked like an interesting option right from the start and it&amp;#39;s a tool
+certainly looked like an interesting option right from the start and it’s a tool
 that I use regularly.  However, finding a grammar to implement it turned out to
-be a problem.  Since grammar wasn&amp;#39;t found, it was created.&lt;/p&gt;
+be a problem.  Since grammar wasn’t found, it was created.&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 28 Feb 2019 00:00:00 +0200</pubDate>
@@ -129,7 +143,7 @@ but not for those who think in terms of
 			<item>
 				<title>Weboob as an alternative way of browsing WWW</title>
 				<description>&lt;p&gt;Turns out there is a nice project that provides another way of accessing some
-parts of the Web that doesn&amp;#39;t require using a browser.  It&amp;#39;s called
+parts of the Web that doesn’t require using a browser.  It’s called
 &lt;a href=&quot;http://weboob.org/&quot;&gt;Weboob&lt;/a&gt;.&lt;/p&gt;
 
 </description>
@@ -141,12 +155,12 @@ parts of the Web that doesn&amp;#39;t require using a browser.  It&amp;#39;s cal
 			<item>
 				<title>Take off GitHub with RocketGit</title>
 				<description>&lt;p&gt;Announcement of GitHub being acquired by Microsoft prompted many people to
-consider migrating away from it.  Yet this isn&amp;#39;t really something new as one
+consider migrating away from it.  Yet this isn’t really something new as one
 could hear similar thoughts expressed even before that (&lt;a href=&quot;https://sanctum.geek.nz/why-not-github.html&quot;&gt;see&lt;/a&gt;)
 and I personally chose not to publish a fork of one popular project on GitHub
 months before the announcement.&lt;/p&gt;
 
-&lt;p&gt;The sad truth is that there aren&amp;#39;t that many real alternatives there and
+&lt;p&gt;The sad truth is that there aren’t that many real alternatives there and
 even if one reaches for self-hosting solutions instead of a third-party service,
 they tend to be disappointing in some way.&lt;/p&gt;
 
@@ -161,7 +175,7 @@ solution I was looking for.&lt;/p&gt;
 		
 			<item>
 				<title>New location of the blog</title>
-				<description>&lt;h3&gt;The most important part&lt;/h3&gt;
+				<description>&lt;h3 id=&quot;the-most-important-part&quot;&gt;The most important part&lt;/h3&gt;
 
 &lt;p&gt;Old URL: &lt;a href=&quot;https://xaizek.github.io/&quot;&gt;https://xaizek.github.io/&lt;/a&gt;&lt;/p&gt;
 
@@ -175,11 +189,11 @@ solution I was looking for.&lt;/p&gt;
 		
 			<item>
 				<title>Propaganda in IT: Microsoft Buys GitHub: The Linux Foundation’s Reaction</title>
-				<description>&lt;p&gt;It&amp;#39;s been over a week since MS declared that it buys GitHub, which generated a
+				<description>&lt;p&gt;It’s been over a week since MS declared that it buys GitHub, which generated a
 lot of discussions, but one of the most interesting pieces is a &lt;a href=&quot;https://www.linuxfoundation.org/blog/microsoft-buys-github-the-linux-foundations-reaction/&quot;&gt;post from The
 Linux Foundation&lt;/a&gt;.  It is quite short and at the same time seems to be
 constructed to sway people in a certain direction that can serve as a nice
-example on propaganda.  Let&amp;#39;s take a look at how things are worded, what is
+example on propaganda.  Let’s take a look at how things are worded, what is
 omitted and how the rest is framed.&lt;/p&gt;
 
 </description>
@@ -193,7 +207,7 @@ omitted and how the rest is framed.&lt;/p&gt;
 				<description>&lt;p&gt;There are many things which people get wrong over and over again.  People seem
 to care enough to repeat these mistakes out loud regularly, but apparently not
 enough to actually check correctness of the information or at least question it.
-Let&amp;#39;s deal with some claims of this sort from IT field which bug me personally.&lt;/p&gt;
+Let’s deal with some claims of this sort from IT field which bug me personally.&lt;/p&gt;
 
 </description>
 				<pubDate>Mon, 26 Mar 2018 00:00:00 +0300</pubDate>
@@ -207,7 +221,7 @@ Let&amp;#39;s deal with some claims of this sort from IT field which bug me pers
 application on GNU/Linux without recompiling it.  The only issue seemed to be
 inconvenience of viewing report in a pager.  It turned into concern after
 realising that it should start &lt;a href=&quot;https://en.wikipedia.org/wiki/Text-based_user_interface&quot;&gt;TUI&lt;/a&gt; on &lt;code&gt;perf report&lt;/code&gt; by default, but
-for some reason it didn&amp;#39;t.&lt;/p&gt;
+for some reason it didn’t.&lt;/p&gt;
 
 </description>
 				<pubDate>Tue, 14 Nov 2017 00:00:00 +0200</pubDate>
@@ -217,12 +231,12 @@ for some reason it didn&amp;#39;t.&lt;/p&gt;
 		
 			<item>
 				<title>Updating mail receiving stack</title>
-				<description>&lt;p&gt;Calling it a &amp;quot;stack&amp;quot; is probably too much, but &lt;a href=&quot;https://en.wikipedia.org/wiki/Fetchmail&quot;&gt;fetchmail&lt;/a&gt; and
+				<description>&lt;p&gt;Calling it a “stack” is probably too much, but &lt;a href=&quot;https://en.wikipedia.org/wiki/Fetchmail&quot;&gt;fetchmail&lt;/a&gt; and
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Procmail&quot;&gt;procmail&lt;/a&gt; seem to go together and they are both subject for
 replacement for good reasons.&lt;/p&gt;
 
 &lt;p&gt;After finally deciding to replace fetchmail and procmail with something newer,
-came realization that there aren&amp;#39;t that many choices out there and still quite
+came realization that there aren’t that many choices out there and still quite
 a lot of people continue recommending fetchmail+procmail.  This post is here to
 contribute to transferring to potentially more secure software.&lt;/p&gt;
 
@@ -235,7 +249,7 @@ contribute to transferring to potentially more secure software.&lt;/p&gt;
 			<item>
 				<title>Conditional ignorance in C++</title>
 				<description>&lt;p&gt;It just so happened that I watched several C++ talks that mention upcoming
-feature of C++17 called &amp;quot;If statement with initializer&amp;quot; all in a relatively
+feature of C++17 called “If statement with initializer” all in a relatively
 short time frame.  Unfortunately, there was another common trait among all of
 these presentations, which is the topic of this post.&lt;/p&gt;
 
@@ -253,11 +267,11 @@ these presentations, which is the topic of this post.&lt;/p&gt;
 
 &lt;p&gt;There are a number of similar lists already, but they usually lack
 grouping and miss pointing out things that are of interest for the author of
-this one.  So based on those lists and other sources here&amp;#39;s another one, which
+this one.  So based on those lists and other sources here’s another one, which
 actually might be the biggest so far.&lt;/p&gt;
 
 &lt;p&gt;The listing is followed by some critique, which obviously comes from
-personal views and experience, so don&amp;#39;t expect to agree with everything in that
+personal views and experience, so don’t expect to agree with everything in that
 section.&lt;/p&gt;
 
 </description>
@@ -275,7 +289,7 @@ C++ are so fast.  As such code provided by libraries effectively becomes part of
 its client application and the great and mighty &lt;a href=&quot;https://en.wikipedia.org/wiki/GNU_Debugger&quot;&gt;gdb&lt;/a&gt; knows what
 inline functions are, this might cause inconveniences during debugging.  The
 problem is that while stepping into a method one can get into one of many
-inlined functions that aren&amp;#39;t interesting.&lt;/p&gt;
+inlined functions that aren’t interesting.&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 26 May 2016 00:00:00 +0300</pubDate>
@@ -298,11 +312,11 @@ for creating &lt;a href=&quot;https://en.wikipedia.org/wiki/Text-based_user_inte
 			<item>
 				<title>Converting Vim documentation file to HTML</title>
 				<description>&lt;p&gt;Vim has a great documentation for sure.  Part of its greatness is documentation
-format itself.  The only difficulty is that it can&amp;#39;t be easily converted to and
+format itself.  The only difficulty is that it can’t be easily converted to and
 from other formats, which might be sometimes desirable or at least useful to
 provide same documentation in different form.  In particular, conversion into
 HTML is sometimes useful and although there is an HTML version of Vim
-documentation, the tool with which it&amp;#39;s produced has never been made public.
+documentation, the tool with which it’s produced has never been made public.
 There is another way around it without the need to write such a tool from
 scratch.&lt;/p&gt;
 
@@ -315,10 +329,15 @@ scratch.&lt;/p&gt;
 			<item>
 				<title>C++ manual pages</title>
 				<description>&lt;p&gt;One of the great things about C is that its documentation is available locally
-via &lt;code&gt;man&lt;/code&gt; command.  That&amp;#39;s very convenient and one might expect to get the same
+via &lt;code&gt;man&lt;/code&gt; command.  That’s very convenient and one might expect to get the same
 for C++, but (say) &lt;code&gt;man std::adjacent_difference&lt;/code&gt; will usually just print:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;No manual entry for std::adjacent_difference
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;No manual entry for std::adjacent_difference
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Luckily, there are ways to fix it.&lt;/p&gt;
 
 </description>
@@ -334,7 +353,7 @@ long time until one day had to test integration with &lt;a href=&quot;https://en
 required learning it.  So I was using tmux since then and always thinking
 whether I could do better by using &lt;a href=&quot;https://en.wikipedia.org/wiki/GNU_Screen&quot;&gt;GNU Screen&lt;/a&gt; instead.  After
 all, most of &lt;a href=&quot;https://en.wikipedia.org/wiki/GNU&quot;&gt;GNU&lt;/a&gt; applications turn out to be quite versatile and
-extremely useful, so why GNU Screen wouldn&amp;#39;t have these properties?  This is
+extremely useful, so why GNU Screen wouldn’t have these properties?  This is
 especially reasonable question if one recalls that tmux was modeled after GNU
 Screen.&lt;/p&gt;
 
@@ -347,10 +366,10 @@ Screen.&lt;/p&gt;
 			<item>
 				<title>Enabling output colorization in GCC</title>
 				<description>&lt;p&gt;I was waiting for GCC 4.9 for a while to get my hands on colorized color output,
-but after it became available in Slackware error output didn&amp;#39;t magically become
+but after it became available in Slackware error output didn’t magically become
 colored.  This might not be the case for other distributions, but since it took
-me some time to make this work and after more than six month I still can&amp;#39;t find
-any related posts on the Internet right away here&amp;#39;s a short note.&lt;/p&gt;
+me some time to make this work and after more than six month I still can’t find
+any related posts on the Internet right away here’s a short note.&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 25 Oct 2015 00:00:00 +0300</pubDate>
@@ -362,11 +381,11 @@ any related posts on the Internet right away here&amp;#39;s a short note.&lt;/p&
 				<title>C++11+ aggregate initializer surprise</title>
 				<description>&lt;p&gt;There is a nice thing in C++ called &lt;code&gt;friend&lt;/code&gt;ship between classes or classes and
 functions, which is used to put several entities in one security domain by
-allowing &amp;quot;friends&amp;quot; to access private fields.  This language feature is usually
+allowing “friends” to access private fields.  This language feature is usually
 criticized as something that breaks encapsulation, which is not actually true as
 C++ is multi-paradigm language rather than being just OOP-language and such
 exceptions should be viewed as another way of doing things, not as something
-&amp;quot;wrong&amp;quot; (which is very subjective, by the way).&lt;/p&gt;
+“wrong” (which is very subjective, by the way).&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 24 Oct 2015 00:00:00 +0300</pubDate>
@@ -391,31 +410,31 @@ So I ended up writing one.&lt;/p&gt;
 		
 			<item>
 				<title>Clang by example: Detecting wrong first include</title>
-				<description>&lt;h4&gt;TOC&lt;/h4&gt;
+				<description>&lt;h4 id=&quot;toc&quot;&gt;TOC&lt;/h4&gt;
 
 &lt;ol&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops/&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
+&lt;a href=&quot;/2014-05-02/detecting-postfix-operators-in-for-loops/&quot;&gt; Detecting postfix operators in for loops&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2014-08-28/detecting-unused-functions/&#39;&gt; Detecting unused functions&lt;/a&gt;
+&lt;a href=&quot;/2014-08-28/detecting-unused-functions/&quot;&gt; Detecting unused functions&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include/&#39;&gt; Detecting wrong first include&lt;/a&gt;
+&lt;a href=&quot;/2015-04-23/detecting-wrong-first-include/&quot;&gt; Detecting wrong first include&lt;/a&gt;
 (you are here)
 &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
-&lt;p&gt;There is a well known (or at least I hope that it&amp;#39;s &lt;em&gt;well&lt;/em&gt; known) good practice
+&lt;p&gt;There is a well known (or at least I hope that it’s &lt;em&gt;well&lt;/em&gt; known) good practice
 to include header that corresponds to the current source file before including
-any other headers.  It&amp;#39;s recommended by multiple C++ coding style guides (for
+any other headers.  It’s recommended by multiple C++ coding style guides (for
 example by &lt;a href=&quot;http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Names_and_Order_of_Includes&quot;&gt;Google C++ Style Guide&lt;/a&gt;) and indeed
 makes sense to follow.&lt;/p&gt;
 
 &lt;p&gt;To put it short: it makes finding incomplete headers really easy.  If you
-forget to include required header, corresponding source file just won&amp;#39;t compile.
+forget to include required header, corresponding source file just won’t compile.
 This way there will be no hidden (implicit) dependencies among modules of a
 project as well as dependencies on system headers.  Below is a simple example
 that demonstrates such situation.&lt;/p&gt;
@@ -429,10 +448,10 @@ that demonstrates such situation.&lt;/p&gt;
 			<item>
 				<title>Why restoring signal handlers is important</title>
 				<description>&lt;p&gt;I experienced strange failures of some commands in &lt;code&gt;gvim&lt;/code&gt; (e.g. errors on
-closing window of &lt;code&gt;:Gblame&lt;/code&gt;) for quite a while, but couldn&amp;#39;t figure out why the
+closing window of &lt;code&gt;:Gblame&lt;/code&gt;) for quite a while, but couldn’t figure out why the
 hell their occur.  Overall it probably took more than 20 hours to identify the
 issue and solve it not causing any other issues to arise.  At the end of the
-day it took single line to solve the issue...&lt;/p&gt;
+day it took single line to solve the issue…&lt;/p&gt;
 
 </description>
 				<pubDate>Sun, 05 Oct 2014 00:00:00 +0300</pubDate>
@@ -443,7 +462,7 @@ day it took single line to solve the issue...&lt;/p&gt;
 			<item>
 				<title>Fixing CIFS mounts in Slackware</title>
 				<description>&lt;p&gt;I remember &lt;a href=&quot;https://en.wikipedia.org/wiki/CIFS&quot;&gt;CIFS/SMB&lt;/a&gt; working fine for me, but it occasionally
-mysteriously didn&amp;#39;t work on some machines even with 100% correct configuration
+mysteriously didn’t work on some machines even with 100% correct configuration
 (e.g. line in &lt;a href=&quot;https://en.wikipedia.org/wiki/Fstab&quot;&gt;/etc/fstab&lt;/a&gt;).  It actually happened not only on
 Slackware, but also on Debian, though not sure what was causing issues there.&lt;/p&gt;
 
@@ -457,8 +476,13 @@ Slackware, but also on Debian, though not sure what was causing issues there.&lt
 				<title>How to install data directory with automake</title>
 				<description>&lt;p&gt;I thought that adding directory to &lt;code&gt;pkgdata_DATA&lt;/code&gt; variable in &lt;code&gt;Makefile.am&lt;/code&gt;
 file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave this error:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/usr/bin/ginstall: omitting directory ‘../data/vim/’
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;/usr/bin/ginstall: omitting directory ‘../data/vim/’
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 </description>
 				<pubDate>Sun, 28 Sep 2014 00:00:00 +0300</pubDate>
 				<link>https://reversed.top/2014-09-28/how-to-install-data-directory-with-automake/</link>
@@ -470,13 +494,13 @@ file would be enough, but &lt;code&gt;make install&lt;/code&gt; command gave thi
 				<description>&lt;p&gt;For most bootable ISO images one of two approaches works:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;dd if=image.iso of=/dev/sdx&lt;/code&gt; if image is a hybrid CD-ROM/HD image.&lt;/li&gt;
-&lt;li&gt;Extracting image via &lt;a href=&quot;https://en.wikipedia.org/wiki/UNetbootin&quot;&gt;UNetbootin&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;dd if=image.iso of=/dev/sdx&lt;/code&gt; if image is a hybrid CD-ROM/HD image.&lt;/li&gt;
+  &lt;li&gt;Extracting image via &lt;a href=&quot;https://en.wikipedia.org/wiki/UNetbootin&quot;&gt;UNetbootin&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;However, none of this works for Windows setup disks, even if you do this on
-Windows.  Usually I go with &lt;a href=&quot;https://en.wikipedia.org/wiki/UltraISO&quot;&gt;UltraISO&lt;/a&gt;&amp;#39;s &amp;quot;Write hard drive
-image&amp;quot;, which works fine.  But there is no UltraISO for GNU/Linux and one has
+Windows.  Usually I go with &lt;a href=&quot;https://en.wikipedia.org/wiki/UltraISO&quot;&gt;UltraISO&lt;/a&gt;’s “Write hard drive
+image”, which works fine.  But there is no UltraISO for GNU/Linux and one has
 to go another road.&lt;/p&gt;
 
 </description>
@@ -502,8 +526,13 @@ are open source and known for their good work in GNU/Linux.&lt;/p&gt;
 				<title>Decrease LILO kernel load time</title>
 				<description>&lt;p&gt;Opened my &lt;a href=&quot;https://en.wikipedia.org/wiki/LILO_(boot_loader)&quot;&gt;LILO&lt;/a&gt; configuration file (&lt;code&gt;/etc/lilo.conf&lt;/code&gt;) recently to
 take a look at video mode options and noticed this line:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cfg&quot; data-lang=&quot;cfg&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#compact        # faster, but won&amp;#39;t work on all systems.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-cfg highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;#compact        # faster, but won&apos;t work on all systems.
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 </description>
 				<pubDate>Tue, 02 Sep 2014 00:00:00 +0300</pubDate>
 				<link>https://reversed.top/2014-09-02/boot-with-lilo-faster/</link>
@@ -512,29 +541,33 @@ take a look at video mode options and noticed this line:&lt;/p&gt;
 		
 			<item>
 				<title>Clang by example: Detecting unused functions</title>
-				<description>&lt;h4&gt;TOC&lt;/h4&gt;
+				<description>&lt;h4 id=&quot;toc&quot;&gt;TOC&lt;/h4&gt;
 
 &lt;ol&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops/&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
+&lt;a href=&quot;/2014-05-02/detecting-postfix-operators-in-for-loops/&quot;&gt; Detecting postfix operators in for loops&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2014-08-28/detecting-unused-functions/&#39;&gt; Detecting unused functions&lt;/a&gt;
+&lt;a href=&quot;/2014-08-28/detecting-unused-functions/&quot;&gt; Detecting unused functions&lt;/a&gt;
 (you are here)
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include/&#39;&gt; Detecting wrong first include&lt;/a&gt;
+&lt;a href=&quot;/2015-04-23/detecting-wrong-first-include/&quot;&gt; Detecting wrong first include&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
 &lt;p&gt;This memo provides description of a tool that scans a set of source files
 looking for two types of functions declared with external linkage:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Those that are defined, but completely unused.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Those that are used only inside same translation unit they are defined in.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Those that are defined, but completely unused.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Those that are used only inside same translation unit they are defined in.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 </description>
@@ -558,8 +591,8 @@ size that are delimited by a separator?  Search revealed
 		
 			<item>
 				<title>Prefer plain text format over HTML in mutt</title>
-				<description>&lt;p&gt;Although this subject is covered in multiple sources, it&amp;#39;s hard to find it for
-some reason or at least it wasn&amp;#39;t that easy for me.  That&amp;#39;s why I repeat it
+				<description>&lt;p&gt;Although this subject is covered in multiple sources, it’s hard to find it for
+some reason or at least it wasn’t that easy for me.  That’s why I repeat it
 once again here and provide links to more verbose explanations.&lt;/p&gt;
 
 </description>
@@ -582,12 +615,17 @@ through &lt;a href=&quot;https://en.wikipedia.org/wiki/PPTP&quot;&gt;PPTP&lt;/a&
 			<item>
 				<title>rexima: couldn't open mixer device</title>
 				<description>&lt;p&gt;After installing &lt;em&gt;Slackware 14.1&lt;/em&gt; on a new machine, I got unexpected output
-when tried to run &lt;a href=&quot;http://www.svgalib.org/rus/rexima.html&quot;&gt;rexima&lt;/a&gt; interactive mixer (by the way, it&amp;#39;s in
+when tried to run &lt;a href=&quot;http://www.svgalib.org/rus/rexima.html&quot;&gt;rexima&lt;/a&gt; interactive mixer (by the way, it’s in
 &lt;code&gt;extra&lt;/code&gt; section of &lt;em&gt;Slackware&lt;/em&gt; packages, so search might silently skip it, just
 do &lt;code&gt;slackpkg install rexima&lt;/code&gt; to install it).  The output was:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ rexima
-rexima: couldn&amp;#39;t open mixer device.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;$ rexima
+rexima: couldn&apos;t open mixer device.
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 </description>
 				<pubDate>Sun, 06 Jul 2014 00:00:00 +0300</pubDate>
 				<link>https://reversed.top/2014-07-06/rexima-could-not-open-mixer-device/</link>
@@ -597,10 +635,10 @@ rexima: couldn&amp;#39;t open mixer device.
 			<item>
 				<title>Removing sendmail from mail receiving chain</title>
 				<description>&lt;p&gt;One of common ways to receive mail includes using &lt;a href=&quot;https://en.wikipedia.org/wiki/Sendmail&quot;&gt;sendmail&lt;/a&gt; as
-an &lt;a href=&quot;https://en.wikipedia.org/wiki/Message_transfer_agent&quot;&gt;MTA&lt;/a&gt;.  This causes some inconvenience especially when it&amp;#39;s the
+an &lt;a href=&quot;https://en.wikipedia.org/wiki/Message_transfer_agent&quot;&gt;MTA&lt;/a&gt;.  This causes some inconvenience especially when it’s the
 only purpose &lt;em&gt;sendmail&lt;/em&gt; is installed for.  To be able to receive mail
 &lt;em&gt;sendmail&lt;/em&gt; deamon must be running all the time, which also means that it
-consumes some (small) amount of resources.  It&amp;#39;s not a problem at all (even
+consumes some (small) amount of resources.  It’s not a problem at all (even
 though it slows down system startup a little bit), but why keep it if we can
 live without it?&lt;/p&gt;
 
@@ -612,12 +650,17 @@ live without it?&lt;/p&gt;
 		
 			<item>
 				<title>How to make tabs visible in git diff</title>
-				<description>&lt;p&gt;I&amp;#39;m a bit tired looking at diffs like the following:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-diff&quot; data-lang=&quot;diff&quot;&gt;         for (int i = 0; i &amp;lt; 3; ++i) {
-&lt;span class=&quot;gd&quot;&gt;-        for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
-&lt;span class=&quot;gi&quot;&gt;+                for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
+				<description>&lt;p&gt;I’m a bit tired looking at diffs like the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-diff highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;         for (int i = 0; i &amp;lt; 3; ++i) {
+&lt;span style=&quot;background:hsla(0,100%,50%,0.12)&quot; class=&quot;line&quot;&gt;&lt;span style=&quot;color:#c00;background:transparent;font-weight:bold&quot;&gt;-&lt;/span&gt;        for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
+&lt;span style=&quot;background:hsla(120,100%,50%,0.12)&quot; class=&quot;line&quot;&gt;&lt;span style=&quot;color:#0c0;background:transparent;font-weight:bold&quot;&gt;+&lt;/span&gt;        &lt;span style=&quot;background-color:hsla(120,100%,50%,0.2);border:1pxsolidhsla(120,100%,25%,0.5);margin:-1px;border-top:none;border-bottom-left-radius:5px;border-bottom-right-radius:5px&quot;&gt;        &lt;/span&gt;for (int h = 0; h &amp;lt; 4; ++h) {&lt;/span&gt;
                          for (int k = 0; k &amp;lt; 4; ++k) {
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 &lt;p&gt;Can anybody tell whether spaces were replaces with tabs or tabs were replaced
 with spaces without knowing anything else about the code?  Probably, not.&lt;/p&gt;
 
@@ -629,27 +672,27 @@ with spaces without knowing anything else about the code?  Probably, not.&lt;/p&
 		
 			<item>
 				<title>Clang by example: Detecting postfix operators in for loops</title>
-				<description>&lt;h4&gt;TOC&lt;/h4&gt;
+				<description>&lt;h4 id=&quot;toc&quot;&gt;TOC&lt;/h4&gt;
 
 &lt;ol&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2014-05-02/detecting-postfix-operators-in-for-loops/&#39;&gt; Detecting postfix operators in for loops&lt;/a&gt;
+&lt;a href=&quot;/2014-05-02/detecting-postfix-operators-in-for-loops/&quot;&gt; Detecting postfix operators in for loops&lt;/a&gt;
 (you are here)
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2014-08-28/detecting-unused-functions/&#39;&gt; Detecting unused functions&lt;/a&gt;
+&lt;a href=&quot;/2014-08-28/detecting-unused-functions/&quot;&gt; Detecting unused functions&lt;/a&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;a href=&#39;/2015-04-23/detecting-wrong-first-include/&#39;&gt; Detecting wrong first include&lt;/a&gt;
+&lt;a href=&quot;/2015-04-23/detecting-wrong-first-include/&quot;&gt; Detecting wrong first include&lt;/a&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
-&lt;h4&gt;Foreword&lt;/h4&gt;
+&lt;h4 id=&quot;foreword&quot;&gt;Foreword&lt;/h4&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Llvm&quot;&gt;LLVM&lt;/a&gt; project has been started back in 2000, but became widely
-known and used quite recently, about 4 years as of now (2014).  It&amp;#39;s used by
+known and used quite recently, about 4 years as of now (2014).  It’s used by
 hardware manufactures to implement programming languages for their products as
 well as by software engineering companies to develop their own programs.  There
 are two main reasons why LLVM gained such popularity:&lt;/p&gt;
@@ -662,16 +705,21 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 		
 			<item>
 				<title>Fix constant rebuilding of static libraries by GNU make</title>
-				<description>&lt;h3&gt;The issue explained&lt;/h3&gt;
+				<description>&lt;h3 id=&quot;the-issue-explained&quot;&gt;The issue explained&lt;/h3&gt;
 
 &lt;p&gt;Say directory structure is as follows:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ tree
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;$ tree
 .
 |-- Makefile
 `-- lib.cpp
 
 0 directories, 2 files
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 </description>
 				<pubDate>Wed, 05 Feb 2014 00:00:00 +0200</pubDate>
 				<link>https://reversed.top/2014-02-05/fix-constant-rebuilding-of-static-libraries-in-make/</link>
@@ -680,11 +728,16 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 		
 			<item>
 				<title>How to profile python application packaged via py2exe</title>
-				<description>&lt;h3&gt;Simple profiling using standard &lt;code&gt;cProfile&lt;/code&gt; module&lt;/h3&gt;
+				<description>&lt;h3 id=&quot;simple-profiling-using-standard-cprofile-module&quot;&gt;Simple profiling using standard &lt;code&gt;cProfile&lt;/code&gt; module&lt;/h3&gt;
 
 &lt;p&gt;Usually a command similar to the one below is used to profile an application:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;python -m cProfile -o app.prof app.py arg1 arg2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;python -m cProfile -o app.prof app.py arg1 arg2
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 </description>
 				<pubDate>Tue, 04 Feb 2014 00:00:00 +0200</pubDate>
 				<link>https://reversed.top/2014-02-04/how-to-profile-packaged-python-app/</link>
@@ -693,11 +746,11 @@ are two main reasons why LLVM gained such popularity:&lt;/p&gt;
 		
 			<item>
 				<title>How to recompile source file on each build using make</title>
-				<description>&lt;h3&gt;Motivation&lt;/h3&gt;
+				<description>&lt;h3 id=&quot;motivation&quot;&gt;Motivation&lt;/h3&gt;
 
-&lt;p&gt;It&amp;#39;s sometimes useful to see precise date and time an application was compiled.
+&lt;p&gt;It’s sometimes useful to see precise date and time an application was compiled.
 So such information should be embedded into application at compile time and
-displayed on user&amp;#39;s request.&lt;/p&gt;
+displayed on user’s request.&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 18 Jan 2014 00:00:00 +0200</pubDate>
@@ -707,15 +760,15 @@ displayed on user&amp;#39;s request.&lt;/p&gt;
 		
 			<item>
 				<title>How to disable subtitles in mplayer by default</title>
-				<description>&lt;h3&gt;Pre-history&lt;/h3&gt;
+				<description>&lt;h3 id=&quot;pre-history&quot;&gt;Pre-history&lt;/h3&gt;
 
 &lt;p&gt;I really like &lt;code&gt;mplayer&lt;/code&gt; because:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;it is very powerful;&lt;/li&gt;
-&lt;li&gt;yet quite easy to use from command-line;&lt;/li&gt;
-&lt;li&gt;has sane defaults;&lt;/li&gt;
-&lt;li&gt;no GUI which just stands between me and video I want to watch.&lt;/li&gt;
+  &lt;li&gt;it is very powerful;&lt;/li&gt;
+  &lt;li&gt;yet quite easy to use from command-line;&lt;/li&gt;
+  &lt;li&gt;has sane defaults;&lt;/li&gt;
+  &lt;li&gt;no GUI which just stands between me and video I want to watch.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;So far, so good.  The only thing that bothered me for a while is that subtitles
@@ -730,11 +783,16 @@ are enabled by default.&lt;/p&gt;
 			<item>
 				<title>How to define `_GNU_SOURCE` correctly with autoconf correctly</title>
 				<description>&lt;p&gt;&lt;code&gt;_XOPEN_SOURCE&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;dnl Request some additional extensions.  The macro makes it possible to use
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;dnl Request some additional extensions.  The macro makes it possible to use
 dnl features of Posix that are extensions to C, as well as platform extensions
 dnl not defined by Posix.
 AC_USE_SYSTEM_EXTENSIONS
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 </description>
 				<pubDate>Wed, 16 Oct 2013 00:00:00 +0300</pubDate>
 				<link>https://reversed.top/2013-10-16/autoconf-how-to-define-gnu-source-correctly/</link>
@@ -743,9 +801,9 @@ AC_USE_SYSTEM_EXTENSIONS
 		
 			<item>
 				<title>Fix tmux hang in X</title>
-				<description>&lt;p&gt;Recently I needed to use tmux.  Turned out that it wasn&amp;#39;t even installed on my
-system, which, of course, wasn&amp;#39;t a problem.  After it was installed and ran I
-was presented with a prompt that didn&amp;#39;t responed to anything.  The only thing
+				<description>&lt;p&gt;Recently I needed to use tmux.  Turned out that it wasn’t even installed on my
+system, which, of course, wasn’t a problem.  After it was installed and ran I
+was presented with a prompt that didn’t responed to anything.  The only thing
 that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
 
 </description>
@@ -767,9 +825,9 @@ that worked well was &lt;code&gt;pkill tmux&lt;/code&gt;.&lt;/p&gt;
 			<item>
 				<title>Out-of-class overload of unary operators in C++</title>
 				<description>&lt;p&gt;This may sound strange, but it seems that I have never thought about overloading
-of unary operators in C++, which are not implemented as member functions.  It&amp;#39;s
+of unary operators in C++, which are not implemented as member functions.  It’s
 not like it sounds strange or incorrect, I just never wanted to do it.  So, just
-to be able to say &amp;quot;I did it at least once&amp;quot;, lets try it out on a very basic
+to be able to say “I did it at least once”, lets try it out on a very basic
 example with overloading of postfix increment operator:&lt;/p&gt;
 
 </description>
@@ -796,7 +854,7 @@ vifm.  So I added highlighting of source code in my preview window using
 &lt;a href=&quot;https://sourceforge.net/projects/syntaxhighlight&quot;&gt;highlight&lt;/a&gt; tool specifying &lt;code&gt;-O ansi&lt;/code&gt; to make it generate ansi compatible
 escape codes.  But some of syntax group obtained the same color, because I had
 my terminal configured to display up to 8 colors.  To solve the issue, I decided
-to start using &lt;code&gt;xterm-256color&lt;/code&gt; terminal mode in xterm.  Here&amp;#39;s where all fun
+to start using &lt;code&gt;xterm-256color&lt;/code&gt; terminal mode in xterm.  Here’s where all fun
 began.&lt;/p&gt;
 
 </description>
@@ -807,8 +865,8 @@ began.&lt;/p&gt;
 		
 			<item>
 				<title>How to operate on selection in mutt?</title>
-				<description>&lt;p&gt;This is a very simple thing, but I just can&amp;#39;t make myself remember it. So here
-is how it&amp;#39;s done:&lt;/p&gt;
+				<description>&lt;p&gt;This is a very simple thing, but I just can’t make myself remember it. So here
+is how it’s done:&lt;/p&gt;
 
 </description>
 				<pubDate>Sat, 30 Mar 2013 00:00:00 +0200</pubDate>
@@ -820,7 +878,7 @@ is how it&amp;#39;s done:&lt;/p&gt;
 				<title>How to merge mailbox files of mbox format?</title>
 				<description>&lt;p&gt;This sounds like an easy task at first.  But after looking on the Internet for a
 working and ready to be used solution, it turned out to be not so easy to find.
-There were some old scripts in python, but they didn&amp;#39;t look very promising to
+There were some old scripts in python, but they didn’t look very promising to
 me.  So after spending some time on search &lt;a href=&quot;http://does-not-exist.org/mail-archives/mutt-users/msg03132.html&quot;&gt;this answer to my question&lt;/a&gt; was
 found.&lt;/p&gt;
 
@@ -832,15 +890,15 @@ found.&lt;/p&gt;
 		
 			<item>
 				<title>How to share code among several Web-service applications written in Java</title>
-				<description>&lt;p&gt;Some time ago I&amp;#39;ve spent a lot of time trying to figure out how one can share
+				<description>&lt;p&gt;Some time ago I’ve spent a lot of time trying to figure out how one can share
 common parts of code in two Web-services running in &lt;a href=&quot;http://tomcat.apache.org/&quot;&gt;Apache Tomcat&lt;/a&gt;.  What I
 wanted is to move several packages to a separate Eclipse project and refer to it
 from several other projects.  Somewhere on the Web a nice list of options to
 achieve this was found.  All (or almost all) of them were connected with the
 &lt;code&gt;Classpath&lt;/code&gt; settings pane in the project options.  But unfortunately no matter
-what &lt;code&gt;Classpath&lt;/code&gt; options I set, it didn&amp;#39;t work.  I&amp;#39;ve also tried exporting
+what &lt;code&gt;Classpath&lt;/code&gt; options I set, it didn’t work.  I’ve also tried exporting
 project with the common functionallity to a jar file and linking to it from
-other project.  That didn&amp;#39;t work either, that jar file wasn&amp;#39;t deployed to Tomcat
+other project.  That didn’t work either, that jar file wasn’t deployed to Tomcat
 server.&lt;/p&gt;
 
 </description>
@@ -853,7 +911,7 @@ server.&lt;/p&gt;
 				<title>Double brace initializers in Java</title>
 				<description>&lt;p&gt;Unfortunately, some features of well known programming languages are much less
 known than others.  Eventually, those unknown features are quite powerful and
-useful.  Today I&amp;#39;m going to describe so called &amp;quot;double brace initialization&amp;quot;
+useful.  Today I’m going to describe so called “double brace initialization”
 in Java, which is quite similar (and more powerful) than object initializers of
 C#.&lt;/p&gt;
 
@@ -890,7 +948,7 @@ which was created for this.&lt;/p&gt;
 		
 			<item>
 				<title>Configuring keys in less</title>
-				<description>&lt;p&gt;Since I&amp;#39;m using Vim and terminal constantly the only right way of going through
+				<description>&lt;p&gt;Since I’m using Vim and terminal constantly the only right way of going through
 command-line history in my world is using &lt;code&gt;Control-P&lt;/code&gt; (&lt;code&gt;&amp;lt;c-p&amp;gt;&lt;/code&gt; or &lt;code&gt;^P&lt;/code&gt;; to go
 backwards) and &lt;code&gt;Control-N&lt;/code&gt; (&lt;code&gt;&amp;lt;c-n&amp;gt;&lt;/code&gt; or &lt;code&gt;^N&lt;/code&gt; to go forwards).&lt;/p&gt;
 
@@ -903,8 +961,8 @@ backwards) and &lt;code&gt;Control-N&lt;/code&gt; (&lt;code&gt;&amp;lt;c-n&amp;g
 			<item>
 				<title>How to connect a computer behind NAT to another computer behind NAT using ssh</title>
 				<description>&lt;p&gt;I was wondering how can I connect to my laptop from work for some time, but
-didn&amp;#39;t know how to do that without using VPN.  I even decided that it&amp;#39;s
-impossible to do something simple, but then... I realized that a third party
+didn’t know how to do that without using VPN.  I even decided that it’s
+impossible to do something simple, but then… I realized that a third party
 server to which I have access through ssh can be used for this.&lt;/p&gt;
 
 </description>
@@ -915,9 +973,9 @@ server to which I have access through ssh can be used for this.&lt;/p&gt;
 		
 			<item>
 				<title>An issue with colour prompt in bash</title>
-				<description>&lt;h3&gt;Prehistory&lt;/h3&gt;
+				<description>&lt;h3 id=&quot;prehistory&quot;&gt;Prehistory&lt;/h3&gt;
 
-&lt;p&gt;Once I read somewhere that it&amp;#39;s possible to add some colours to your shell&amp;#39;s
+&lt;p&gt;Once I read somewhere that it’s possible to add some colours to your shell’s
 (bash in my case) prompt using escape sequences.  I thought that it will
 greatly decrease time one spend finding the beginning of a command that was just
 run.  Prompt colouring is also useful to distinguish between root and regular
@@ -935,8 +993,13 @@ to my &lt;code&gt;~/.bashrc&lt;/code&gt; file:&lt;/p&gt;
 				<description>&lt;p&gt;Today I accidentally found a very unexpected thing in Vim.  While trying to
 make wildmenu disappear I hit some of arrow keys and great truth was uncovered
 to me:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;one can browse file system in wildmenu using arrow keys!
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;one can browse file system in wildmenu using arrow keys!
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
 				<link>https://reversed.top/2012-10-08/vim-wild-menu/</link>
@@ -945,7 +1008,7 @@ to me:&lt;/p&gt;
 		
 			<item>
 				<title>Enabling code highlighing in jekyll</title>
-				<description>&lt;p&gt;It&amp;#39;s not hard to do, but not as easy as one might expect.  So here are the main
+				<description>&lt;p&gt;It’s not hard to do, but not as easy as one might expect.  So here are the main
 steps one need to follow to make code highlighing work:&lt;/p&gt;
 
 </description>
@@ -957,23 +1020,28 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 			<item>
 				<title>Exception specifiers and finally keyword in Java</title>
 				<description>&lt;p&gt;Here is part of code I wrote once:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Execute&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmiss&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RemoteException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CommandFault&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printStackTrace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;finally&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;String&lt;/span&gt; execute(&lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;String&lt;/span&gt; data)
+{
+    &lt;span style=&quot;color:#0a8;font-weight:bold&quot;&gt;String&lt;/span&gt; result = &lt;span style=&quot;color:#069&quot;&gt;null&lt;/span&gt;;
+    &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;try&lt;/span&gt; {
+        &lt;span style=&quot;color:#088;font-weight:bold&quot;&gt;final&lt;/span&gt; Execute execute = &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;new&lt;/span&gt; Execute();
+        execute.setId(id);
+        execute.setData(data);
+        result = cmiss.execute(execute).getData();
+    } &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;catch&lt;/span&gt; (&lt;span style=&quot;color:#C00;font-weight:bold&quot;&gt;RemoteException&lt;/span&gt; e) {
+        e.printStackTrace();
+    } &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;catch&lt;/span&gt; (CommandFault e) {
+        e.printStackTrace();
+    } &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;finally&lt;/span&gt; {
+        &lt;span style=&quot;color:#080;font-weight:bold&quot;&gt;return&lt;/span&gt; result;
+    }
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
 </description>
 				<pubDate>Mon, 08 Oct 2012 00:00:00 +0300</pubDate>
 				<link>https://reversed.top/2012-10-08/java-exception/</link>
@@ -985,7 +1053,7 @@ steps one need to follow to make code highlighing work:&lt;/p&gt;
 				<description>&lt;p&gt;This day I finally made a decision to start posting some notes on computer
 related stuff and mainly about how I solved some minor issues with software.
 Several month ago I already picked statically generated sites and GitHub pages
-as a hosting (I don&amp;#39;t expect other people to read this, I just don&amp;#39;t want to
+as a hosting (I don’t expect other people to read this, I just don’t want to
 forget anything of it :-), so such hosting is enough for my needs).  So I found
 a post &lt;a href=&quot;http://davidwinter.me/articles/2011/10/29/setting-up-github-pages/&quot;&gt;Setting up Github Pages&lt;/a&gt; written by David Winter and started
 following steps described there.&lt;/p&gt;
