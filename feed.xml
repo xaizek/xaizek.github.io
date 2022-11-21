@@ -7,6 +7,19 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Using Sumneko Lua Language Server in Vim via vim-lsp</title>
+				<description>&lt;p&gt;I finally decided to give LSP a try in my Vim for the purpose of getting
+completion in Lua.  I kinda hate that decision by now, but there are some
+results to show and I want to document all the shit I had to deal with along
+with a working configuration.&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 21 Nov 2022 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2022-11-21/lua-lsp-in-vim/</link>
+				<guid isPermaLink="true">https://reversed.top/2022-11-21/lua-lsp-in-vim/</guid>
+			</item>
+		
+			<item>
 				<title>Front panel headphone jack and PipeWire</title>
 				<description>&lt;p&gt;After upgrading to Slackware 15.0 I kept using Bluetooth for headphones and only
 later found out that sound through wires didn’t work if plugged into front
@@ -263,7 +276,7 @@ these presentations, which is the topic of this post.&lt;/p&gt;
 				<title>The big list of Vim-like software</title>
 				<description>&lt;p&gt;&lt;strong&gt;A more interactive version of this post is available at &lt;a href=&quot;https://vim.reversed.top/&quot;&gt;https://vim.reversed.top/&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Last updated: June 19, 2021&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Last updated: August 14, 2022&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;There are a number of similar lists already, but they usually lack
 grouping and miss pointing out things that are of interest for the author of
