@@ -7,6 +7,23 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Benchmarking I/O ETA algorithms</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://vifm.info/&quot;&gt;Vifm&lt;/a&gt; can show some statistics about an ongoing file operation and
+recently it &lt;a href=&quot;https://github.com/vifm/vifm/issues/803&quot;&gt;was suggested&lt;/a&gt; to add an ETA there as well.  I have an
+issue with ETAs because of how wrong they often are, so the plan was to find out
+what’s the best way to implement one before proceeding.  Unfortunately, I wasn’t
+able to find anything useful that could aid in making the decision.  I found a
+lot of frustration about ETAs similar to mine, but essentially no
+recommendations that were substantiated with anything tangible, so I decided to
+compare different ways to compute an ETA myself.&lt;/p&gt;
+
+</description>
+				<pubDate>Sat, 31 Dec 2022 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2022-12-31/benchmarking-io-eta-algorithms/</link>
+				<guid isPermaLink="true">https://reversed.top/2022-12-31/benchmarking-io-eta-algorithms/</guid>
+			</item>
+		
+			<item>
 				<title>Using Sumneko Lua Language Server in Vim via vim-lsp</title>
 				<description>&lt;p&gt;I finally decided to give LSP a try in my Vim for the purpose of getting
 completion in Lua.  I kinda hate that decision by now, but there are some
