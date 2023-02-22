@@ -7,6 +7,20 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>Code review rules</title>
+				<description>&lt;p&gt;Over the years I have contributed to various FOSS projects (both
+non-commercial and those owned by corporations) as well as proprietary ones.
+I’ve also played a role of a reviewer in all of those settings.  Based on what
+I’ve seen and done I would like to propose some recommendations on
+how both sides can do better.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 22 Feb 2023 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2023-02-22/code-review-rules/</link>
+				<guid isPermaLink="true">https://reversed.top/2023-02-22/code-review-rules/</guid>
+			</item>
+		
+			<item>
 				<title>Benchmarking I/O ETA algorithms</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://vifm.info/&quot;&gt;Vifm&lt;/a&gt; can show some statistics about an ongoing file operation and
 recently it &lt;a href=&quot;https://github.com/vifm/vifm/issues/803&quot;&gt;was suggested&lt;/a&gt; to add an ETA there as well.  I have an
@@ -293,7 +307,7 @@ these presentations, which is the topic of this post.&lt;/p&gt;
 				<title>The big list of Vim-like software</title>
 				<description>&lt;p&gt;&lt;strong&gt;A more interactive version of this post is available at &lt;a href=&quot;https://vim.reversed.top/&quot;&gt;https://vim.reversed.top/&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Last updated: August 14, 2022&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Not updated since August 14, 2022; future updates only in the interactive version.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;There are a number of similar lists already, but they usually lack
 grouping and miss pointing out things that are of interest for the author of
