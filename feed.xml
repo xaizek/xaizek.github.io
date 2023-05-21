@@ -7,6 +7,26 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>The fucking Firefox lag</title>
+				<description>&lt;p&gt;Some time ago &lt;strong&gt;Firefox&lt;/strong&gt; started to occasionally hang for maybe 20 seconds
+during which nothing was drawn on the window.  Later I’ve noticed that it
+happened every time a context menu was about to be shown, same for some
+dialogs, all drop-downs and sometimes on opening of a new tab.  I think it
+started after an update and naturally expected it to go away after another
+one.  Sound also started to have issues at some point, but it wasn’t really a
+problem.  The version in use is an ESR (102), but regressions happen in ESRs as
+well.  Plus it didn’t work in a tiling WM, which also tend to manifest weird
+behaviours of applications.  Yesterday, I’ve finally fixed it.&lt;/p&gt;
+
+&lt;p&gt;So why is it “fucking”?  Keep reading…&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 21 May 2023 00:00:00 +0300</pubDate>
+				<link>https://reversed.top/2023-05-21/the-fucking-firefox-lag/</link>
+				<guid isPermaLink="true">https://reversed.top/2023-05-21/the-fucking-firefox-lag/</guid>
+			</item>
+		
+			<item>
 				<title>Code review rules</title>
 				<description>&lt;p&gt;Over the years I have contributed to various FOSS projects (both
 non-commercial and those owned by corporations) as well as proprietary ones.
