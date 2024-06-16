@@ -7,6 +7,23 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>How to limit flag occurence count in CLI11</title>
+				<description>&lt;p&gt;There exists a quite popular command-line parser for C++ called
+&lt;a href=&quot;https://github.com/CLIUtils/CLI11&quot;&gt;&lt;strong&gt;CLI11&lt;/strong&gt;&lt;/a&gt;.  It’s not without issues (e.g., compilation time is quite
+bad), however its API is probably one of the most convenient out there (really
+weird that other similar libraries aren’t doing the same).&lt;/p&gt;
+
+&lt;p&gt;I’m using it for a project and had a need for a flag that can be repeated but I
+wanted to limit number of times that it can be repeated.  Couldn’t find any
+information on how to do this, but managed to figure it out, hence this note.&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 16 Jun 2024 00:00:00 +0300</pubDate>
+				<link>https://reversed.top/2024-06-16/limiting-flag-count-in-cli11/</link>
+				<guid isPermaLink="true">https://reversed.top/2024-06-16/limiting-flag-count-in-cli11/</guid>
+			</item>
+		
+			<item>
 				<title>The fucking Firefox lag</title>
 				<description>&lt;p&gt;Some time ago &lt;strong&gt;Firefox&lt;/strong&gt; started to occasionally hang for maybe 20 seconds
 during which nothing was drawn on the window.  Later I’ve noticed that it
