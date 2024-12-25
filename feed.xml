@@ -7,6 +7,25 @@
 		<atom:link href="https://reversed.top/feed.xml" rel="self" type="application/rss+xml"/>
 		
 			<item>
+				<title>A couple of slackpkg+ tips</title>
+				<description>&lt;p&gt;One tip is on an issue with &lt;a href=&quot;https://slakfinder.org&quot;&gt;https://slakfinder.org&lt;/a&gt;, another is about not
+upgrading some packages by default.  They aren’t related to each other, but
+I’ve dealt with one and found a solution to the second one at about the same
+time.  There is also an unrelated bonus section.&lt;/p&gt;
+
+&lt;p&gt;The tips are related to &lt;a href=&quot;https://slakfinder.org/slackpkg+.html&quot;&gt;&lt;strong&gt;slackpkg+&lt;/strong&gt;&lt;/a&gt; (the link likely won’t open),
+which is useful if you have &lt;a href=&quot;https://docs.slackware.com/slackware:multilib&quot;&gt;multilib&lt;/a&gt; installed because it allows treating it
+essentially the same as official Slackware packages which get masked.  It’s not
+limited to multilib and allows managing any number of repositories in addition
+to the official one.&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 25 Dec 2024 00:00:00 +0200</pubDate>
+				<link>https://reversed.top/2024-12-25/a-couple-of-slackpkg-tips/</link>
+				<guid isPermaLink="true">https://reversed.top/2024-12-25/a-couple-of-slackpkg-tips/</guid>
+			</item>
+		
+			<item>
 				<title>How to limit flag occurence count in CLI11</title>
 				<description>&lt;p&gt;There exists a quite popular command-line parser for C++ called
 &lt;a href=&quot;https://github.com/CLIUtils/CLI11&quot;&gt;&lt;strong&gt;CLI11&lt;/strong&gt;&lt;/a&gt;.  It’s not without issues (e.g., compilation time is quite
